@@ -4,6 +4,7 @@
  */
 package GUI.UIComponents;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,6 +22,7 @@ public class Exit extends javax.swing.JPanel {
     public Exit() {
         initComponents();
         setOpaque(false);
+        
         exitLabel.addMouseListener(new MouseAdapter(){
              @Override
             public void mousePressed(MouseEvent e) {
@@ -31,12 +33,12 @@ public class Exit extends javax.swing.JPanel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                exitLabel.setForeground(Color.BLACK);
+               exitLabel.setIcon(new FlatSVGIcon("IMG/icon/close_hover.svg",25,25));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                exitLabel.setForeground(new Color(153,153,153));
+                exitLabel.setIcon(new FlatSVGIcon("IMG/icon/close.svg",25,25));
             }
             
             
@@ -73,7 +75,8 @@ public class Exit extends javax.swing.JPanel {
         exitLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         exitLabel.setForeground(new java.awt.Color(153, 153, 153));
         exitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exitLabel.setText("X");
+        exitLabel.setIcon(new FlatSVGIcon("IMG/icon/close.svg",25,25)
+        );
         exitLabel.setPreferredSize(new java.awt.Dimension(20, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

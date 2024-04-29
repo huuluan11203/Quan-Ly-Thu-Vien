@@ -860,6 +860,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
                 if (nhaCungCap_BUS.XoaNCC(nhacungcap)) {
                     
                     setToDefault();
+                    table_NCC.deleteRow(RowSelected);
                     
                 }
             }

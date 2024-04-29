@@ -3,9 +3,12 @@ package GUI;
 
 
 
+import GUI.UIComponents.Form_MuonSach;
+import GUI.UIComponents.Form_NXB;
 import GUI.UIComponents.Form_NhapSach;
 import GUI.UIComponents.Form_Sach;
 import GUI.UIComponents.Form_TacGia;
+import GUI.UIComponents.Form_TheLoai;
 import GUI.UIComponents.Form_TrangChu;
 import GUI.UIComponents.Menu.EventMenuSelected;
 import com.formdev.flatlaf.FlatLaf;
@@ -38,6 +41,16 @@ public class Main extends javax.swing.JFrame {
                     setForm(new Form_TrangChu());
                 }else if (index == 3) {
                     setForm(new Form_Sach());
+                }else if (index == 4) {
+                    setForm(new Form_TheLoai());
+                }else if (index == 5) {
+                    setForm(new Form_NXB());
+                }else if (index == 6) {
+                    setForm(new Form_TacGia());
+                }else if (index == 7) {
+                    setForm(new Form_NhapSach());
+                }else if (index == 8) {
+                    setForm(new Form_MuonSach());
                 }else if (index == 6) {
                     setForm(new Form_TacGia());
                 }else if (index == 7) {

@@ -218,6 +218,44 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
         }
         return tacgia;
     }
+    
+    public TacGia selectByID(String ten) {
+        
+        TacGia tacgia = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM tacgia WHERE TenTacGia = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, ten);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int matacgia = resultSet.getInt("MaTacGia");
+                String tentacgia = resultSet.getString("TenTacGia");
+                LocalDate namsinh = resultSet.getDate("NamSinh").toLocalDate();
+                String diachi = resultSet.getString("DiaChi");
+                String gioithieu = resultSet.getString("GioiThieu");
+                String hinhanh = resultSet.getString("HinhAnh");
+                
+                tacgia = new TacGia(matacgia, tentacgia, namsinh, diachi, hinhanh, gioithieu);
+                
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return tacgia;
+    }
 
     @Override
     public ArrayList<TacGia> selectByCondition(String condition) {

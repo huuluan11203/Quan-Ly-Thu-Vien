@@ -1,9 +1,8 @@
 
 package BUS;
 
-import DAO.NhanvienDAO;
+
 import DAO.PhieuNhapDAO;
-import DTO.NhanVien;
 import DTO.PhieuNhap;
 import GUI.UIComponents.Table.Table;
 import java.time.LocalDate;
@@ -102,25 +101,25 @@ public class PhieuNhap_BUS {
         if (pn != null) {
             if (!nhanvien.isExsit(pn.getMaNV())) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Nhân viên không tồn tại");
+                    "Nhân viên không tồn tại.");
                 return false;
             }
             
             if (isExsit(pn.getMaPhieuNhap())) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Phiếu nhập đã tồn tại");
+                    "Phiếu nhập đã tồn tại.");
                 return false;
             }
             
             if (pn.getNgayNhap().isAfter(now)) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Ngày nhập không đúng");
+                    "Ngày nhập không đúng.");
                 return false;
             }
             
             if (!ncc.isExsit(pn.getMaNCC())) {
                  Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Nhà cung cấp không tồn tại");
+                    "Nhà cung cấp không tồn tại.");
                 return false;
             }
             

@@ -9,6 +9,7 @@ import GUI.UIComponents.Combobox;
 import GUI.UIComponents.Table.Table;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import raven.toast.Notifications;
 
 
 public class TacGia_BUS {
@@ -31,19 +32,18 @@ public class TacGia_BUS {
     }
     
     public String getTTG(int matacgia){
-        for (TacGia tacgia : tacgia_ArrayList ){
-            if (tacgia.getMaTacGia() == matacgia) {
-                return tacgia.getTenTacGia();
-            }
+        TacGia tg = TacGiaDAO.getInstance().selectByID(matacgia);
+        if (tg != null) {
+            return tg.getTenTacGia();
         }
         return "ERR";
     }
     
     public int getMatacgia(String tentg){
-        for (TacGia tg : tacgia_ArrayList){
-            if (tentg.equals(tg.getTenTacGia())) {
-                return tg.getMaTacGia();
-            }
+        
+        TacGia tg = TacGiaDAO.getInstance().selectByID(tentg);
+        if (tg != null) {
+            return tg.getMaTacGia();
         }
         return -1;
     }
@@ -83,21 +83,51 @@ public class TacGia_BUS {
         return tg;
     }
     
+    public boolean isExsit(int ma){
+        TacGia tg = TacGiaDAO.getInstance().selectByID(ma);
+        if (tg != null) {
+            return  true;
+        }
+        return false;
+    }
+    
     public boolean XoaTacGia(TacGia tg){
         if (tg != null) {
+            
             TacGiaDAO.getInstance().delete(tg);
+             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Xóa tác giả thành công.");
             return true;
         }
         return false;
     }
     
     public boolean ThemTacGia(TacGia tg){
+        LocalDate now = LocalDate.now();
+        
         if (tg != null) {
-           TacGia checkExist_TG= TacGiaDAO.getInstance().selectByID(tg);
-            if (checkExist_TG == null) {
-                TacGiaDAO.getInstance().insert(tg);
-                return true;
+            if (isExsit(tg.getMaTacGia())) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Tác giả đã tồn tại.");
+                return false;
             }
+            
+            if (tg.getNamSinh().isAfter(now)) {
+                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Ngày sinh không đúng.");
+                return false;
+            }
+            
+            if (tg.getTenTacGia().equals("")) {
+                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                "Tên không được để trống.");
+                 return  false;
+            }
+            
+            TacGiaDAO.getInstance().insert(tg);
+             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Thêm tác giả thành công.");
+                return true;
         }
         return false;
     }
@@ -116,12 +146,31 @@ public class TacGia_BUS {
     }
     
     public boolean SuaTacGia(TacGia tg, TacGia current){
+        LocalDate now = LocalDate.now();
         if (tg != null && current != null) {
-            if (!CompareTo(tg, current)) {
-                TacGiaDAO.getInstance().update(tg);
+            if (CompareTo(tg, current)) {
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Lưu thành công.");
                 return true;
             }else{
+                
+                if (tg.getNamSinh().isAfter(now)) {
+                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Năm sinh không đúng.");
+                     return  false;
+                }
+                
+                if (tg.getTenTacGia().equals("")) {
+                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Tên không được để trống.");
+                     return  false;
+                }
+                
+                TacGiaDAO.getInstance().update(tg);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Lưu thành công.");
                 return true;
+                
             }
         }
         return false;

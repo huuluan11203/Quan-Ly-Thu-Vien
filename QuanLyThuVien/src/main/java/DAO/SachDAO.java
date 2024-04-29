@@ -239,7 +239,41 @@ public class SachDAO implements DAOInterface<Sach>{
 
     @Override
     public ArrayList<Sach> selectByCondition(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Sach> Sach_ArrayList = new ArrayList<>();
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM sach WHERE ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, condition);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {                
+                Sach tg = new Sach();
+                tg.setMaSach(resultSet.getInt("MaSach"));
+                tg.setTenSach(resultSet.getString("TenSach"));
+                tg.setMaLoaiSach(resultSet.getInt("MaLoaiSach"));
+                tg.setGhiChu(resultSet.getString("GhiChu"));
+                tg.setMaNXB(resultSet.getInt("MaNXB"));
+                tg.setMaTacGia(resultSet.getInt("MaTacGia"));
+                tg.setNamXuatBan(resultSet.getDate("NamXuatBan").toLocalDate());
+                tg.setSoLuong(resultSet.getInt("SoLuong"));
+                tg.setImgSach(resultSet.getString("HinhAnh"));
+                Sach_ArrayList.add(tg);
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return Sach_ArrayList;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
     
 }

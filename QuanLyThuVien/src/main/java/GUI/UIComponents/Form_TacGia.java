@@ -198,11 +198,6 @@ public class Form_TacGia extends javax.swing.JPanel {
         panelBorder1.add(IMG, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 6, 150, 180));
 
         tentacgia_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tentacgia_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tentacgia_txtActionPerformed(evt);
-            }
-        });
         panelBorder1.add(tentacgia_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 160, 50));
 
         diachi_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -306,10 +301,7 @@ public class Form_TacGia extends javax.swing.JPanel {
                 
                 if (tacGia_BUS.XoaTacGia(tacgia)) {
                     table_TacGia.deleteRow(RowSelected);
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
-                    "Xóa tác giả thành công.");
-                    setToDefault();
-                    
+                    setToDefault();                   
                 }
             }
         }else{
@@ -364,18 +356,12 @@ public class Form_TacGia extends javax.swing.JPanel {
 
                 if (tacGia_BUS.ThemTacGia(tacgia)) {
 
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
-                    "Thêm tác giả thành công.");
                     table_TacGia.addRow(new Object[] {matacgia, tentacgia, tacGia_BUS.FormatDate(date), diachi, gioithieu});
                     
-                }else {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Tác giả đã tồn tại.");
-                } 
+                }
+                tacgia = null;
 
-            tacgia = null;
-
-        }else { 
+            }else { 
                 TacGia tg = new TacGia(matacgia, tentacgia, date, diachi, hinhanh, gioithieu);
                 if (tacGia_BUS.SuaTacGia(tg, tacgia)) {
 
@@ -384,26 +370,17 @@ public class Form_TacGia extends javax.swing.JPanel {
                     }else{
                         IMG.setIcon(new HighRE().setIconJPG(tg.getHinhanh(), "TacGia"));
                     }
-                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
-                    "Lưu thành công.");
                     table_TacGia.updateRow(RowSelected, new Object[] {matacgia, tentacgia, tacGia_BUS.FormatDate(date), diachi, gioithieu});                   
                     tacgia = tg;
                     tg = null;
-                    
-                }else {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Lưu không thành công.");
+
                 }
-          }
+            }
         }
         
         
         
     }//GEN-LAST:event_save_btnActionPerformed
-
-    private void tentacgia_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tentacgia_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tentacgia_txtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

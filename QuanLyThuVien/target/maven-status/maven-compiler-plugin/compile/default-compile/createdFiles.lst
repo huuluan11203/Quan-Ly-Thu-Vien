@@ -22,6 +22,7 @@ GUI\UIComponents\Event.class
 GUI\UIComponents\Form_NhapSach$6.class
 GUI\UIComponents\ScrollBar.class
 DTO\Sach.class
+GUI\UIComponents\Form_NXB$1.class
 GUI\Login$1.class
 GUI\Login.class
 GUI\UIComponents\Button$1.class
@@ -38,11 +39,13 @@ GUI\UIComponents\Menu\Model_Menu$MenuType.class
 GUI\UIComponents\Table\TableStatus.class
 GUI\UIComponents\Form_NhapSach$13.class
 GUI\UIComponents\Form_Sach$5.class
+GUI\UIComponents\Form_NXB$2.class
 DAO\NhaCungCapDAO.class
 GUI\swing\RippleEffect$1.class
 GUI\UIComponents\Popup\Popup$1.class
 DAO\AccountsDAO.class
 GUI\UIComponents\Form_NhapSach$12.class
+GUI\UIComponents\Table\CellStatus.class
 raven\toast\util\NotificationHolder.class
 raven\toast\ui\ToastPanelUI.class
 GUI\UIComponents\Form_NhapSach$19.class
@@ -60,6 +63,7 @@ GUI\UIComponents\Table\Table$1.class
 GUI\UIComponents\Form_NhapSach$8.class
 raven\toast\ui\ToastNotificationPanel.class
 GUI\UIComponents\DATE\Years.class
+GUI\UIComponents\Form_NXB.class
 DAO\DAOInterface.class
 GUI\swing\ShadowRenderer.class
 GUI\UIComponents\Form_NhapSach$5.class
@@ -70,7 +74,6 @@ GUI\UIComponents\Menu\EventMenuSelected.class
 GUI\swing\HighRE.class
 GUI\UIComponents\Menu\ListMenu.class
 GUI\UIComponents\Form_NhapSach$17.class
-GUI\UIComponents\Form_TacGia$8.class
 GUI\Signup$6.class
 GUI\Signup.class
 GUI\swing\RippleEffect.class
@@ -81,6 +84,7 @@ GUI\UIComponents\Form_Sach$3.class
 GUI\UIComponents\Form_NhapSach$14.class
 GUI\UIComponents\Popup\Option.class
 GUI\UIComponents\Form_TacGia.class
+GUI\UIComponents\Form_MuonSach$1.class
 BUS\Sach_BUS.class
 GUI\Signup$9.class
 GUI\UIComponents\Menu\ListMenu$1.class
@@ -130,6 +134,7 @@ GUI\UIComponents\Form_NhapSach$10.class
 GUI\UIComponents\DATE\DateChooser$2.class
 raven\toast\ToastClientProperties.class
 GUI\UIComponents\Exit$2.class
+GUI\UIComponents\Form_NXB$4.class
 raven\toast\Notifications$Location.class
 DAO\SachDAO.class
 GUI\UIComponents\FileChooser\JnaFileChooser$Action.class
@@ -143,10 +148,13 @@ GUI\UIComponents\Form_TacGia$2.class
 GUI\UIComponents\Screach.class
 GUI\UIComponents\DATE\DateChooser.class
 DAO\PhieuNhapDAO.class
+GUI\UIComponents\Form_TheLoai.class
 GUI\Login$3.class
 GUI\Signup$5.class
 raven\toast\Notifications$1.class
+GUI\UIComponents\Form_TheLoai$6.class
 GUI\UIComponents\Form_NhapSach$4.class
+GUI\UIComponents\Form_TheLoai$5.class
 DAO\ChiTietPhieuNhapDAO.class
 GUI\UIComponents\Form_NhapSach.class
 GUI\UIComponents\DATE\DateChooser$7.class
@@ -156,6 +164,7 @@ GUI\UIComponents\Panel\PanelBorder.class
 GUI\Signup$4.class
 DTO\TheThuVien.class
 DTO\NhaXuatBan.class
+GUI\UIComponents\Form_NXB$3.class
 GUI\UIComponents\Panel\Login_mainPanel.class
 GUI\UIComponents\ScreachText.class
 GUI\UIComponents\DATE\DateChooser$1.class
@@ -166,11 +175,13 @@ GUI\UIComponents\DATE\EventDateChooser.class
 GUI\UIComponents\Menu\Menu.class
 GUI\UIComponents\DATE\SelectedAction.class
 BUS\LoaiSach_BUS.class
+GUI\UIComponents\Form_TheLoai$4.class
 DTO\Accounts.class
 BUS\Account_BUS.class
 GUI\UIComponents\Form_NhapSach$11.class
 GUI\UIComponents\TextField$TextUI.class
 GUI\Signup$3.class
+GUI\UIComponents\Form_TheLoai$1.class
 GUI\UIComponents\Popup\WindowSnapshots.class
 GUI\UIComponents\Popup\GlassPanePopup.class
 GUI\UIComponents\Popup\Popup$3.class
@@ -186,14 +197,17 @@ GUI\UIComponents\Form_NhapSach$3.class
 GUI\UIComponents\DATE\Slider.class
 GUI\UIComponents\Panel\MainPanel.class
 GUI\UIComponents\Exit$1.class
+GUI\UIComponents\Form_NXB$5.class
 GUI\UIComponents\Menu\Menu$2.class
 GUI\UIComponents\Panel\Login_Panel.class
 GUI\Signup$2.class
 GUI\UIComponents\DATE\DateChooser$3.class
 GUI\UIComponents\Combobox$ComboUI$6.class
+GUI\UIComponents\Form_TheLoai$3.class
 GUI\UIComponents\Form_TrangChu.class
 DTO\PhieuMuon.class
 GUI\UIComponents\DATE\Slider$4.class
+GUI\UIComponents\Form_MuonSach.class
 GUI\UIComponents\Menu\Menu$1.class
 GUI\Signup$1.class
 GUI\UIComponents\Form_NhapSach$2.class
@@ -202,6 +216,7 @@ GUI\UIComponents\DATE\DateChooser$4.class
 BUS\NhanVien_BUS.class
 GUI\Main$1.class
 GUI\UIComponents\Combobox$ComboUI$5.class
+GUI\UIComponents\Form_TheLoai$2.class
 GUI\UIComponents\Combobox$ComboUI.class
 GUI\UIComponents\DATE\Slider$5.class
 GUI\UIComponents\Menu\MenuItem.class

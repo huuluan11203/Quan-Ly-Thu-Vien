@@ -1,6 +1,7 @@
 
 package BUS;
 
+import DAO.NhaXuatBanDAO;
 import java.util.ArrayList;
 import DTO.Sach;
 import DTO.NhaXuatBan;
@@ -13,10 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Sach_BUS {
     
-
-    private TacGia_BUS tacGia_BUS = new TacGia_BUS();
     private static ArrayList<Sach> sach;
-    private static ArrayList<NhaXuatBan> nxb_ArrayList = new NhaXuatBan_BUS().getNhaxuatban();
     
     public Sach_BUS() {
         sach = SachDAO.getInstance().selectAll();
@@ -29,10 +27,9 @@ public class Sach_BUS {
     
         
     public String getTenNXB(int maNxb){
-        for (NhaXuatBan nxb : nxb_ArrayList ){
-            if (nxb.getMaNXB() == maNxb) {
-                return nxb.getTenNXB();
-            }
+        NhaXuatBan nxb = NhaXuatBanDAO.getInstance().selectByID(maNxb);
+        if (nxb != null) {
+            return nxb.getTenNXB();
         }
         return "ERR";
     }
@@ -83,7 +80,7 @@ public class Sach_BUS {
             
             int masach = s.getMaSach();
             String tensach = s.getTenSach();
-            String tacgia = tacGia_BUS.getTTG(s.getMaTacGia());
+            String tacgia = new TacGia_BUS().getTTG(s.getMaTacGia());
             String NXB = getTenNXB(s.getMaNXB());
             String namXB = FormatDate(s.getNamXuatBan());
             int sl = s.getSoLuong();

@@ -1,6 +1,7 @@
 
 package GUI.UIComponents;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -27,7 +28,8 @@ public class Screach extends javax.swing.JPanel {
 
         Screach_button.setForeground(new java.awt.Color(0, 0, 0));
         Screach_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Screach_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/icon/search.png"))); // NOI18N
+        Screach_button.setIcon(new FlatSVGIcon("IMG/icon/search.svg",25,25)
+        );
         Screach_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         screachText2.setForeground(new java.awt.Color(0, 0, 0));
