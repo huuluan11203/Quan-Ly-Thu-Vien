@@ -25,7 +25,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Screach_button" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="screachText2" pref="478" max="32767" attributes="0"/>
+              <Component id="text" pref="478" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="exit1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,7 +40,7 @@
               <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
           <Component id="Screach_button" alignment="1" max="32767" attributes="0"/>
-          <Component id="screachText2" alignment="0" max="32767" attributes="0"/>
+          <Component id="text" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -61,7 +61,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="GUI.UIComponents.ScreachText" name="screachText2">
+    <Component class="GUI.UIComponents.ScreachText" name="text">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import DataBaseConnect.JDBCUltil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import jdk.dynalink.linker.LinkRequest;
 
 
 public class AccountsDAO implements DAOInterface<Accounts> {
@@ -159,12 +158,113 @@ public class AccountsDAO implements DAOInterface<Accounts> {
 
     @Override
     public Accounts selectByID(Accounts t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            Accounts nxb = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM accounts WHERE MaTaiKhoan = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setInt(1, t.getMaTaiKhoan());
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int matk = resultSet.getInt("MaTaiKhoan");
+                String tentk = resultSet.getString("TenDN");
+                String mk = resultSet.getString("MatKhau");
+                int aces = resultSet.getInt("Access");
+                
+                nxb = new Accounts(tentk, mk, matk, aces);
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return nxb;    
     }
+    
+    public Accounts selectByID(String tendangnhap) {
+            Accounts nxb = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM accounts WHERE TenDN = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, tendangnhap);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int matk = resultSet.getInt("MaTaiKhoan");
+                String tentk = resultSet.getString("TenDN");
+                String mk = resultSet.getString("MatKhau");
+                int aces = resultSet.getInt("Access");
+                
+                nxb = new Accounts(tentk, mk, matk, aces);
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return nxb;    
+    }
+    
+    public Accounts selectByID(int ma) {
+            Accounts nxb = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM accounts WHERE MaTaiKhoan = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setInt(1, ma);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int matk = resultSet.getInt("MaTaiKhoan");
+                String tentk = resultSet.getString("TenDN");
+                String mk = resultSet.getString("MatKhau");
+                int aces = resultSet.getInt("Access");
+                
+                nxb = new Accounts(tentk, mk, matk, aces);
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return nxb;    
+    }
+
 
     @Override
     public ArrayList<Accounts> selectByCondition(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
     
 }

@@ -20,6 +20,15 @@ public class Accounts {
         this.access = 1;
     }
 
+    public Accounts(String tenDangNhap, String matKhau, int maTaiKhoan, int access) {
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.maTaiKhoan = maTaiKhoan;
+        this.access = access;
+    }
+
+    
+    
     public Accounts() {
         super();
     }

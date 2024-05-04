@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class NhanvienDAO implements DAOInterface<NhanVien>{
+public class NhanVienDAO implements DAOInterface<NhanVien>{
     
-     public static NhanvienDAO getInstance(){
-        return new NhanvienDAO();
+     public static NhanVienDAO getInstance(){
+        return new NhanVienDAO();
     }
     
 
@@ -53,17 +53,64 @@ public class NhanvienDAO implements DAOInterface<NhanVien>{
 
     @Override
     public int update(NhanVien t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+             //Tao ket noi
+            Connection conn = JDBCUltil.getConnection();
+        
+            String sql = "UPDATE nhanvien SET TenNV = ?, Namsinh = ?, GioiTinh = ?, Sdt = ?, DiaChi = ?,"
+                    + "NgayBatDau = ?, HinhAnh = ?, Luong = ? WHERE MaNV = ?";
+        
+            //Tao doi tuong
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, t.getTenNV());
+            statement.setDate(2, Date.valueOf(t.getNamsinh()));
+            statement.setString(3, t.getGioiTinh());
+            statement.setString(4, t.getSDT());
+            statement.setString(5, t.getDiaChi());
+            statement.setDate(6, Date.valueOf(t.getNgayBatDau()));            
+            statement.setString(7, t.getHinhAnh());
+            statement.setInt(8, t.getLuong());
+            statement.setInt(9, t.getMaNV());
+            
+            //Thuc thi cau lenh SQL
+            int kq = statement.executeUpdate();
+   
+            //Ngat ket noi
+            JDBCUltil.CloseConnection(conn);
+           
+            return kq;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+
     }
 
     @Override
     public int delete(NhanVien t) {
-//        try {
-//            
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        return 0;
+try {
+             //Tao ket noi
+            Connection conn = JDBCUltil.getConnection();
+        
+            String sql = "DELETE FROM nhanvien WHERE MaNV = ?";
+        
+            //Tao doi tuong
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setInt(1, t.getMaNV());
+
+            
+            //Thuc thi cau lenh SQL
+            int kq = statement.executeUpdate();
+   
+            //Ngat ket noi
+            JDBCUltil.CloseConnection(conn);
+            
+            return kq;
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;      
     }
 
     @Override

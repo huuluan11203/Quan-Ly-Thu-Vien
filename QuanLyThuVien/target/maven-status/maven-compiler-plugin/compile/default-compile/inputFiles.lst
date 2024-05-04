@@ -19,10 +19,12 @@ D:\QLTV\QuanLyThuVien\src\main\java\DTO\NhaCungCap.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\Notifications.java
 D:\QLTV\QuanLyThuVien\src\main\java\DAO\NhaCungCapDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\ModernScrollBarUI.java
+D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_DocGia.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Panel\MainPanel.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\ui\ToastNotificationPanel.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\DateChooser.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_NXB.java
+D:\QLTV\QuanLyThuVien\src\main\java\BUS\TheThuVien_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\ChiTietPhieuNhap_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\swing\RippleEffect.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\FileChooser\WindowsFileChooser.java
@@ -33,6 +35,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\BUS\PhieuMuon_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Panel\Login_mainPanel.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Panel\Login_Panel.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_TheLoai.java
+D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_TheThuVien.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Panel\PanelBorder.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\NhaXuatBan_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\ChiTietPhieuMuon_BUS.java
@@ -47,7 +50,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Popup\DefaultOption.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\Dates.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\CheckBox.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Popup\GlassPanePopup.java
-D:\QLTV\QuanLyThuVien\src\main\java\DAO\NhanvienDAO.java
+D:\QLTV\QuanLyThuVien\src\main\java\DAO\NhanVienDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\TheThuVien.java
 D:\QLTV\QuanLyThuVien\src\main\java\DAO\DocGiaDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\DocGia.java
@@ -63,8 +66,10 @@ D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Win32\Ole32.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\DocGia_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\swing\HighRE.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Event.java
+D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_ThongTin.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\PhieuPhat.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\ui\ToastPanelUI.java
+D:\QLTV\QuanLyThuVien\src\main\java\GUI\swing\ImageAvatar.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\Sach_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\Sach.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\Main.java
@@ -73,9 +78,11 @@ D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Exit.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Combobox.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\ScrollBar.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\NhaCungCap_BUS.java
+D:\QLTV\QuanLyThuVien\src\main\java\DAO\TheThuVienDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Win32\Shell32.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Button.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\Months.java
+D:\QLTV\QuanLyThuVien\src\main\java\DAO\PhieuPhatDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\PhieuMuon.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\Slider.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\ScreachText.java
@@ -89,6 +96,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\BUS\NhanVien_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\TacGia_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Popup\DefaultLayoutCallBack.java
 D:\QLTV\QuanLyThuVien\src\main\java\DAO\AccountsDAO.java
+D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_NhanVien.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_NhapSach.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\ChiTietPhieuNhap.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\SelectedDate.java
@@ -98,6 +106,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\DAO\TacGiaDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\LoaiSach_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\util\ShadowRenderer.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_MuonSach.java
+D:\QLTV\QuanLyThuVien\src\main\java\BUS\PhieuPhat_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\DAO\PhieuNhapDAO.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\util\NotificationHolder.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\Event.java

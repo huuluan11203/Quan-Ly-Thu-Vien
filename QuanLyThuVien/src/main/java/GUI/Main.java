@@ -3,19 +3,28 @@ package GUI;
 
 
 
+import DTO.NhanVien;
+import GUI.UIComponents.Form_DocGia;
 import GUI.UIComponents.Form_MuonSach;
 import GUI.UIComponents.Form_NXB;
+import GUI.UIComponents.Form_NhanVien;
 import GUI.UIComponents.Form_NhapSach;
 import GUI.UIComponents.Form_Sach;
 import GUI.UIComponents.Form_TacGia;
 import GUI.UIComponents.Form_TheLoai;
+import GUI.UIComponents.Form_TheThuVien;
+import GUI.UIComponents.Form_ThongTin;
 import GUI.UIComponents.Form_TrangChu;
 import GUI.UIComponents.Menu.EventMenuSelected;
+import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
 import raven.toast.ToastClientProperties;
@@ -23,12 +32,41 @@ import raven.toast.ToastClientProperties;
 
 
 public class Main extends javax.swing.JFrame {
-
+    
+    private static NhanVien nv;
+    
+    private static Form_TrangChu trangchu;
+    private static Form_Sach sach;
+    private static Form_TheLoai theloai;
+    private static Form_NXB nhaxuatban;
+    private static Form_TacGia tacgia;
+    private static Form_NhapSach nhapsach;
+    private static Form_MuonSach muonsach;
+    private static Form_DocGia docgia;
+    private static Form_NhanVien nhanvien;
+    private static Form_TheThuVien thethuvien;
+    private static Form_ThongTin thongtin;
   
-    public Main() {
-        
+    public Main(NhanVien nhanvien) {
+        Main.nv = nhanvien;
         initComponents();
         setBackground(new Color(0,0,0,0));
+        
+        trangchu = new Form_TrangChu();
+        sach = new Form_Sach();
+        theloai = new Form_TheLoai();
+        nhaxuatban = new Form_NXB();
+        tacgia = new Form_TacGia();
+        nhapsach = new Form_NhapSach();
+        muonsach = new Form_MuonSach();
+        docgia = new Form_DocGia();
+        Main.nhanvien = new Form_NhanVien();
+        thethuvien = new Form_TheThuVien();
+        thongtin = new Form_ThongTin(Main.nv);
+
+        
+  
+        setForm(trangchu);
         
         Notifications.getInstance().setJFrame(this);
         
@@ -38,36 +76,70 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    setForm(new Form_TrangChu());
+                    setForm(trangchu);
+                    
                 }else if (index == 3) {
-                    setForm(new Form_Sach());
+                    setForm(sach);
+                    
                 }else if (index == 4) {
-                    setForm(new Form_TheLoai());
+                    setForm(theloai);
+                    
                 }else if (index == 5) {
-                    setForm(new Form_NXB());
+                    setForm(nhaxuatban);
+                    
                 }else if (index == 6) {
-                    setForm(new Form_TacGia());
+                    setForm(tacgia);
+                    
                 }else if (index == 7) {
-                    setForm(new Form_NhapSach());
+                    setForm(nhapsach);
+                    
                 }else if (index == 8) {
-                    setForm(new Form_MuonSach());
-                }else if (index == 6) {
-                    setForm(new Form_TacGia());
-                }else if (index == 7) {
-                    setForm(new Form_NhapSach());
+                    setForm(muonsach);
+                    
+                }else if (index == 11) {
+                    setForm(docgia);
+                    
+                }else if (index == 12) {
+                    setForm(Main.nhanvien);
+                    
+                }else if (index == 13) {
+                    setForm(thethuvien);
+                    
+                }else if (index == 15) {
+                    setForm(thongtin);
+                    
+                }else if (index == 16) {
+                    DangXuat();
                 }
             }
         });
         
     }
 
-       private void setForm(JComponent com) {
+    private void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
         mainPanel.repaint();
         mainPanel.revalidate();
     }
     
+    private void TimKiem(Table table){
+        
+    }
+
+    
+    private void DangXuat(){
+        ImageIcon icon = new FlatSVGIcon("IMG/icon/warning.svg",30,30);
+            String[] cf = {"Đồng ý", "Hủy"};
+            int choice = JOptionPane.showOptionDialog(null,"Đăng Xuất ?","Xác Nhận",
+                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, cf ,null);
+            if (choice == 0) {
+                setVisible(false);
+                dispose();
+                new Login();
+            }
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,7 +234,7 @@ public class Main extends javax.swing.JFrame {
         UIManager.put(ToastClientProperties.TOAST_ERROR_ICON, new FlatSVGIcon("raven/toast/svg/error.svg"));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Main().setVisible(true);
+            new Main(nv).setVisible(true);
         });
     }
 

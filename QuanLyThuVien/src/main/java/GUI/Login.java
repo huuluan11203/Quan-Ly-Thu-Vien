@@ -2,24 +2,37 @@
 package GUI;
 
 import BUS.Account_BUS;
+import BUS.NhanVien_BUS;
+import DTO.Accounts;
+import DTO.NhanVien;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.UIManager;
+import raven.toast.Notifications;
+import raven.toast.ToastClientProperties;
 
 
 
 public class Login extends javax.swing.JFrame {
 
+    private static Accounts account;
+    private static NhanVien nhanvien;
+    
+    private static Account_BUS account_BUS;
+    private static NhanVien_BUS nhanVien_BUS;
+    
     public Login() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         setVisible(true);
+        
+        Notifications.getInstance().setJFrame(this);
+
+        account_BUS = new Account_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
     
     }
 
@@ -37,11 +50,10 @@ public class Login extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         username_txt = new javax.swing.JTextField();
         passwd_txt = new javax.swing.JPasswordField();
-        err_Message = new javax.swing.JLabel();
         exit1 = new GUI.UIComponents.Exit();
         jLabel5 = new javax.swing.JLabel();
         submit = new GUI.UIComponents.Button();
-        toggle_pws = new GUI.UIComponents.CheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -59,19 +71,19 @@ public class Login extends javax.swing.JFrame {
         Tittle.setText("ĐĂNG NHẬP");
         Login_Panel.add(Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 390, 60));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(80, 80, 80));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Tài khoản");
         Login_Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 168, 333, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(80, 80, 80));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Mật khẩu");
         Login_Panel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 233, 240, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(80, 80, 80));
         jLabel4.setText("_______________________________________________________________");
         Login_Panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 201, 302, -1));
 
@@ -92,7 +104,7 @@ public class Login extends javax.swing.JFrame {
         });
         Login_Panel.add(taotaikhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, -1, 26));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setForeground(new java.awt.Color(80, 80, 80));
         jLabel7.setText("_______________________________________________________________");
         Login_Panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 269, 302, -1));
 
@@ -128,14 +140,6 @@ public class Login extends javax.swing.JFrame {
         });
         Login_Panel.add(passwd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 249, 302, 40));
 
-        err_Message.setBackground(new Color(0,0,0,0)
-        );
-        err_Message.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        err_Message.setForeground(Color.decode("#ff0000")
-        );
-        err_Message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Login_Panel.add(err_Message, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 400, -1));
-
         exit1.setForeground(new java.awt.Color(255, 255, 255));
         Login_Panel.add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
 
@@ -159,15 +163,16 @@ public class Login extends javax.swing.JFrame {
         });
         Login_Panel.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 300, 60));
 
-        toggle_pws.setForeground(new java.awt.Color(0, 0, 0));
-        toggle_pws.setText("Hiện mât khẩu");
-        toggle_pws.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        toggle_pws.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(80, 80, 80));
+        jCheckBox1.setText("Hiện mật khẩu");
+        jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggle_pwsActionPerformed(evt);
+                jCheckBox1ActionPerformed(evt);
             }
         });
-        Login_Panel.add(toggle_pws, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        Login_Panel.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,19 +194,19 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passwd_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwd_txtMouseClicked
-        err_Message.setText("");
+       
     }//GEN-LAST:event_passwd_txtMouseClicked
 
     private void passwd_txtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwd_txtFocusGained
-        err_Message.setText("");
+      
     }//GEN-LAST:event_passwd_txtFocusGained
 
     private void username_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_username_txtMouseClicked
-        err_Message.setText("");
+        
     }//GEN-LAST:event_username_txtMouseClicked
 
     private void username_txtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_txtFocusGained
-        err_Message.setText("");
+        
     }//GEN-LAST:event_username_txtFocusGained
 
     private void taotaikhoanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taotaikhoanMouseExited
@@ -224,46 +229,43 @@ public class Login extends javax.swing.JFrame {
     
     
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-     
-            try {
-                String username = username_txt.getText();
-                String psswd = String.valueOf(passwd_txt.getPassword());
+        String username = "";
+        String psswd = "";
+        try {
+            username = username_txt.getText();
+            psswd = String.valueOf(passwd_txt.getPassword());
+            
+            
+        } catch (Exception e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                    "Dữ liệu không đúng định dạng.");
+        }
+        
+        if (account_BUS.Check_Login(username, psswd)) {  
+            account = account_BUS.getAccounts(username);
+            // ma tai khoan la ma nhan vien
+            nhanvien = nhanVien_BUS.SelectedNhanVien(account.getMaTaiKhoan());          
+            this.setVisible(false);
+            this.dispose();
+            new Main(nhanvien).setVisible(true); 
 
-                if (username.equals("") || psswd.equals("")) {
-                    err_Message.setText("Không được để trống.");
-                }else{
-                    if (new Account_BUS().Check_Login(username, psswd)) {
-
-                        err_Message.setForeground(Color.GREEN);
-                        err_Message.setText("Đăng nhập thành công.");
-                        this.setVisible(false);
-                        this.dispose();
-                        new Main();
-
-                    }else{
-
-                        err_Message.setText("Sai thông tin");
-
-                    }
-                }
-
-            } catch (NullPointerException e) {
-                System.out.println(e);
-            }
+        }
+        
 
       
     }//GEN-LAST:event_submitActionPerformed
 
-    private void toggle_pwsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggle_pwsActionPerformed
-         
-    if ( passwd_txt.getEchoChar() != '\u0000' ) {
+    
+    
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if ( passwd_txt.getEchoChar() != '\u0000' ) {
             passwd_txt.setEchoChar('\u0000');
             passwd_txt.requestFocus();
         } else {
             passwd_txt.setEchoChar((Character) UIManager.get("PasswordField.echoChar"));
             passwd_txt.requestFocus();
         }
-    }//GEN-LAST:event_toggle_pwsActionPerformed
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     
    
     
@@ -292,7 +294,11 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        FlatLaf.registerCustomDefaultsSource("raven.toast");
+        FlatLightLaf.setup();
+        UIManager.put(ToastClientProperties.TOAST_ERROR_ICON, new FlatSVGIcon("raven/toast/svg/error.svg"));
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Login().setVisible(true);
@@ -302,8 +308,8 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.UIComponents.Panel.Login_Panel Login_Panel;
     private javax.swing.JLabel Tittle;
-    private javax.swing.JLabel err_Message;
     private GUI.UIComponents.Exit exit1;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -312,7 +318,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwd_txt;
     private GUI.UIComponents.Button submit;
     private javax.swing.JLabel taotaikhoan;
-    private GUI.UIComponents.CheckBox toggle_pws;
     private javax.swing.JTextField username_txt;
     // End of variables declaration//GEN-END:variables
 }

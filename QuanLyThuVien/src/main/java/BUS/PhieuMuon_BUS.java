@@ -43,12 +43,17 @@ public class PhieuMuon_BUS {
     
     public void RenderPhieuMuon(Table table){
         
+        
         for(PhieuMuon s : PM_ArrayList){
-               int mapm = s.getMaPhieuMuon();
-               int manv =s.getMaNV();
-               int madocgia = s.getMaDocGia();
-               String tt = s.getTinhTrang();
-               String date = FormatDate(s.getNgayMuon());
+            
+            
+            int mapm = s.getMaPhieuMuon();
+            int manv =s.getMaNV();
+            int madocgia = s.getMaDocGia();
+            String tt = s.getTinhTrang();
+            String date = FormatDate(s.getNgayMuon());
+
+
             table.addRow(new Object[] {mapm, manv, madocgia, date, tt});
             
         }
@@ -77,6 +82,8 @@ public class PhieuMuon_BUS {
     public boolean XoaPhieuMuon(PhieuMuon pn){
         if (pn != null) {
             PhieuMuonDAO.getInstance().delete(pn);
+             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Xóa phiếu mượn thành công.");
             return true;
         }
         return false;

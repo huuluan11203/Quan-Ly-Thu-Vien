@@ -7,6 +7,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import raven.toast.Notifications;
 
@@ -23,6 +24,7 @@ public class Form_NXB extends javax.swing.JPanel {
         nhaXuatBan_BUS = new NhaXuatBan_BUS();
         
         nhaXuatBan_BUS.RenderLoaiSach(table_NXB);
+        table_NXB.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         initEvent();
     }

@@ -75,6 +75,7 @@ public class Form_TheLoai extends javax.swing.JPanel {
 
         setBackground(new Color(0,0,0,0));
         setMaximumSize(new java.awt.Dimension(802, 645));
+        setPreferredSize(new java.awt.Dimension(802, 645));
 
         table_TheLoai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

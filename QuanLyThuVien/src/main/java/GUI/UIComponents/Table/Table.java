@@ -73,11 +73,17 @@ public class Table extends JTable{
             
             if (model.getValueAt(i, idx).equals(value)) {
                 return i;
+               
             }
         }
         return -2;
     }
     
     
-
+    public void DeleteAll(){
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+        }
+    }
 }

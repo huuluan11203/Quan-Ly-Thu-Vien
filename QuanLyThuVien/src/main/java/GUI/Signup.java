@@ -7,13 +7,16 @@ import BUS.Account_BUS;
 import java.awt.Color;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import raven.toast.Notifications;
 
 
 public class Signup extends javax.swing.JFrame {
 
-   
+    private static Account_BUS account_BUS;
+    
     public Signup() {
         initComponents();
+        account_BUS = new Account_BUS();
         setBackground(new Color(0, 0, 0, 0));
         setVisible(true);
         
@@ -37,13 +40,11 @@ public class Signup extends javax.swing.JFrame {
         passwd_txt = new javax.swing.JPasswordField();
         confirm_psswd = new javax.swing.JPasswordField();
         BackToLogin = new javax.swing.JLabel();
-        err_Mssg = new javax.swing.JLabel();
         submit = new GUI.UIComponents.Button();
-        toggle_pwd = new GUI.UIComponents.CheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 500));
         setResizable(false);
 
         login_Panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,25 +57,25 @@ public class Signup extends javax.swing.JFrame {
         jLabel1.setText("ĐĂNG KÝ");
         login_Panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 27, 400, 60));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(80, 80, 80));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Tài khoản");
         login_Panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 125, 333, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(80, 80, 80));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Mật khẩu");
         login_Panel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 195, 333, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(80, 80, 80));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nhập lại mật khẩu");
         login_Panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 265, 333, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setForeground(new java.awt.Color(80, 80, 80));
         jLabel5.setText("_______________________________________________________________");
         login_Panel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 160, 302, -1));
 
@@ -150,12 +151,6 @@ public class Signup extends javax.swing.JFrame {
         });
         login_Panel1.add(BackToLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, -1, 26));
 
-        err_Mssg.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        err_Mssg.setForeground(Color.decode("#ff0000")
-        );
-        err_Mssg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        login_Panel1.add(err_Mssg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 400, -1));
-
         submit.setBackground(Color.decode("#1da1f2")
         );
         submit.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,15 +163,16 @@ public class Signup extends javax.swing.JFrame {
         });
         login_Panel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 300, -1));
 
-        toggle_pwd.setForeground(new java.awt.Color(0, 0, 0));
-        toggle_pwd.setText("Hiện mật khẩu");
-        toggle_pwd.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        toggle_pwd.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(80, 80, 80));
+        jCheckBox1.setText("Hiện mật khẩu");
+        jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggle_pwdActionPerformed(evt);
+                jCheckBox1ActionPerformed(evt);
             }
         });
-        login_Panel1.add(toggle_pwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        login_Panel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,27 +190,27 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void username_txtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_txtFocusGained
-        err_Mssg.setText("");
+
     }//GEN-LAST:event_username_txtFocusGained
 
     private void username_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_username_txtMouseClicked
-        err_Mssg.setText("");
+
     }//GEN-LAST:event_username_txtMouseClicked
 
     private void passwd_txtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwd_txtFocusGained
-        err_Mssg.setText("");
+
     }//GEN-LAST:event_passwd_txtFocusGained
 
     private void passwd_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwd_txtMouseClicked
-        err_Mssg.setText("");
+ 
     }//GEN-LAST:event_passwd_txtMouseClicked
 
     private void confirm_psswdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirm_psswdFocusGained
-        err_Mssg.setText("");
+
     }//GEN-LAST:event_confirm_psswdFocusGained
 
     private void confirm_psswdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirm_psswdMouseClicked
-        err_Mssg.setText("");
+       
     }//GEN-LAST:event_confirm_psswdMouseClicked
 
     private void BackToLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackToLoginMouseClicked
@@ -234,36 +230,30 @@ public class Signup extends javax.swing.JFrame {
     }//GEN-LAST:event_BackToLoginMouseExited
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-         try {
-                String username = username_txt.getText();
-                String psswd = String.valueOf(passwd_txt.getPassword());
-                String confirm = String.valueOf(confirm_psswd.getPassword());
+         
+        String username = "";
+        String psswd = "";
+        String confirm = "";
+        try {
+                username = username_txt.getText();
+                psswd = String.valueOf(passwd_txt.getPassword());
+                confirm = String.valueOf(confirm_psswd.getPassword());
                 
-                if (username.equals("") || psswd.equals("") || confirm.equals("")) {
-                    err_Mssg.setText("Không được để trống.");
-                }else{
-                    
-                    if (psswd.equals(confirm)) {
-                        if (new Account_BUS().Check_Signup(username, psswd)) {
-                            err_Mssg.setForeground(Color.GREEN);
-                            err_Mssg.setText("Tạo tài khoản thành công, vui lòng trở lại Đăng Nhập.");
-                        }else {
-                            err_Mssg.setForeground(Color.decode("#ff0000"));
-                            err_Mssg.setText("Tài khoản đã tồn tại.");
-                        }
-                   
-                    }else{
-                        err_Mssg.setText("Mật khẩu nhập lại không khớp.");
-                    }
-                }
-
+                
             } catch (NullPointerException e) {
-                System.out.println(e);
+               Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                    "Dữ liệu không đúng định dạng.");
             }
+         
+        if (account_BUS.Check_Signup(username, psswd, confirm)) {
+           dispose();
+           setVisible(false);
+           new Login().setVisible(true);
+        }
     }//GEN-LAST:event_submitActionPerformed
 
-    private void toggle_pwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggle_pwdActionPerformed
-        if ( passwd_txt.getEchoChar() != '\u0000' && confirm_psswd.getEchoChar() != '\u0000') {
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+       if ( passwd_txt.getEchoChar() != '\u0000' && confirm_psswd.getEchoChar() != '\u0000') {
             passwd_txt.setEchoChar('\u0000');
             passwd_txt.requestFocus();
             confirm_psswd.setEchoChar('\u0000');
@@ -274,7 +264,7 @@ public class Signup extends javax.swing.JFrame {
             confirm_psswd.setEchoChar((Character) UIManager.get("PasswordField.echoChar"));
             confirm_psswd.requestFocus();
         }
-    }//GEN-LAST:event_toggle_pwdActionPerformed
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
    
     public static void main(String args[]) {
@@ -312,8 +302,8 @@ public class Signup extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackToLogin;
     private javax.swing.JPasswordField confirm_psswd;
-    private javax.swing.JLabel err_Mssg;
     private GUI.UIComponents.Exit exit2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -324,7 +314,6 @@ public class Signup extends javax.swing.JFrame {
     private GUI.UIComponents.Panel.Login_Panel login_Panel1;
     private javax.swing.JPasswordField passwd_txt;
     private GUI.UIComponents.Button submit;
-    private GUI.UIComponents.CheckBox toggle_pwd;
     private javax.swing.JTextField username_txt;
     // End of variables declaration//GEN-END:variables
 

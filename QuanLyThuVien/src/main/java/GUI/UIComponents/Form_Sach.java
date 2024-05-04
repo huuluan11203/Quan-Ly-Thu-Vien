@@ -9,6 +9,7 @@ import DTO.Sach;
 import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
 import GUI.UIComponents.FileChooser.JnaFileChooser;
+import GUI.UIComponents.Table.Table;
 import GUI.swing.HighRE;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -61,6 +62,10 @@ public class Form_Sach extends javax.swing.JPanel {
         
         
         
+    }
+    
+    public Table getTable(){
+        return table_Sach;
     }
 
     private void initEvent(){

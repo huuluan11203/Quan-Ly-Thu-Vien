@@ -34,7 +34,12 @@ public class ChiTietPhieuMuonDAO implements DAOInterface<ChiTietPhieuMuon>{
             statement.setString(5, t.getGhiChu());
 
             //Thuc thi cau lenh SQL
-            int kq = statement.executeUpdate();
+            int kq = 0;
+           try {
+               kq = statement.executeUpdate();
+           } catch (SQLException sQLException) {
+               kq = -1;
+           }
    
             //Ngat ket noi
             JDBCUltil.CloseConnection(conn);
@@ -53,7 +58,7 @@ public class ChiTietPhieuMuonDAO implements DAOInterface<ChiTietPhieuMuon>{
              //Tao ket noi
             Connection conn = JDBCUltil.getConnection();
         
-            String sql = "UPDATE chitietphieumuon SET MaPhieuMuon = ?, MaSach = ?, NgayTra = ? GhiChu = ? WHERE MaCTPM = ?";
+            String sql = "UPDATE chitietphieumuon SET MaPhieuMuon = ?, MaSach = ?, NgayTra = ?, GhiChu = ? WHERE MaCTPM = ?";
         
             //Tao doi tuong
             PreparedStatement  statement = conn.prepareStatement(sql);
@@ -64,7 +69,12 @@ public class ChiTietPhieuMuonDAO implements DAOInterface<ChiTietPhieuMuon>{
             statement.setString(4, t.getGhiChu());
 
             //Thuc thi cau lenh SQL
-            int kq = statement.executeUpdate();
+             int kq = 0;
+             try {
+                 kq = statement.executeUpdate();
+             } catch (SQLException sQLException) {
+                 kq = -1;
+             }
    
             //Ngat ket noi
             JDBCUltil.CloseConnection(conn);

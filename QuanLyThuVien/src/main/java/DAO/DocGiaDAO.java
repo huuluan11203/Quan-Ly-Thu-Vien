@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import jdk.dynalink.linker.LinkRequest;
 
 
 public class DocGiaDAO implements DAOInterface<DocGia>{
@@ -58,7 +59,7 @@ public class DocGiaDAO implements DAOInterface<DocGia>{
              //Tao ket noi
             Connection conn = JDBCUltil.getConnection();
         
-            String sql = "UPDATE docgia SET TenDG = ? NamSinh = ? GioiTinh = ? Sdt = ? HinhAnh = ? MaThe = ? WHERE MaDocGia = ?";
+            String sql = "UPDATE docgia SET TenDG = ?, NamSinh = ?, GioiTinh = ?, Sdt = ?, HinhAnh = ?, MaThe = ? WHERE MaDocGia = ?";
         
             //Tao doi tuong
             PreparedStatement  statement = conn.prepareStatement(sql);
@@ -75,7 +76,12 @@ public class DocGiaDAO implements DAOInterface<DocGia>{
 
             
             //Thuc thi cau lenh SQL
-            int kq = statement.executeUpdate();
+            int kq = 0;
+            try {
+                kq = statement.executeUpdate();
+            } catch (SQLException sQLException) {
+                kq = -1;
+            }
    
             //Ngat ket noi
             JDBCUltil.CloseConnection(conn);
