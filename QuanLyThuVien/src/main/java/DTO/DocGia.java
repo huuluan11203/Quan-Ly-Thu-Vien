@@ -1,15 +1,17 @@
 
 package DTO;
 
+import java.time.LocalDate;
+
 
 
 public class DocGia {
     
     private int maDocGia;
     private String tenDocGia;
-    private String namSinh;
+    private LocalDate namSinh;
     private String gioiTinh;
-    private String SDT;
+    private String Sdt;
     private String hinhanh;
     private int maThe;
     
@@ -17,12 +19,12 @@ public class DocGia {
     public DocGia() {
     }
 
-    public DocGia(int maDocGia, String tenDocGia, String namSinh, String gioiTinh, String Sdt, String hinhanh, int maThe) {
+    public DocGia(int maDocGia, String tenDocGia, LocalDate namSinh, String gioiTinh, String Sdt, String hinhanh, int maThe) {
         this.maDocGia = maDocGia;
         this.tenDocGia = tenDocGia;
         this.namSinh = namSinh;
         this.gioiTinh = gioiTinh;
-        this.SDT = Sdt;
+        this.Sdt = Sdt;
         this.hinhanh = hinhanh;
         this.maThe = maThe;
     }
@@ -39,13 +41,14 @@ public class DocGia {
         this.tenDocGia = tenDocGia;
     }
 
-    public String getNamSinh() {
+    public LocalDate getNamSinh() {
         return namSinh;
     }
 
-    public void setNamSinh(String namSinh) {
+    public void setNamSinh(LocalDate namSinh) {
         this.namSinh = namSinh;
     }
+
 
     public String getGioiTinh() {
         return gioiTinh;
@@ -56,11 +59,11 @@ public class DocGia {
     }
 
     public String getSdt() {
-        return SDT;
+        return Sdt;
     }
 
     public void setSdt(String Sdt) {
-        this.SDT = Sdt;
+        this.Sdt = Sdt;
     }
 
     public int getMaThe() {
@@ -73,14 +76,6 @@ public class DocGia {
 
     public int getMaDocGia() {
         return maDocGia;
-    }
-
-    public String getSDT() {
-        return SDT;
-    }
-
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
     }
 
     public String getHinhanh() {

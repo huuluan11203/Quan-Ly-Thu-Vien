@@ -32,19 +32,18 @@ public class Table extends JTable{
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object o, boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
+                    Component com = super.getTableCellRendererComponent(table, o, isSelected, hasFocus, row, column);
+                    com.setBackground(Color.WHITE);
+                    setBorder(noFocusBorder);
+                    if (isSelected) {
+                        com.setForeground(new Color(15, 89, 140));
+                        com.setFont(new Font("arial", 1, 12));
+                    }else{
+                        com.setForeground(new Color(102, 102, 102));
+                    }
+                    return com;
                
-                Component com = super.getTableCellRendererComponent(table, o, isSelected, hasFocus, row, column);
-                com.setBackground(Color.WHITE);
-                setBorder(noFocusBorder);
-                if (isSelected) {
-                    com.setForeground(new Color(15, 89, 140));
-                    com.setFont(new Font("arial", 1, 12));
-                }else{
-                    com.setForeground(new Color(102, 102, 102));
-                }
-                return com;
-                
                 
             }
             
@@ -68,14 +67,17 @@ public class Table extends JTable{
         }
     }
     
-    public int find(int value){
+    public int find(int value, int idx){
         DefaultTableModel model = (DefaultTableModel) getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             
-            if (model.getValueAt(i, 1).equals(value)) {
+            if (model.getValueAt(i, idx).equals(value)) {
                 return i;
             }
         }
         return -2;
     }
+    
+    
+
 }

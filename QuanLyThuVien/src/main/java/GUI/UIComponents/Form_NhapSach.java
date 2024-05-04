@@ -681,7 +681,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
             try {
 
                 int mapn = phieunhap.getMaPhieuNhap();
-                RowSelected = table_ChiTiet.find(mapn);
+                RowSelected = table_ChiTiet.find(mapn, 1);
                 
                 if (RowSelected != -1) {
                     table_ChiTiet.setRowSelectionInterval(RowSelected, RowSelected);
@@ -690,6 +690,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
                     getValueAt(RowSelected, 0).toString()));
 
                     maCTPN_txt.setText(Integer.toString(ctpn.getMaCTPN()));
+                    maCTPN_txt.setEnabled(false);
 
                     maphieunhap_CT_txt.setText(Integer.toString(ctpn.getMaPhieuNhap()));
                     masach_txt.setText(Integer.toString(ctpn.getMaSach()));

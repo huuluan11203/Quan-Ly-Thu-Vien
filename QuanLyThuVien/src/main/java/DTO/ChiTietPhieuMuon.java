@@ -1,19 +1,21 @@
 
 package DTO;
 
+import java.time.LocalDate;
+
 
 public class ChiTietPhieuMuon {
     
     private int maCTPM;
     private int maPhieuMuon;
     private int maSach;
-    private String ngayTra;
+    private LocalDate ngayTra;
     private String ghiChu;
 
     public ChiTietPhieuMuon() {
     }
 
-    public ChiTietPhieuMuon(int maCTPM, int maPhieuMuon, int maSach, String ngayTra, String ghiChu) {
+    public ChiTietPhieuMuon(int maCTPM, int maPhieuMuon, int maSach, LocalDate ngayTra, String ghiChu) {
         this.maCTPM = maCTPM;
         this.maPhieuMuon = maPhieuMuon;
         this.maSach = maSach;
@@ -45,13 +47,15 @@ public class ChiTietPhieuMuon {
         this.maSach = maSach;
     }
 
-    public String getNgayTra() {
+    public LocalDate getNgayTra() {
         return ngayTra;
     }
 
-    public void setNgayTra(String ngayTra) {
+    public void setNgayTra(LocalDate ngayTra) {
         this.ngayTra = ngayTra;
     }
+
+
 
     public String getGhiChu() {
         return ghiChu;

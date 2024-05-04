@@ -1,6 +1,8 @@
 
 package DTO;
 
+import java.time.LocalDate;
+
 
 public class PhieuPhat {
     
@@ -8,14 +10,16 @@ public class PhieuPhat {
     private int maPM;
     private int soTien;
     private String lyDo;
+    private LocalDate ngaytra;
 
     public PhieuPhat() {
     }
 
-    public PhieuPhat(int maPP, int maPM, int soTien, String lyDo) {
+    public PhieuPhat(int maPP, int maPM, LocalDate ngay, int soTien, String lyDo) {
         this.maPP = maPP;
         this.maPM = maPM;
         this.soTien = soTien;
+        this.ngaytra = ngay;
         this.lyDo = lyDo;
     }
 
@@ -35,6 +39,16 @@ public class PhieuPhat {
         this.maPM = maPM;
     }
 
+    public LocalDate getNgaytra() {
+        return ngaytra;
+    }
+
+    public void setNgaytra(LocalDate ngaytra) {
+        this.ngaytra = ngaytra;
+    }
+
+    
+    
     public int getSoTien() {
         return soTien;
     }
