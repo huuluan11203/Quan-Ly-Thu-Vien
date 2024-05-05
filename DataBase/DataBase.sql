@@ -13,7 +13,7 @@ USE qltv;
 
 CREATE TABLE `accounts` (
   `MaTaiKhoan` int NOT NULL,
-  `TenDN` varchar(255) NOT NULL,
+  `TenDN` varchar(255) NOT NULL UNIQUE,
   `MatKhau` varchar(255) DEFAULT '123456',
   `Access` int NOT NULL
 
@@ -33,8 +33,8 @@ CREATE TABLE `nhanvien` (
   `MaNV` int NOT NULL,
   `TenNV` varchar(255) NOT NULL UNIQUE,
   `Namsinh` DATE NOT NULL ,
-  `GioiTinh` varchar(4) NOT NULL,
-  `Sdt` varchar(10) NOT NULL UNIQUE,
+  `GioiTinh` varchar(10) NOT NULL,
+  `Sdt` varchar(20) NOT NULL UNIQUE,
   `DiaChi` varchar(255) NOT NULL,
   `NgayBatDau` DATE NOT NULL,
   `HinhAnh` text,
@@ -44,8 +44,8 @@ CREATE TABLE `nhanvien` (
 
 
 INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NamSinh`, `GioiTinh`, `Sdt`, `DiaChi`, `NgayBatDau`, `HinhAnh`, `Luong`) VALUES 
-(997, "Mai Lê Mỹ Linh", "2004-01-22", "Nữ", "0878678691", "An GIang", "2024-01-01", "default.svg", 50000),
-(998, "Nguyễn Thị Xuân Mai", "2004-04-23", "Nữ", "0363645182", "TP HCM", "2024-01-01", "default.svg", 50000),
+(997, "Mai Lê Mỹ Linh", "2004-01-22", "Nữ", "0878678691", "An GIang", "2024-01-01", "shiba.jpg", 50000),
+(998, "Nguyễn Thị Xuân Mai", "2004-04-23", "Nữ", "0363645182", "TP HCM", "2024-01-01", "bo.jpg", 50000),
 (999, "Bùi Hữu Luân", "2003-10-14", "Nam", "0878678692", "Bến Tre", "2024-01-01", "default.svg", 50000);
 
 
@@ -121,29 +121,52 @@ CREATE TABLE `phieumuon` (
     `MaNV` int NOT NULL,
     `MaDocGia` int NOT NULL,
     `NgayMuon` DATE NOT NULL,
-    `TinhTrang` varchar(255) DEFAULT "Mới"
+    `TinhTrang` varchar(255)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
+INSERT INTO `phieumuon` (`MaPhieuMuon`, `MaNV`, `MaDocGia`, `NgayMuon`, `TinhTrang`) VALUES
+(1, 997, 1, "2023-04-29", "ĐANG MƯỢN"),
+(2, 997, 2, "2024-02-29", "ĐÃ TRẢ"),
+(3, 998, 3, "2024-01-29", "ĐANG MƯỢN"),
+(4, 997, 4, "2023-09-29", "QUÁ HẠN"),
+(5, 999, 5, "2023-11-29", "QUÁ HẠN"),
+(6, 999, 6, "2023-12-29", "ĐANG MƯỢN"),
+(7, 998, 7, "2024-03-29", "QUÁ HẠN"),
+(8, 998, 8, "2023-6-29", "ĐÃ TRẢ");
 
 CREATE TABLE `chitietphieumuon` (
     `MaCTPM` int NOT NULL,
-    `MaPhieuMuon` int NOT NULL,
+    `MaPhieuMuon` int NOT NULL UNIQUE,
     `MaSach` int  NOT NULL,
     `NgayTra` DATE NOT NULL,
-    `GhiChu` varchar(255) DEFAULT "NULL"
+    `GhiChu` varchar(255)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `chitietphieumuon` (`MaCTPM`, `MaPhieuMuon`, `MaSach`, `NgayTra`, `GhiChu`) VALUES
+(1, 1, 12, "2024-05-26", "Sách mới"),
+(2, 3, 15, "2024-05-11", "Sách mới"),
+(3, 2, 9, "2024-01-19", "Sách mới"),
+(4, 8, 4, "2024-02-01", "Đã qua sử dụng"),
+(5, 4, 8, "2024-03-01", "Bìa sách bị bẩn"),
+(6, 7, 13, "2024-04-01", "Sách mới"),
+(7, 5, 5, "2024-03-05", "Sách mới"),
+(8, 6, 2, "2024-07-01", "Sách mới");
 
 
 CREATE TABLE `phieuphat` (
     `MaPP` int NOT NULL,
-    `MaPM` int NOT NULL,
+    `MaPM` int NOT NULL UNIQUE,
+    `NgayTra` DATE NOT NULL,
     `LyDo` varchar(255) NOT NULL,
     `SoTien` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `phieuphat` (`MaPP`, `MaPM`, `NgayTra`, `LyDo`, `SoTien`) VALUES
+(1, 4, "2024-05-01", "Quán hạn trả sách", "100000"),
+(2, 7, "2024-05-03", "Quán hạn trả sách", "100000"),
+(3, 5, "2024-04-29", "Quán hạn trả sách", "100000");
 
 
 
@@ -152,7 +175,7 @@ CREATE TABLE `docgia` (
     `MaDocGia` int NOT NULL,
     `TenDG` varchar(255) NOT NULL,
     `NamSinh` DATE NOT NULL,
-    `GioiTinh` varchar(4) NOT NULL,
+    `GioiTinh` varchar(10) NOT NULL,
     `Sdt` varchar(10) NOT NULL UNIQUE,
     `HinhAnh` text,
     `MaThe` int NOT NULL UNIQUE
@@ -161,13 +184,14 @@ CREATE TABLE `docgia` (
 
 
 INSERT INTO `docgia` (`MaDocGia`, `TenDG`, `NamSinh`, `GioiTinh`, `Sdt`, `HinhAnh`, `MaThe`) VALUES
-(1, "Ha Tran Duy Phat", "2004-04-20", "Nam", "0123456789", "default.svg", 20241),
-(2, "Vo The Luc", "2004-05-21", "Nam", "0123456912", "default.svg", 20242),
-(3, "Nguyen Phu Vinh", "2004-05-21", "Nam", "0123416989", "default.svg", 20243),
-(4, "Vo Thanh An", "2004-05-21", "Nam", "0123956981", "default.svg", 20244),
-(5, "Tran Thi Huong", "2004-05-21", "Nu", "0120456987", "default.svg",20245),
-(6, "Bui Huu Luan", "2004-05-21", "Nam", "0129656987", "default.svg",20246);
-
+(1, "Hà Trần Duy Phát", "2004-04-20", "Nam", "0337733373", "default.svg", 20241),
+(2, "Võ Thế Lực", "2000-09-01", "Nam", "0398456219", "default.svg", 20242),
+(3, "Nguyễn Phú Vinh", "2004-08-22", "Nam", "0395218462", "default.svg", 20243),
+(4, "Võ Thành An", "2004-05-26", "Nam", "0354821657", "default.svg", 20244),
+(5, "Trần Thị Hồng", "2001-01-21", "Nữ", "0320456987", "default.svg",20245),
+(6, "Bùi Hữu Luân", "2003-10-14", "Nam", "0395784856", "default.svg",20246),
+(7, "Trần Phước Thiện", "2009-05-05", "Nam", "0325981814", "default.svg",20247),
+(8, "Nguyễn Hoàng Tuấn Kiệt", "2004-12-01", "Nam", "0399282456", "default.svg",20248);
 
 
 
@@ -188,7 +212,9 @@ INSERT INTO `thethuvien` (`MaThe`, `NgayBatDau`, `NgayKetThuc`) VALUES
 (20243, "2024-02-02", "2025-02-02"),
 (20244, "2024-02-02", "2025-02-02"),
 (20245, "2024-02-02", "2025-02-02"),
-(20246, "2024-02-02", "2025-02-02");
+(20246, "2024-02-02", "2025-02-02"),
+(20247, "2024-02-02", "2025-02-02"),
+(20248, "2024-02-02", "2025-02-02");
 
 
 CREATE TABLE `nhacungcap` (
@@ -298,11 +324,11 @@ CREATE TABLE `nhaxuatban` (
 
 
 INSERT INTO `nhaxuatban` (`MaNXB`, `TenNXB`, `Diachi`, `Sdt`) VALUES
-(1, "Nhà xuất bản Giáo dục Việt Nam", "Số 81 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội", "024 3822 0801"),
-(2, "Nhà xuất bản Kim Đồng", "55 Quang Trung, Hai Bà Trưng, Hà Nội", "1900571595"),
-(3, "Nhà xuất bản Tổng hợp thành phố Hồ Chí Minh", "62 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP HCM", "028 3825 6804"),
-(4, "Nhà xuất bản Trẻ", "161B Lý Chính Thắng, Phường Võ Thị Sáu, Quận 3 , TP. Hồ Chí Minh", "028 3931 6289"),
-(5, "Nhà xuất bản Hội Nhà văn", "65 Nguyễn Du, Hà Nội", "024 3822 2135");
+(1, "NXB Giáo dục Việt Nam", "Số 81 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội", "02438220801"),
+(2, "NXB Kim Đồng", "55 Quang Trung, Hai Bà Trưng, Hà Nội", "1900571595"),
+(3, "NXB Tổng hợp thành phố Hồ Chí Minh", "62 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP HCM", "02838256804"),
+(4, "NXB Trẻ", "161B Lý Chính Thắng, Phường Võ Thị Sáu, Quận 3 , TP. Hồ Chí Minh", "02839316289"),
+(5, "NXB Hội Nhà văn", "65 Nguyễn Du, Hà Nội", "024 38222135");
 
 
 
@@ -354,7 +380,7 @@ ADD PRIMARY KEY (`MaNXB`);
 
 
 ALTER TABLE `sach`
-ADD CONSTRAINT `fk_MaLoaiSach` FOREIGN KEY (`MaLoaiSach`) REFERENCES `loaisach` (`MaLoaiSach`) ON UPDATE CASCADE,
+ADD CONSTRAINT `fk_MaLoaiSach` FOREIGN KEY (`MaLoaiSach`) REFERENCES `loaisach` (`MaLoaiSach`) ON UPDATE CASCADE ON DELETE CASCADE,
 ADD CONSTRAINT `fk_MaNXB` FOREIGN KEY (`MaNXB`) REFERENCES `nhaxuatban` (`MaNXB`) ON UPDATE CASCADE,
 ADD CONSTRAINT `fk_MaTacGia` FOREIGN KEY (`MaTacGia`) REFERENCES `tacgia` (`MaTacGia`) ON UPDATE CASCADE ON DELETE CASCADE;
 
@@ -362,7 +388,8 @@ ADD CONSTRAINT `fk_MaTacGia` FOREIGN KEY (`MaTacGia`) REFERENCES `tacgia` (`MaTa
 ALTER TABLE `chitietphieunhap`
 ADD CONSTRAINT `fk_MaPN` FOREIGN KEY(`MaPN`) REFERENCES `phieunhap` (`MaPN`) ON UPDATE CASCADE ON DELETE CASCADE;
 
-
+ALTER TABLE `chitietphieumuon`
+ADD CONSTRAINT `fk_MaPM` FOREIGN KEY(`MaPhieuMuon`) REFERENCES `phieumuon` (`MaPhieuMuon`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
