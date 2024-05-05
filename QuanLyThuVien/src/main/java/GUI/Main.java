@@ -3,7 +3,7 @@ package GUI;
 
 
 
-import DTO.NhanVien;
+import DTO.Accounts;
 import GUI.UIComponents.Form_DocGia;
 import GUI.UIComponents.Form_MuonSach;
 import GUI.UIComponents.Form_NXB;
@@ -14,7 +14,6 @@ import GUI.UIComponents.Form_TacGia;
 import GUI.UIComponents.Form_TheLoai;
 import GUI.UIComponents.Form_TheThuVien;
 import GUI.UIComponents.Form_ThongTin;
-import GUI.UIComponents.Form_TrangChu;
 import GUI.UIComponents.Menu.EventMenuSelected;
 import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.FlatLaf;
@@ -24,7 +23,6 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
 import raven.toast.ToastClientProperties;
@@ -33,9 +31,8 @@ import raven.toast.ToastClientProperties;
 
 public class Main extends javax.swing.JFrame {
     
-    private static NhanVien nv;
+    private static Accounts acc;
     
-    private static Form_TrangChu trangchu;
     private static Form_Sach sach;
     private static Form_TheLoai theloai;
     private static Form_NXB nhaxuatban;
@@ -47,12 +44,12 @@ public class Main extends javax.swing.JFrame {
     private static Form_TheThuVien thethuvien;
     private static Form_ThongTin thongtin;
   
-    public Main(NhanVien nhanvien) {
-        Main.nv = nhanvien;
+    public Main(Accounts acc) {
+        Main.acc = acc;
+        Notifications.getInstance().setJFrame(this);
         initComponents();
         setBackground(new Color(0,0,0,0));
         
-        trangchu = new Form_TrangChu();
         sach = new Form_Sach();
         theloai = new Form_TheLoai();
         nhaxuatban = new Form_NXB();
@@ -60,50 +57,58 @@ public class Main extends javax.swing.JFrame {
         nhapsach = new Form_NhapSach();
         muonsach = new Form_MuonSach();
         docgia = new Form_DocGia();
-        Main.nhanvien = new Form_NhanVien();
+        nhanvien = new Form_NhanVien();
         thethuvien = new Form_TheThuVien();
-        thongtin = new Form_ThongTin(Main.nv);
+        thongtin = new Form_ThongTin(Main.acc);
 
-        
-  
-        setForm(trangchu);
-        
-        Notifications.getInstance().setJFrame(this);
+        setForm(sach);
         
         // Di chuyen ung dung
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
-                if (index == 0) {
-                    setForm(trangchu);
+                System.out.println(index);
+                
+                if (index == 2) {
+                    setForm(sach);
+                    screach.TimKiem(sach.getTable());
                     
                 }else if (index == 3) {
-                    setForm(sach);
+                    setForm(theloai);
+                    screach.TimKiem(theloai.getTable());
                     
                 }else if (index == 4) {
-                    setForm(theloai);
+                    setForm(nhaxuatban);
+                    screach.TimKiem(nhaxuatban.getTable());
                     
                 }else if (index == 5) {
-                    setForm(nhaxuatban);
+                    setForm(tacgia);
+                    screach.TimKiem(tacgia.getTable());
                     
                 }else if (index == 6) {
-                    setForm(tacgia);
+                    setForm(nhapsach);
+                    screach.TimKiem(nhapsach.getTable_PN());
+                    screach.TimKiem(nhapsach.getTable_CTPN());
+                    screach.TimKiem(nhapsach.getTable_NCC());
                     
                 }else if (index == 7) {
-                    setForm(nhapsach);
+                    setForm(muonsach);                       
+                    screach.TimKiem(muonsach.getTable_PM());
+                    screach.TimKiem(muonsach.getTable_CTPM());
+                    screach.TimKiem(muonsach.getTable_PP());
                     
-                }else if (index == 8) {
-                    setForm(muonsach);
+                }else if (index == 10) {
+                    setForm(docgia);
+                    screach.TimKiem(docgia.getTable());
                     
                 }else if (index == 11) {
-                    setForm(docgia);
+                    setForm(nhanvien);
+                    screach.TimKiem(nhanvien.getTable());
                     
                 }else if (index == 12) {
-                    setForm(Main.nhanvien);
-                    
-                }else if (index == 13) {
                     setForm(thethuvien);
+                    screach.TimKiem(thethuvien.getTable());
                     
                 }else if (index == 15) {
                     setForm(thongtin);
@@ -146,7 +151,7 @@ public class Main extends javax.swing.JFrame {
 
         panelBorder2 = new GUI.UIComponents.Panel.PanelBorder();
         menu1 = new GUI.UIComponents.Menu.Menu();
-        screach1 = new GUI.UIComponents.Screach();
+        screach = new GUI.UIComponents.Screach();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,7 +175,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(screach1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(screach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,7 +185,7 @@ public class Main extends javax.swing.JFrame {
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelBorder2Layout.createSequentialGroup()
-                .addComponent(screach1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(screach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -231,10 +236,10 @@ public class Main extends javax.swing.JFrame {
         
         FlatLaf.registerCustomDefaultsSource("raven.toast");
         FlatLightLaf.setup();
-        UIManager.put(ToastClientProperties.TOAST_ERROR_ICON, new FlatSVGIcon("raven/toast/svg/error.svg"));
+        UIManager.put(ToastClientProperties.TOAST_ERROR_ICON, new FlatSVGIcon("raven/toast/cs.svg"));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Main(nv).setVisible(true);
+            new Main(acc).setVisible(true);
         });
     }
 
@@ -242,6 +247,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel;
     private GUI.UIComponents.Menu.Menu menu1;
     private GUI.UIComponents.Panel.PanelBorder panelBorder2;
-    private GUI.UIComponents.Screach screach1;
+    private GUI.UIComponents.Screach screach;
     // End of variables declaration//GEN-END:variables
 }

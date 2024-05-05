@@ -5,6 +5,7 @@
 package GUI.UIComponents;
 
 import BUS.Account_BUS;
+import BUS.NhanVien_BUS;
 import DTO.Accounts;
 import DTO.NhanVien;
 import GUI.swing.HighRE;
@@ -22,16 +23,29 @@ public class Form_ThongTin extends javax.swing.JPanel {
 
     private static NhanVien nhanvien;
     private static Account_BUS account_BUS;
+    private static NhanVien_BUS nhanVien_BUS;
     private static Accounts acc;
     ImageIcon defaultIMG = new FlatSVGIcon("IMG/NhanVien/default.svg");
     
-    public Form_ThongTin(NhanVien nhanvien) {
+    public Form_ThongTin(Accounts accounts) {
+        Form_ThongTin.acc = accounts;
         
-        Form_ThongTin.nhanvien = nhanvien;
-        account_BUS = new Account_BUS();
-        acc = account_BUS.SelectedAcc(nhanvien.getMaNV());
         initComponents();
-        initEvent();
+        nhanVien_BUS = new NhanVien_BUS();    
+        nhanvien = nhanVien_BUS.SelectedNhanVien(acc.getMaTaiKhoan());
+        if (nhanvien != null) {
+            initEvent();
+        }else{
+            imageAvatar.setIcon(defaultIMG);
+            mk_txt.setText(acc.getMatKhau());
+            mk_txt.setEditable(false);
+
+            tdn_txt.setText(acc.getTenDangNhap());
+            tdn_txt.setEditable(false);
+        }
+        
+      
+        
     }
     
     private void initEvent(){
@@ -78,7 +92,7 @@ public class Form_ThongTin extends javax.swing.JPanel {
 
         matk_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("Mã Tài Khoản");
 
@@ -86,17 +100,17 @@ public class Form_ThongTin extends javax.swing.JPanel {
 
         tdn_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Tên Đăng Nhập");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mật Khẩu");
 
         tennv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(150, 150, 150));
         jLabel8.setText("Tên Nhân Viên");
 
@@ -138,18 +152,16 @@ public class Form_ThongTin extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tdn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mk_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tennv_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(119, 119, 119)
-                        .addComponent(jLabel9)
-                        .addContainerGap(332, Short.MAX_VALUE))
+                        .addComponent(jLabel9))
                     .addComponent(matk_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(imageAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(imageAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(ChooseIMG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,6 +216,7 @@ public class Form_ThongTin extends javax.swing.JPanel {
                 if (account_BUS.DoiMatKhau(acc)) {
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
                     "Đổi mật khẩu thành công.");
+                    mk_txt.setEditable(false);
                 }
             }
         } catch (Exception e) {

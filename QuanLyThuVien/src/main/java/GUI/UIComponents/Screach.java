@@ -6,8 +6,11 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 public class Screach extends javax.swing.JPanel {
@@ -19,25 +22,41 @@ public class Screach extends javax.swing.JPanel {
     }
 
     
-    public void TimKiem(Table table){
-        text.getDocument().addDocumentListener(new DocumentListener(){
+    public void TimKiem(Table tab){
+        
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(tab.getModel());
+        tab.setRowSorter(rowSorter);
+
+        fillter.getDocument().addDocumentListener(new DocumentListener(){
+            
             @Override
             public void insertUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+ 
+                String text = fillter.getText();
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                }else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+               
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+                String text = fillter.getText();
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                }else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+                
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                
-                
             }
-
-        
+       
         
         });
     }
@@ -53,7 +72,7 @@ public class Screach extends javax.swing.JPanel {
 
         exit1 = new GUI.UIComponents.Exit();
         Screach_button = new javax.swing.JLabel();
-        text = new GUI.UIComponents.ScreachText();
+        fillter = new GUI.UIComponents.ScreachText();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -63,8 +82,9 @@ public class Screach extends javax.swing.JPanel {
         );
         Screach_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        text.setForeground(new java.awt.Color(0, 0, 0));
-        text.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        fillter.setForeground(new java.awt.Color(0, 0, 0));
+        fillter.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        fillter.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,7 +94,7 @@ public class Screach extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(Screach_button, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addComponent(fillter, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -86,7 +106,7 @@ public class Screach extends javax.swing.JPanel {
                 .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
             .addComponent(Screach_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fillter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -106,6 +126,6 @@ public class Screach extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Screach_button;
     private GUI.UIComponents.Exit exit1;
-    private GUI.UIComponents.ScreachText text;
+    private GUI.UIComponents.ScreachText fillter;
     // End of variables declaration//GEN-END:variables
 }

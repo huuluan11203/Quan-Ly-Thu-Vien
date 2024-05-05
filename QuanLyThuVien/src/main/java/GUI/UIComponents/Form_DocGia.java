@@ -6,6 +6,7 @@ import DTO.DocGia;
 import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
 import GUI.UIComponents.FileChooser.JnaFileChooser;
+import GUI.UIComponents.Table.Table;
 import GUI.swing.HighRE;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
@@ -82,6 +83,10 @@ public class Form_DocGia extends javax.swing.JPanel {
         ChonGioiTinh.setSelectedIndex(-1);
         docgia = null;
  
+    }
+    
+    public Table getTable(){
+        return table_DocGia;
     }
     
     @SuppressWarnings("unchecked")
@@ -198,27 +203,27 @@ public class Form_DocGia extends javax.swing.JPanel {
         ngaysinh_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(ngaysinh_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 180, 50));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(150, 150, 150));
         jLabel12.setText("Tên độc giả");
         panelBorder1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 125, 70, -1));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(150, 150, 150));
         jLabel14.setText("Mã thẻ ");
         panelBorder1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 185, 70, -1));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(150, 150, 150));
         jLabel15.setText("SDT");
         panelBorder1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 125, 70, -1));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(150, 150, 150));
         jLabel16.setText("Ngày sinh");
         panelBorder1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 185, 70, -1));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(150, 150, 150));
         jLabel18.setText("Mã độc giả");
         panelBorder1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 70, -1));

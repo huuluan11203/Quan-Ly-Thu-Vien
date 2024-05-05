@@ -3,6 +3,7 @@ package GUI.UIComponents;
 
 import BUS.NhaXuatBan_BUS;
 import DTO.NhaXuatBan;
+import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -63,6 +64,10 @@ public class Form_NXB extends javax.swing.JPanel {
         sdt_txt.setText("");
         diachi_txt.setText("");
     }
+    
+    public Table getTable(){
+        return table_NXB;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -81,6 +86,7 @@ public class Form_NXB extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new Color(0,0,0,0));
         setMaximumSize(new java.awt.Dimension(802, 645));
@@ -135,33 +141,41 @@ public class Form_NXB extends javax.swing.JPanel {
         });
         panelBorder1.add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 6, 41, 42));
 
+        diachi_txt.setText("DSD");
         diachi_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        diachi_txt.setHint("Địa chỉ");
-        panelBorder1.add(diachi_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 360, 50));
+        diachi_txt.setHint("");
+        panelBorder1.add(diachi_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 650, 50));
 
+        manxb_txt.setText("ĐÂ");
         manxb_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(manxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 270, 50));
+        panelBorder1.add(manxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 270, 50));
 
         sdt_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(sdt_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 280, 50));
+        panelBorder1.add(sdt_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 280, 50));
 
+        tennxb_txt.setText("DSD");
         tennxb_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(tennxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 270, 50));
+        panelBorder1.add(tennxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 650, 50));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel5.setText("Tên nhà xuất bản");
-        panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 153, 100, -1));
+        jLabel5.setText("Địa chỉ");
+        panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 173, 100, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mã nhà xuất bản");
-        panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 83, 100, -1));
+        panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 63, 100, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(150, 150, 150));
         jLabel8.setText("Số điện thoại");
-        panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 83, 80, -1));
+        panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 63, 80, -1));
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(150, 150, 150));
+        jLabel6.setText("Tên nhà xuất bản");
+        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 123, 100, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -256,6 +270,7 @@ public class Form_NXB extends javax.swing.JPanel {
     private GUI.UIComponents.Button delete_btn;
     private GUI.UIComponents.TextField diachi_txt;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;

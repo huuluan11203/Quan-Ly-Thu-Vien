@@ -22,7 +22,6 @@ BUS\PhieuNhap_BUS.class
 GUI\Login$7.class
 BUS\ChiTietPhieuNhap_BUS.class
 DAO\NhaXuatBanDAO.class
-GUI\UIComponents\Event.class
 GUI\UIComponents\Form_NhapSach$6.class
 GUI\UIComponents\ScrollBar.class
 DTO\Sach.class
@@ -263,7 +262,6 @@ GUI\UIComponents\Form_MuonSach$24.class
 GUI\UIComponents\Form_ThongTin.class
 GUI\UIComponents\Combobox$ComboUI$6.class
 GUI\UIComponents\Form_TheLoai$3.class
-GUI\UIComponents\Form_TrangChu.class
 DTO\PhieuMuon.class
 GUI\UIComponents\DATE\Slider$4.class
 GUI\UIComponents\Form_MuonSach$17.class
@@ -275,6 +273,7 @@ GUI\UIComponents\Form_NhapSach$2.class
 GUI\UIComponents\Form_MuonSach$18.class
 GUI\UIComponents\DATE\Months.class
 GUI\UIComponents\DATE\DateChooser$4.class
+GUI\UIComponents\Screach$1.class
 BUS\NhanVien_BUS.class
 GUI\UIComponents\Form_NhanVien.class
 GUI\Main$1.class

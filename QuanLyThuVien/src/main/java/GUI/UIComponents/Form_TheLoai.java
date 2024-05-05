@@ -3,10 +3,12 @@ package GUI.UIComponents;
 
 import BUS.LoaiSach_BUS;
 import DTO.LoaiSach;
+import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import raven.toast.Notifications;
 
@@ -24,6 +26,7 @@ public class Form_TheLoai extends javax.swing.JPanel {
         initComponents();
         
         loaiSach_BUS.RenderLoaiSach(table_TheLoai);
+        table_TheLoai.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         initEvent();
     }
 
@@ -58,6 +61,12 @@ public class Form_TheLoai extends javax.swing.JPanel {
         maloaisach_txt.setText("");
         tenloaisach_txt.setText("");
     }
+    
+    public Table getTable(){
+        return table_TheLoai;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -138,12 +147,12 @@ public class Form_TheLoai extends javax.swing.JPanel {
         });
         panelBorder1.add(tenloaisach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 450, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(150, 150, 150));
         jLabel4.setText("Tên loại sách");
         panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 153, 80, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("Mã loại sách");
         panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 84, 80, -1));

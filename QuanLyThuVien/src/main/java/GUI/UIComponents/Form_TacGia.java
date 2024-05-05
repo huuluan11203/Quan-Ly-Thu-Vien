@@ -6,6 +6,7 @@ import DTO.TacGia;
 import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
 import GUI.UIComponents.FileChooser.JnaFileChooser;
+import GUI.UIComponents.Table.Table;
 import GUI.swing.HighRE;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -98,6 +99,11 @@ public class Form_TacGia extends javax.swing.JPanel {
         matacgia_txt.setEnabled(true);
         
     }
+    
+    
+    public Table getTable(){
+        return table_TacGia;
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -159,7 +165,7 @@ public class Form_TacGia extends javax.swing.JPanel {
         namsinh_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(namsinh_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, 50));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(150, 150, 150));
         jLabel3.setText("Địa chỉ");
         panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 175, 60, -1));
@@ -206,17 +212,17 @@ public class Form_TacGia extends javax.swing.JPanel {
         matacgia_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(matacgia_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 160, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(150, 150, 150));
         jLabel4.setText("Mã tác giả");
         panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 24, 60, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("Tên tác giả");
         panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 75, 70, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Giới thiệu");
         panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 60, -1));
@@ -248,7 +254,7 @@ public class Form_TacGia extends javax.swing.JPanel {
 
         panelBorder1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 350, 140));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Năm sinh");
         panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 124, 60, -1));

@@ -7,6 +7,8 @@ import GUI.UIComponents.Table.Table;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import raven.toast.Notifications;
 
 public class NhanVien_BUS {
@@ -144,6 +146,21 @@ public class NhanVien_BUS {
                 return false;
             }
             
+            if (pn.getSDT().equals("")) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                        "Số điện thoại không được để trống.");
+                    return false;
+            }else{
+                String regex = "^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(pn.getSDT());
+                if (!matcher.matches()) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                    "Số điện thoại không đúng.");
+                    return false;
+                }
+            } 
+            
             
             NhanVienDAO.getInstance().insert(pn);
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
@@ -197,7 +214,23 @@ public class NhanVien_BUS {
                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
                         "Ngày bắt đầu không đúng.");
                     return false;
-                }              
+                }   
+                 
+                if (pn.getSDT().equals("")) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                        "Số điện thoại không được để trống.");
+                    return false;
+                }else{
+                    String regex = "^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$";
+                    Pattern pattern = Pattern.compile(regex);
+                    Matcher matcher = pattern.matcher(pn.getSDT());
+                    if (!matcher.matches()) {
+                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                        "Số điện thoại không đúng.");
+                        return false;
+                    }
+                } 
+                 
 
                 NhanVienDAO.getInstance().update(pn);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 

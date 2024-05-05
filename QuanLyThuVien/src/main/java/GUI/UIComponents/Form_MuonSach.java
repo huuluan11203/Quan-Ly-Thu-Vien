@@ -9,9 +9,11 @@ import DTO.ChiTietPhieuMuon;
 import DTO.PhieuMuon;
 import DTO.PhieuPhat;
 import GUI.UIComponents.DATE.DateChooser;
+import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javax.swing.ImageIcon;
@@ -46,6 +48,9 @@ public class Form_MuonSach extends javax.swing.JPanel {
         
         card = (CardLayout) this.getLayout();
         card.show(Form_MuonSach.this, "PhieuMuon");
+        PhieuMuon.setName("Card_PM");
+        CTPM.setName("card_CTPM");
+        PhieuPhat.setName("card_PP");
         
         ChonTinhTrang.setSelectedIndex(-1);
         
@@ -57,10 +62,20 @@ public class Form_MuonSach extends javax.swing.JPanel {
         
         phieuPhat_BUS.RenderPhieuPhat(table_PhieuPhat);
         table_PhieuPhat.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         
         initEvent();
     }
 
+    public Table getTable_PM(){
+        return table_PM;
+    }
+    public Table getTable_CTPM(){
+        return table_CTPM;
+    }   
+    public Table getTable_PP(){
+        return table_PhieuPhat;
+    }
     
     
     private void initEvent(){
@@ -349,7 +364,7 @@ public class Form_MuonSach extends javax.swing.JPanel {
         );
         panelBorder1.add(export_PN, new org.netbeans.lib.awtextra.AbsoluteConstraints(754, 10, 40, 40));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mã độc giả");
         panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 174, 90, -1));
@@ -391,17 +406,17 @@ public class Form_MuonSach extends javax.swing.JPanel {
         });
         panelBorder1.add(madocgia_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 240, 50));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(150, 150, 150));
         jLabel8.setText("Ngày mượn");
         panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 173, 70, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(150, 150, 150));
         jLabel9.setText("Mã phiếu mượn");
         panelBorder1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 74, 90, -1));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(150, 150, 150));
         jLabel10.setText("Mã nhân viên");
         panelBorder1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 124, 90, -1));
@@ -1049,6 +1064,7 @@ public class Form_MuonSach extends javax.swing.JPanel {
 
     private void add_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btn1ActionPerformed
         setToDefault();
+ 
     }//GEN-LAST:event_add_btn1ActionPerformed
 
     private void delete_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btn1ActionPerformed

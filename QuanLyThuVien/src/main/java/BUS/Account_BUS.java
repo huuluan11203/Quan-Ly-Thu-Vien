@@ -35,6 +35,7 @@ public class Account_BUS {
         for (Accounts ACC_ArrayListounts : ACC_ArrayList) {
             
             if (ACC_ArrayListounts.getTenDangNhap().equals(username) && ACC_ArrayListounts.getMatKhau().equals(passwd)){
+                
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
                     "Đăng nhập thành công.");
 

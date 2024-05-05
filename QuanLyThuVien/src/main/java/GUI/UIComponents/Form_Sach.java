@@ -18,6 +18,7 @@ import raven.toast.Notifications;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 
 public class Form_Sach extends javax.swing.JPanel {
@@ -49,6 +50,7 @@ public class Form_Sach extends javax.swing.JPanel {
         jScrollPane.getVerticalScrollBar().setBackground(Color.WHITE);
         
         sach_BUS.RenderSach(table_Sach);
+        table_Sach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         nhaXuatBan_BUS.ChonNXB(ChonNXB);
         tacGia_BUS.ChonTG(ChonTG);
         loaiSach_BUS.ChonLoaiSach(ChonTheLoai);
@@ -58,9 +60,7 @@ public class Form_Sach extends javax.swing.JPanel {
         ChonTheLoai.setSelectedIndex(-1);
         
         initEvent();
-        
-        
-        
+   
         
     }
     
@@ -220,7 +220,7 @@ public class Form_Sach extends javax.swing.JPanel {
         tensach_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(tensach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 58, 290, 50));
 
-        jlabell1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlabell1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jlabell1.setForeground(new java.awt.Color(150, 150, 150));
         jlabell1.setText("Số lượng");
         panelBorder1.add(jlabell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
@@ -231,7 +231,7 @@ public class Form_Sach extends javax.swing.JPanel {
         masach_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(masach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 8, 130, 50));
 
-        jlabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jlabel.setForeground(new java.awt.Color(150, 150, 150));
         jlabel.setText("Năm xuất bản");
         panelBorder1.add(jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 72, -1, -1));
@@ -242,7 +242,7 @@ public class Form_Sach extends javax.swing.JPanel {
         ChonTheLoai.setLabeText("Loại sách");
         panelBorder1.add(ChonTheLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(391, 170, 234, 40));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(150, 150, 150));
         jLabel2.setText("Mã sách");
         panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 22, 60, -1));
@@ -250,7 +250,7 @@ public class Form_Sach extends javax.swing.JPanel {
         ChonNXB.setLabeText("Nhà xuất bản");
         panelBorder1.add(ChonNXB, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, 340, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(150, 150, 150));
         jLabel3.setText("Tên sách");
         panelBorder1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 72, 60, -1));

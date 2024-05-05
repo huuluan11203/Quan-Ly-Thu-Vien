@@ -6,6 +6,7 @@ import DTO.NhanVien;
 import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
 import GUI.UIComponents.FileChooser.JnaFileChooser;
+import GUI.UIComponents.Table.Table;
 import GUI.swing.HighRE;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
@@ -75,6 +76,11 @@ public class Form_NhanVien extends javax.swing.JPanel {
 
             });
     }
+    
+    public Table getTable(){
+        return table_NhanVien;
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -162,7 +168,7 @@ public class Form_NhanVien extends javax.swing.JPanel {
         });
         panelBorder1.add(tennv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 160, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(150, 150, 150));
         jLabel4.setText("Tên NV");
         panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 83, 60, -1));
@@ -200,22 +206,22 @@ public class Form_NhanVien extends javax.swing.JPanel {
         manv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(manv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 160, 50));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("SDT");
         panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 135, 60, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Địa chỉ");
         panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 183, 60, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(150, 150, 150));
         jLabel8.setText("Ngày sinh");
         panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 185, 60, -1));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(150, 150, 150));
         jLabel10.setText("Ngày bắt đầu");
         panelBorder1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 80, -1));
@@ -249,12 +255,12 @@ public class Form_NhanVien extends javax.swing.JPanel {
         });
         panelBorder1.add(chooseDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 30, 30));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(150, 150, 150));
         jLabel11.setText("Mã NV");
         panelBorder1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 35, 60, -1));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(150, 150, 150));
         jLabel12.setText("Lương");
         panelBorder1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 135, 40, -1));

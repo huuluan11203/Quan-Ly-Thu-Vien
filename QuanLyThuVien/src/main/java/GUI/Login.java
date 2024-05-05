@@ -2,9 +2,7 @@
 package GUI;
 
 import BUS.Account_BUS;
-import BUS.NhanVien_BUS;
 import DTO.Accounts;
-import DTO.NhanVien;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -19,10 +17,7 @@ import raven.toast.ToastClientProperties;
 public class Login extends javax.swing.JFrame {
 
     private static Accounts account;
-    private static NhanVien nhanvien;
-    
     private static Account_BUS account_BUS;
-    private static NhanVien_BUS nhanVien_BUS;
     
     public Login() {
         initComponents();
@@ -32,7 +27,6 @@ public class Login extends javax.swing.JFrame {
         Notifications.getInstance().setJFrame(this);
 
         account_BUS = new Account_BUS();
-        nhanVien_BUS = new NhanVien_BUS();
     
     }
 
@@ -51,7 +45,6 @@ public class Login extends javax.swing.JFrame {
         username_txt = new javax.swing.JTextField();
         passwd_txt = new javax.swing.JPasswordField();
         exit1 = new GUI.UIComponents.Exit();
-        jLabel5 = new javax.swing.JLabel();
         submit = new GUI.UIComponents.Button();
         jCheckBox1 = new javax.swing.JCheckBox();
 
@@ -69,7 +62,7 @@ public class Login extends javax.swing.JFrame {
         );
         Tittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Tittle.setText("ĐĂNG NHẬP");
-        Login_Panel.add(Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 390, 60));
+        Login_Panel.add(Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 400, 90));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(80, 80, 80));
@@ -126,6 +119,7 @@ public class Login extends javax.swing.JFrame {
         Login_Panel.add(username_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 182, 302, 40));
 
         passwd_txt.setBackground(new Color(0,0,0,0));
+        passwd_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         passwd_txt.setForeground(new java.awt.Color(0, 0, 0));
         passwd_txt.setBorder(null);
         passwd_txt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -142,14 +136,6 @@ public class Login extends javax.swing.JFrame {
 
         exit1.setForeground(new java.awt.Color(255, 255, 255));
         Login_Panel.add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setForeground(Color.decode("#1da1f2")
-        );
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("  LiSM xin chào");
-        jLabel5.setToolTipText("");
-        Login_Panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 400, 30));
 
         submit.setBackground(Color.decode("#1da1f2")
         );
@@ -234,20 +220,17 @@ public class Login extends javax.swing.JFrame {
         try {
             username = username_txt.getText();
             psswd = String.valueOf(passwd_txt.getPassword());
-            
-            
+                 
         } catch (Exception e) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
                     "Dữ liệu không đúng định dạng.");
         }
         
         if (account_BUS.Check_Login(username, psswd)) {  
-            account = account_BUS.getAccounts(username);
-            // ma tai khoan la ma nhan vien
-            nhanvien = nhanVien_BUS.SelectedNhanVien(account.getMaTaiKhoan());          
+            account = account_BUS.getAccounts(username);         
             this.setVisible(false);
             this.dispose();
-            new Main(nhanvien).setVisible(true); 
+            new Main(account).setVisible(true); 
 
         }
         
@@ -313,7 +296,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPasswordField passwd_txt;
     private GUI.UIComponents.Button submit;

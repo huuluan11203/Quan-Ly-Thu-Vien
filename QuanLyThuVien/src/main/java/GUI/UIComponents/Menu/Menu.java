@@ -30,7 +30,7 @@ public class Menu extends javax.swing.JPanel {
         
     }
     private void init(){
-        listMenu1.addItem(new Model_Menu("home", "Trang Chủ", Model_Menu.MenuType.MENU));
+//        listMenu1.addItem(new Model_Menu("home", "Trang Chủ", Model_Menu.MenuType.MENU));
         
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu1.addItem(new Model_Menu("", "Quản Lý Sách", Model_Menu.MenuType.TITLE));
@@ -45,6 +45,7 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("docgia", "Độc Giả", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("nv", "Nhân Viên", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("card", "Thẻ Thư Viện", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
         
         listMenu1.addItem(new Model_Menu("tt", "Thông Tin", Model_Menu.MenuType.MENU));
@@ -85,7 +86,7 @@ public class Menu extends javax.swing.JPanel {
         movingPanelLayout.setVerticalGroup(
             movingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(movingPanelLayout.createSequentialGroup()
-                .addComponent(apl_label, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addComponent(apl_label, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -95,7 +96,7 @@ public class Menu extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(movingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -104,7 +105,8 @@ public class Menu extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(movingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
+                .addComponent(listMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -15,7 +15,6 @@ import raven.toast.Notifications;
 public class DocGia_BUS {
     private static ArrayList<DocGia> DG_ArrayList;
     private static TheThuVien_BUS theThuVien_BUS;
-    private static DocGia docgia;
 
     public DocGia_BUS() {
         DG_ArrayList = DocGiaDAO.getInstance().selectAll();

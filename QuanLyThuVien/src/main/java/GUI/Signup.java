@@ -105,6 +105,7 @@ public class Signup extends javax.swing.JFrame {
         login_Panel1.add(username_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 140, 302, 40));
 
         passwd_txt.setBackground(new Color(0,0,0,0));
+        passwd_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         passwd_txt.setForeground(new java.awt.Color(0, 0, 0));
         passwd_txt.setBorder(null);
         passwd_txt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -120,6 +121,7 @@ public class Signup extends javax.swing.JFrame {
         login_Panel1.add(passwd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 210, 302, 40));
 
         confirm_psswd.setBackground(new Color(0,0,0,0));
+        confirm_psswd.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         confirm_psswd.setForeground(new java.awt.Color(0, 0, 0));
         confirm_psswd.setBorder(null);
         confirm_psswd.addFocusListener(new java.awt.event.FocusAdapter() {

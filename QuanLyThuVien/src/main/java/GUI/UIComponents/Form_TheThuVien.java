@@ -5,9 +5,8 @@ import BUS.DocGia_BUS;
 import BUS.TheThuVien_BUS;
 import DTO.DocGia;
 import DTO.TheThuVien;
-import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
-import GUI.swing.HighRE;
+import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -20,8 +19,6 @@ import raven.toast.Notifications;
 
 public class Form_TheThuVien extends javax.swing.JPanel {
     
-    private boolean isChoosed;
-    private Main main;
     private int RowSelected = -1;
     
     private static TheThuVien thethuvien;
@@ -61,8 +58,13 @@ public class Form_TheThuVien extends javax.swing.JPanel {
                         ngaykt_txt.setText(theThuVien_BUS.FormatDate(thethuvien.getNgayKetthuc()));
                         
                         docgia = docGia_BUS.getDocGia(thethuvien.getMaThe());
-                        madg_txt.setText(Integer.toString(docgia.getMaDocGia()));
-                        tendg_txt.setText(docgia.getTenDocGia());
+                        if (docgia != null) {
+                            madg_txt.setText(Integer.toString(docgia.getMaDocGia()));
+                            tendg_txt.setText(docgia.getTenDocGia());
+                        }else{
+                            madg_txt.setText("Unknown");
+                            tendg_txt.setText("Unknown");
+                        }
                     }
                     
                 }
@@ -80,6 +82,10 @@ public class Form_TheThuVien extends javax.swing.JPanel {
         RowSelected = -1;
         thethuvien = null;
         table_TTV.clearSelection();
+    }
+    
+    public Table getTable(){
+        return table_TTV;
     }
     
     @SuppressWarnings("unchecked")
@@ -156,7 +162,7 @@ public class Form_TheThuVien extends javax.swing.JPanel {
         ngaykt_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(ngaykt_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 240, 50));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("Ngày bắt đầu");
         panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 114, 80, -1));
@@ -191,22 +197,22 @@ public class Form_TheThuVien extends javax.swing.JPanel {
         });
         panelBorder1.add(chooseDate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 30, 30));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Mã độc giả");
         panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 114, 80, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mã Thẻ");
         panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 65, 80, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(150, 150, 150));
         jLabel8.setText("Tên độc giả");
         panelBorder1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 165, 80, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(150, 150, 150));
         jLabel9.setText("Ngày kết thúc");
         panelBorder1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 165, 80, -1));
@@ -313,8 +319,6 @@ public class Form_TheThuVien extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.UIComponents.Button add_btn;
     private GUI.UIComponents.Button chooseDate;
-    private GUI.UIComponents.Button chooseDate1;
-    private GUI.UIComponents.Button chooseDate2;
     private GUI.UIComponents.Button chooseDate3;
     private GUI.UIComponents.Button delete_btn;
     private javax.swing.JLabel jLabel5;

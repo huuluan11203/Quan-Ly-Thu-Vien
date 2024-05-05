@@ -58,7 +58,7 @@
                   <Component id="menu1" min="-2" pref="186" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="screach1" max="32767" attributes="0"/>
+                      <Component id="screach" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Component id="mainPanel" max="32767" attributes="0"/>
@@ -72,7 +72,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="menu1" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <Component id="screach1" min="-2" max="-2" attributes="0"/>
+                  <Component id="screach" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="mainPanel" min="-2" pref="645" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -83,7 +83,7 @@
       <SubComponents>
         <Component class="GUI.UIComponents.Menu.Menu" name="menu1">
         </Component>
-        <Component class="GUI.UIComponents.Screach" name="screach1">
+        <Component class="GUI.UIComponents.Screach" name="screach">
         </Component>
         <Container class="javax.swing.JPanel" name="mainPanel">
           <Properties>

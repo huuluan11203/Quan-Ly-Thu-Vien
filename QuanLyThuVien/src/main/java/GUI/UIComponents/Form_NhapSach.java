@@ -10,6 +10,7 @@ import DTO.ChiTietPhieuNhap;
 import DTO.NhaCungCap;
 import DTO.PhieuNhap;
 import GUI.UIComponents.DATE.DateChooser;
+import GUI.UIComponents.Table.Table;
 import java.awt.Color;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.CardLayout;
@@ -132,6 +133,16 @@ public class Form_NhapSach extends javax.swing.JPanel {
             });
          
     }
+    
+    public Table getTable_PN(){
+        return table_PhieuNhap;
+    }
+    public Table getTable_CTPN(){
+        return table_ChiTiet;
+    }
+    public Table getTable_NCC(){
+        return table_NCC;
+    }
 
     public void setToDefault(){
         RowSelected = -1;
@@ -249,17 +260,17 @@ public class Form_NhapSach extends javax.swing.JPanel {
         maphieunhap_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(maphieunhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 240, 50));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(150, 150, 150));
         jLabel5.setText("Mã nhà cung cấp");
         panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 123, 100, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Ngày nhập");
         panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 74, 70, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mã phiếu nhập");
         panelBorder1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 74, 90, -1));
@@ -331,12 +342,12 @@ public class Form_NhapSach extends javax.swing.JPanel {
         tennv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(tennv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 240, 50));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(150, 150, 150));
         jLabel13.setText("Mã nhân viên");
         panelBorder1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 123, 80, 20));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(150, 150, 150));
         jLabel16.setText("Tên nhân viên");
         panelBorder1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 172, 80, 20));
