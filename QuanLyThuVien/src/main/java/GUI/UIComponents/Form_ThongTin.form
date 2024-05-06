@@ -43,13 +43,13 @@
                   <Component id="matk_txt" alignment="0" min="-2" pref="222" max="-2" attributes="0"/>
                   <Component id="imageAvatar" min="-2" pref="177" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="331" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="ChooseIMG" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="ChooseIMG1" min="-2" pref="52" max="-2" attributes="0"/>
+              <Component id="Luu_btn" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -80,10 +80,10 @@
                   <Component id="tennv_txt" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ChooseIMG" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ChooseIMG1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Luu_btn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
@@ -105,6 +105,7 @@
     </Container>
     <Component class="GUI.UIComponents.TextField" name="matk_txt">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="1"/>
         </Property>
@@ -159,6 +160,7 @@
     </Component>
     <Component class="GUI.UIComponents.TextField" name="tennv_txt">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="1"/>
         </Property>
@@ -193,7 +195,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i M&#x1ead;t Kh&#x1ea9;u"/>
+        <Property name="text" type="java.lang.String" value="S&#x1eed;a th&#xf4;ng tin"/>
         <Property name="shadowColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="d8" green="9b" red="3" type="rgb"/>
         </Property>
@@ -202,7 +204,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChooseIMGActionPerformed"/>
       </Events>
     </Component>
-    <Component class="GUI.UIComponents.Button" name="ChooseIMG1">
+    <Component class="GUI.UIComponents.Button" name="Luu_btn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Color.decode(&quot;#00abfd&quot;)&#xd;&#xa;" type="code"/>
@@ -216,7 +218,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChooseIMG1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Luu_btnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -146,7 +146,7 @@ public class PhieuMuon_BUS {
             if (!CompareTo(pn, current)) {
                 if (pn.getNgayMuon().isAfter(now)) {
                      Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Ngày mượn Không đúng");
+                    "Ngày mượn không đúng");
                     return false;
                 }
                 

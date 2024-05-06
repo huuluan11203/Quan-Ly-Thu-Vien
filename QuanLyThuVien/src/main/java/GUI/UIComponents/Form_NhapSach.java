@@ -254,6 +254,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
         manv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(manv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 240, 50));
 
+        ngaynhap_txt.setEditable(false);
         ngaynhap_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(ngaynhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 210, 50));
 

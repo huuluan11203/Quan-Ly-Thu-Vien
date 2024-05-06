@@ -19,12 +19,14 @@ public class LoaiSach_BUS {
     
     
      public void ChonLoaiSach(Combobox cb){
+        LS_ArrayList = LoaiSachDAO.getInstance().selectAll();
         for (LoaiSach ls : LS_ArrayList){
             cb.addItem(ls);
         }
     }
     
     public int getMaloaiSach(String tenloaisach){
+        LS_ArrayList = LoaiSachDAO.getInstance().selectAll();
         for (LoaiSach ls : LS_ArrayList){
             if (tenloaisach.equals(ls.getTenLoaiSach())) {
                 return ls.getMaLoaiSach();
@@ -34,10 +36,9 @@ public class LoaiSach_BUS {
     }
     
     public String getTenLoaiSach(int maloai){
-        for (LoaiSach ls : LS_ArrayList){
-            if (maloai == ls.getMaLoaiSach()) {
-                return ls.getTenLoaiSach();
-            }
+        LoaiSach ls = LoaiSachDAO.getInstance().selectByID(maloai);
+        if (ls != null) {
+            return ls.getTenLoaiSach();
         }
         return "ERR";
     }

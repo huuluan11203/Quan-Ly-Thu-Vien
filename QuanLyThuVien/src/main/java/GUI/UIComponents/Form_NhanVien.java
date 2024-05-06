@@ -231,9 +231,11 @@ public class Form_NhanVien extends javax.swing.JPanel {
         ChonGioiTinh.setLabeText("Giới tính");
         panelBorder1.add(ChonGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 200, 40));
 
+        namsinh_txt.setEditable(false);
         namsinh_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(namsinh_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 120, 50));
 
+        ngaybatdau_txt.setEditable(false);
         ngaybatdau_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(ngaybatdau_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 120, 50));
 

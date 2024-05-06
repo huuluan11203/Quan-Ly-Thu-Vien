@@ -4,6 +4,7 @@ package BUS;
 
 import DTO.Accounts;
 import DAO.*;
+import DTO.NhanVien;
 import java.util.ArrayList;
 import raven.toast.Notifications;
 
@@ -67,6 +68,14 @@ public class Account_BUS {
         return false;
     }
     
+    public boolean isExsit(int ma){
+        Accounts acc = AccountsDAO.getInstance().selectByID(ma);
+        if (acc != null) {
+            return true;
+        }
+        return false;
+    }
+    
     public boolean Check_Signup(String username, String psswd, String confirm){
         
         ACC_ArrayList = AccountsDAO.getInstance().selectAll();
@@ -109,9 +118,36 @@ public class Account_BUS {
     }
     
     
-    public boolean DoiMatKhau(Accounts acc){
+    public boolean DoiThongTin(Accounts acc){
         if (acc != null) {
+            
+            NhanVien nv = NhanVienDAO.getInstance().selectByID(acc.getMaTaiKhoan());
+            
+            if (nv == null) {
+                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Nhân viên không tồn tại.");
+                return false;
+            }
+            
+            
+            
+            if (isExsit(nv.getMaNV())) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Tài khoản " + acc.getMaTaiKhoan() + " đã được sử dụng.");
+                return false;
+            }
+            
+
+                   
+            if (acc.getMatKhau().equals("")) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Mật khẩu không được rỗng.");
+                return false;
+            }   
+            
             AccountsDAO.getInstance().update(acc);
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Sửa thông tin thành công.");
             return true;
         }
         return false;

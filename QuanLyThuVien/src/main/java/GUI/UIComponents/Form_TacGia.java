@@ -162,6 +162,7 @@ public class Form_TacGia extends javax.swing.JPanel {
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        namsinh_txt.setEditable(false);
         namsinh_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(namsinh_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, 50));
 

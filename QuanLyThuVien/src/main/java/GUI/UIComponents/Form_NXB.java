@@ -141,19 +141,16 @@ public class Form_NXB extends javax.swing.JPanel {
         });
         panelBorder1.add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 6, 41, 42));
 
-        diachi_txt.setText("DSD");
         diachi_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         diachi_txt.setHint("");
         panelBorder1.add(diachi_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 650, 50));
 
-        manxb_txt.setText("ĐÂ");
         manxb_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(manxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 270, 50));
 
         sdt_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(sdt_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 280, 50));
 
-        tennxb_txt.setText("DSD");
         tennxb_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(tennxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 650, 50));
 

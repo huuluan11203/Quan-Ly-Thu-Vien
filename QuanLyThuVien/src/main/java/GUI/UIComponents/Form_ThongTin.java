@@ -31,7 +31,8 @@ public class Form_ThongTin extends javax.swing.JPanel {
         Form_ThongTin.acc = accounts;
         
         initComponents();
-        nhanVien_BUS = new NhanVien_BUS();    
+        nhanVien_BUS = new NhanVien_BUS(); 
+        account_BUS = new Account_BUS();
         nhanvien = nhanVien_BUS.SelectedNhanVien(acc.getMaTaiKhoan());
         if (nhanvien != null) {
             initEvent();
@@ -41,7 +42,9 @@ public class Form_ThongTin extends javax.swing.JPanel {
             mk_txt.setEditable(false);
 
             tdn_txt.setText(acc.getTenDangNhap());
-            tdn_txt.setEditable(false);
+            tdn_txt.setEnabled(false);
+            
+            tennv_txt.setEditable(false);
         }
         
       
@@ -56,16 +59,16 @@ public class Form_ThongTin extends javax.swing.JPanel {
         }
         
         matk_txt.setText(Integer.toString(nhanvien.getMaNV()));
-        matk_txt.setEditable(false);
+        matk_txt.setEnabled(false);
         
         mk_txt.setText(acc.getMatKhau());
         mk_txt.setEditable(false);
         
         tdn_txt.setText(acc.getTenDangNhap());
-        tdn_txt.setEditable(false);
+        tdn_txt.setEnabled(false);
         
         tennv_txt.setText(nhanvien.getTenNV());
-        tennv_txt.setEditable(false);
+        tennv_txt.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -83,13 +86,14 @@ public class Form_ThongTin extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         ChooseIMG = new GUI.UIComponents.Button();
-        ChooseIMG1 = new GUI.UIComponents.Button();
+        Luu_btn = new GUI.UIComponents.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         imageAvatar.setForeground(new java.awt.Color(204, 204, 204));
         imageAvatar.setBorderSize(3);
 
+        matk_txt.setEnabled(false);
         matk_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -108,6 +112,7 @@ public class Form_ThongTin extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
         jLabel7.setText("Mật Khẩu");
 
+        tennv_txt.setEnabled(false);
         tennv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -120,7 +125,7 @@ public class Form_ThongTin extends javax.swing.JPanel {
         ChooseIMG.setBackground(Color.decode("#00abfd")
         );
         ChooseIMG.setForeground(new java.awt.Color(255, 255, 255));
-        ChooseIMG.setText("Đổi Mật Khẩu");
+        ChooseIMG.setText("Sửa thông tin");
         ChooseIMG.setShadowColor(new java.awt.Color(3, 155, 216));
         ChooseIMG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,14 +133,14 @@ public class Form_ThongTin extends javax.swing.JPanel {
             }
         });
 
-        ChooseIMG1.setBackground(Color.decode("#00abfd")
+        Luu_btn.setBackground(Color.decode("#00abfd")
         );
-        ChooseIMG1.setForeground(new java.awt.Color(255, 255, 255));
-        ChooseIMG1.setText("Lưu");
-        ChooseIMG1.setShadowColor(new java.awt.Color(3, 155, 216));
-        ChooseIMG1.addActionListener(new java.awt.event.ActionListener() {
+        Luu_btn.setForeground(new java.awt.Color(255, 255, 255));
+        Luu_btn.setText("Lưu");
+        Luu_btn.setShadowColor(new java.awt.Color(3, 155, 216));
+        Luu_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChooseIMG1ActionPerformed(evt);
+                Luu_btnActionPerformed(evt);
             }
         });
 
@@ -161,12 +166,12 @@ public class Form_ThongTin extends javax.swing.JPanel {
                         .addComponent(jLabel9))
                     .addComponent(matk_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(imageAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(ChooseIMG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(ChooseIMG1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Luu_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -191,45 +196,52 @@ public class Form_ThongTin extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tennv_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ChooseIMG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ChooseIMG1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Luu_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ChooseIMGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseIMGActionPerformed
        mk_txt.setEditable(true);
+        if (nhanvien == null) {
+            matk_txt.setEnabled(true);
+        }
     }//GEN-LAST:event_ChooseIMGActionPerformed
 
-    private void ChooseIMG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseIMG1ActionPerformed
+    private void Luu_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Luu_btnActionPerformed
         String mk = "";
-        
+        int matk = -1;
+        boolean checked = false;
         try {
             mk = mk_txt.getText();
-            acc.setMatKhau(mk);
-            if (mk.equals("")) {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Mật khẩu không được rỗng.");
-            }else{
-                if (account_BUS.DoiMatKhau(acc)) {
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
-                    "Đổi mật khẩu thành công.");
-                    mk_txt.setEditable(false);
-                }
+            if (nhanvien == null) {
+                matk = Integer.parseInt(matk_txt.getText());
+                acc.setMaTaiKhoan(matk);
             }
+            acc.setMatKhau(mk);
+            checked = true;
         } catch (Exception e) {
              Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
                     "Dữ liệu không đúng định dạng.");
         }
         
-    }//GEN-LAST:event_ChooseIMG1ActionPerformed
+        if (checked) {
+             if (account_BUS.DoiThongTin(acc)) {
+                nhanvien = nhanVien_BUS.SelectedNhanVien(acc.getMaTaiKhoan());
+                tennv_txt.setText(nhanvien.getTenNV());
+                mk_txt.setEditable(false);
+            }
+        }
+        
+    }//GEN-LAST:event_Luu_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.UIComponents.Button ChooseIMG;
-    private GUI.UIComponents.Button ChooseIMG1;
+    private GUI.UIComponents.Button Luu_btn;
     private GUI.swing.ImageAvatar imageAvatar;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

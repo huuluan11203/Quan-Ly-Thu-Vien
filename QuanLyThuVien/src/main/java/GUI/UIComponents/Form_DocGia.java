@@ -200,6 +200,7 @@ public class Form_DocGia extends javax.swing.JPanel {
         sdt_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(sdt_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 210, 50));
 
+        ngaysinh_txt.setEditable(false);
         ngaysinh_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder1.add(ngaysinh_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 180, 50));
 

@@ -148,7 +148,6 @@
         </Component>
         <Component class="GUI.UIComponents.TextField" name="diachi_txt">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DSD"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
@@ -162,7 +161,6 @@
         </Component>
         <Component class="GUI.UIComponents.TextField" name="manxb_txt">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;&#xc2;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
@@ -187,7 +185,6 @@
         </Component>
         <Component class="GUI.UIComponents.TextField" name="tennxb_txt">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DSD"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="12" style="1"/>
             </Property>

@@ -86,6 +86,7 @@
             </Component>
             <Component class="GUI.UIComponents.TextField" name="ngaynhap_txt">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="12" style="1"/>
                 </Property>

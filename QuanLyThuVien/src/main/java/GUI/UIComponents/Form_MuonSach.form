@@ -277,6 +277,7 @@
             </Component>
             <Component class="GUI.UIComponents.TextField" name="ngaymuon_txt">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="12" style="1"/>
                 </Property>
@@ -503,6 +504,7 @@
             </Component>
             <Component class="GUI.UIComponents.TextField" name="ngaytra_txt">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="12" style="1"/>
                 </Property>
@@ -978,6 +980,7 @@
             </Component>
             <Component class="GUI.UIComponents.TextField" name="ngaytra_txt1">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="12" style="1"/>
                 </Property>

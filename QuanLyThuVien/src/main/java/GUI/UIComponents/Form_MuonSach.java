@@ -387,6 +387,7 @@ public class Form_MuonSach extends javax.swing.JPanel {
         });
         panelBorder1.add(ChonTinhTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 310, 40));
 
+        ngaymuon_txt.setEditable(false);
         ngaymuon_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         ngaymuon_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -484,6 +485,7 @@ public class Form_MuonSach extends javax.swing.JPanel {
         jLabel11.setText("Mã sách");
         panelBorder3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 174, 90, -1));
 
+        ngaytra_txt.setEditable(false);
         ngaytra_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         ngaytra_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -670,6 +672,7 @@ public class Form_MuonSach extends javax.swing.JPanel {
         jLabel21.setText("Mã phiếu mượn");
         panelBorder2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 124, 90, -1));
 
+        ngaytra_txt1.setEditable(false);
         ngaytra_txt1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         panelBorder2.add(ngaytra_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 200, 50));
 

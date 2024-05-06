@@ -15,7 +15,6 @@ import GUI.UIComponents.Form_TheLoai;
 import GUI.UIComponents.Form_TheThuVien;
 import GUI.UIComponents.Form_ThongTin;
 import GUI.UIComponents.Menu.EventMenuSelected;
-import GUI.UIComponents.Table.Table;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -63,12 +62,12 @@ public class Main extends javax.swing.JFrame {
 
         setForm(sach);
         
+        
         // Di chuyen ung dung
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
-                System.out.println(index);
                 
                 if (index == 2) {
                     setForm(sach);
@@ -127,11 +126,7 @@ public class Main extends javax.swing.JFrame {
         mainPanel.repaint();
         mainPanel.revalidate();
     }
-    
-    private void TimKiem(Table table){
-        
-    }
-
+   
     
     private void DangXuat(){
         ImageIcon icon = new FlatSVGIcon("IMG/icon/warning.svg",30,30);
@@ -236,7 +231,7 @@ public class Main extends javax.swing.JFrame {
         
         FlatLaf.registerCustomDefaultsSource("raven.toast");
         FlatLightLaf.setup();
-        UIManager.put(ToastClientProperties.TOAST_ERROR_ICON, new FlatSVGIcon("raven/toast/cs.svg"));
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Main(acc).setVisible(true);
