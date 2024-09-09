@@ -38,7 +38,7 @@ public class Screach extends javax.swing.JPanel {
                 }else{
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
-               
+                
             }
 
             @Override

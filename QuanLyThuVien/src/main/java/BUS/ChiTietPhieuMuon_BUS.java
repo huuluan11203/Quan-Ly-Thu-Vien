@@ -2,8 +2,10 @@
 package BUS;
 
 import DAO.ChiTietPhieuMuonDAO;
+import DAO.SachDAO;
 import DTO.ChiTietPhieuMuon;
 import DTO.PhieuMuon;
+import DTO.Sach;
 import GUI.UIComponents.Table.Table;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -110,6 +112,13 @@ public class ChiTietPhieuMuon_BUS {
             
             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
                     "Thêm chi tiết phiếu mượn thành công.");
+            
+            Sach s = sach_BUS.SelectedSach(pn.getMaSach());
+            if (s != null) {
+                s.setSoLuong(s.getSoLuong() - 1);
+            }
+            SachDAO.getInstance().update(s);
+            
             return true;
             
          

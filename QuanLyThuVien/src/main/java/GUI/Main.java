@@ -32,7 +32,7 @@ public class Main extends javax.swing.JFrame {
     
     private static Accounts acc;
     
-    private static Form_Sach sach;
+   private static Form_Sach sach;
     private static Form_TheLoai theloai;
     private static Form_NXB nhaxuatban;
     private static Form_TacGia tacgia;
@@ -70,6 +70,7 @@ public class Main extends javax.swing.JFrame {
             public void selected(int index) {
                 
                 if (index == 2) {
+                    sach = new Form_Sach();
                     setForm(sach);
                     screach.TimKiem(sach.getTable());
                     
@@ -92,6 +93,7 @@ public class Main extends javax.swing.JFrame {
                     screach.TimKiem(nhapsach.getTable_NCC());
                     
                 }else if (index == 7) {
+                    muonsach = new Form_MuonSach();
                     setForm(muonsach);                       
                     screach.TimKiem(muonsach.getTable_PM());
                     screach.TimKiem(muonsach.getTable_CTPM());

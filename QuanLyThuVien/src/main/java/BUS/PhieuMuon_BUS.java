@@ -1,6 +1,7 @@
 
 package BUS;
 
+import DAO.ChiTietPhieuMuonDAO;
 import DAO.PhieuMuonDAO;
 import DTO.PhieuMuon;
 import GUI.UIComponents.Table.Table;
@@ -163,6 +164,8 @@ public class PhieuMuon_BUS {
                 }               
 
                 PhieuMuonDAO.getInstance().update(pn);
+               
+                
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
                     "Lưu thành công.");
                 return true;

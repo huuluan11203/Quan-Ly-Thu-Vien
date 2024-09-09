@@ -221,7 +221,6 @@ GUI\UIComponents\Table\Table_Header.class
 GUI\UIComponents\Combobox.class
 GUI\UIComponents\DATE\EventDateChooser.class
 GUI\UIComponents\Menu\Menu.class
-GUI\UIComponents\DATE\SelectedAction.class
 BUS\LoaiSach_BUS.class
 GUI\UIComponents\Form_TheLoai$4.class
 DTO\Accounts.class
@@ -263,7 +262,6 @@ GUI\UIComponents\Form_ThongTin.class
 GUI\UIComponents\Combobox$ComboUI$6.class
 GUI\UIComponents\Form_TheLoai$3.class
 DTO\PhieuMuon.class
-GUI\UIComponents\DATE\Slider$4.class
 GUI\UIComponents\Form_MuonSach$17.class
 GUI\UIComponents\Form_MuonSach.class
 GUI\UIComponents\Menu\Menu$1.class

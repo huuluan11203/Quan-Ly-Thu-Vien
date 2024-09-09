@@ -30,7 +30,7 @@ public class TheThuVienDAO implements DAOInterface<TheThuVien>{
             //Tao doi tuong
             PreparedStatement  statement = conn.prepareStatement(sql);
             statement.setInt(1, t.getMaThe());
-            statement.setDate(3, Date.valueOf(t.getNgayBatDau()));
+            statement.setDate(2, Date.valueOf(t.getNgayBatDau()));
             statement.setDate(3, Date.valueOf(t.getNgayKetthuc()));
    
             //Thuc thi cau lenh SQL
