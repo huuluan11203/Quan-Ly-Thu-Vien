@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class SachDAO implements DAOInterface<Sach>{
@@ -275,9 +273,28 @@ public class SachDAO implements DAOInterface<Sach>{
             e.printStackTrace();
             return null;
         }
+        
     }
 
-    
+    public int TaoMaSach(){
+            try {
+                Connection conn = JDBCUltil.getConnection();
+            
+                String sql = "SELECT MAX(MaSach) FROM sach";
+            
+                PreparedStatement  statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+                
+                while (resultSet.next()) {                    
+                    return resultSet.getInt(1);
+                }
+            
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return 0;
+            
+        }
     
     
     

@@ -305,6 +305,10 @@ public class Form_Sach extends javax.swing.JPanel {
         //remove data selected
         setToDefault();
         
+        masach_txt.setText(Integer.toString(sach_BUS.TaoMaSach()));
+        masach_txt.setEditable(false);
+        masach_txt.setEnabled(false);
+        
     }//GEN-LAST:event_add_btnActionPerformed
 
     private void chooseDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDateActionPerformed

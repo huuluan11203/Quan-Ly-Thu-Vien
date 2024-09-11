@@ -141,4 +141,9 @@ public class Sach_BUS {
         return false;
     }
     
+    
+    public int TaoMaSach(){
+        return SachDAO.getInstance().TaoMaSach()+1;
+    }
+    
 }

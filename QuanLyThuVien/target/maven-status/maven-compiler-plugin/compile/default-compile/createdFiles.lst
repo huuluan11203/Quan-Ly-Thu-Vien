@@ -192,7 +192,6 @@ GUI\Login$3.class
 GUI\UIComponents\Form_MuonSach$14.class
 GUI\UIComponents\Form_ThongTin$1.class
 DAO\ChiTietPhieuMuonDAO.class
-DAO\DocGiaDAO.class
 GUI\Signup$5.class
 GUI\UIComponents\Form_DocGia$1.class
 raven\toast\Notifications$1.class
