@@ -31,8 +31,7 @@ import raven.toast.ToastClientProperties;
 public class Main extends javax.swing.JFrame {
     
     private static Accounts acc;
-    
-   private static Form_Sach sach;
+    private static Form_Sach sach;
     private static Form_TheLoai theloai;
     private static Form_NXB nhaxuatban;
     private static Form_TacGia tacgia;
@@ -41,8 +40,8 @@ public class Main extends javax.swing.JFrame {
     private static Form_DocGia docgia;
     private static Form_NhanVien nhanvien;
     private static Form_TheThuVien thethuvien;
-    private static Form_ThongTin thongtin;
-  
+    private static Form_ThongTin thongtin  ;
+
     public Main(Accounts acc) {
         Main.acc = acc;
         Notifications.getInstance().setJFrame(this);
@@ -61,16 +60,14 @@ public class Main extends javax.swing.JFrame {
         thongtin = new Form_ThongTin(Main.acc);
 
         setForm(sach);
-        
+        screach.TimKiem(sach.getTable());
         
         // Di chuyen ung dung
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {
             @Override
-            public void selected(int index) {
-                
+            public void selected(int index ){
                 if (index == 2) {
-                    sach = new Form_Sach();
                     setForm(sach);
                     screach.TimKiem(sach.getTable());
                     

@@ -39,9 +39,9 @@ public class JnaFileChooser
 	protected Mode mode;
 
 	protected String defaultFile;
-    protected String dialogTitle;
-    protected String openButtonText;
-    protected String saveButtonText;
+        protected String dialogTitle;
+        protected String openButtonText;
+        protected String saveButtonText;
 
 	
 	public JnaFileChooser() {
@@ -49,12 +49,11 @@ public class JnaFileChooser
 		multiSelectionEnabled = false;
 		mode = Mode.Files;
 		selectedFiles = new File[] { null };
-
 		defaultFile = "";
-        dialogTitle = "";
-        openButtonText = "";
-        saveButtonText = "";
-	}
+                dialogTitle = "";
+                openButtonText = "";
+                saveButtonText = "";
+        }
 
 	
 	public JnaFileChooser(File currentDirectory) {

@@ -12,9 +12,9 @@ public class JDBCUltil {
         Connection connection = null;
         try {
             //Thông số
-            String url = "jdbc:mysql://127.0.0.1:3306/qltv";
+            String url = "jdbc:mysql://localhost:3306/qltv";
             String user = "root";
-            String passwd = "1234";
+            String passwd = "";
             
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             //Tạo kết nối

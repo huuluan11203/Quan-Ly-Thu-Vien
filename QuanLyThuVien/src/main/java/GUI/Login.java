@@ -104,7 +104,6 @@ public class Login extends javax.swing.JFrame {
         username_txt.setBackground(new Color(0,0,0,0)
         );
         username_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        username_txt.setForeground(new java.awt.Color(0, 0, 0));
         username_txt.setBorder(null);
         username_txt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -120,7 +119,6 @@ public class Login extends javax.swing.JFrame {
 
         passwd_txt.setBackground(new Color(0,0,0,0));
         passwd_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        passwd_txt.setForeground(new java.awt.Color(0, 0, 0));
         passwd_txt.setBorder(null);
         passwd_txt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -130,6 +128,11 @@ public class Login extends javax.swing.JFrame {
         passwd_txt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 passwd_txtMouseClicked(evt);
+            }
+        });
+        passwd_txt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwd_txtKeyPressed(evt);
             }
         });
         Login_Panel.add(passwd_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 249, 302, 40));
@@ -215,27 +218,7 @@ public class Login extends javax.swing.JFrame {
     
     
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        String username = "";
-        String psswd = "";
-        try {
-            username = username_txt.getText();
-            psswd = String.valueOf(passwd_txt.getPassword());
-                 
-        } catch (Exception e) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
-                    "Dữ liệu không đúng định dạng.");
-        }
-        
-        if (account_BUS.Check_Login(username, psswd)) {  
-            account = account_BUS.getAccounts(username);         
-            this.setVisible(false);
-            this.dispose();
-            new Main(account).setVisible(true); 
-
-        }
-        
-
-      
+       doLogin();
     }//GEN-LAST:event_submitActionPerformed
 
     
@@ -249,9 +232,35 @@ public class Login extends javax.swing.JFrame {
             passwd_txt.requestFocus();
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void passwd_txtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwd_txtKeyPressed
+        // TODO add your handling code here:
+         int keyCode = evt.getKeyCode();
+         if(keyCode == 10) doLogin();
+    }//GEN-LAST:event_passwd_txtKeyPressed
     
    
-    
+    private void doLogin() {
+        String username = "";
+        String psswd = "";
+        try {
+            username = username_txt.getText();
+            psswd = String.valueOf(passwd_txt.getPassword());
+                 
+        } catch (Exception e) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                    "Dữ liệu không đúng định dạng.");
+        }
+        
+        
+        if (account_BUS.checkLogin(username, psswd)) {  
+            account = account_BUS.getAccounts(username);         
+            this.setVisible(false);
+            this.dispose();
+            new Main(account).setVisible(true); 
+
+        }
+    }
     
    
     public static void main(String args[]) {
