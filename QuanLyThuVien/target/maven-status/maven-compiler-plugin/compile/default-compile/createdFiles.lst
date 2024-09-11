@@ -13,6 +13,7 @@ BUS\PhieuMuon_BUS.class
 GUI\UIComponents\Form_NhapSach$18.class
 GUI\UIComponents\Popup\WindowSnapshots$1.class
 DTO\NhaCungCap.class
+GUI\Signup$11.class
 GUI\UIComponents\Form_DocGia$5.class
 DataBaseConnect\JDBCUltil.class
 GUI\UIComponents\Form_MuonSach$16.class
@@ -55,6 +56,7 @@ raven\toast\util\NotificationHolder.class
 raven\toast\ui\ToastPanelUI.class
 GUI\UIComponents\Form_NhapSach$19.class
 GUI\UIComponents\FileChooser\WindowsFileChooser.class
+Utils\PasswordUtil.class
 GUI\UIComponents\DATE\Slider$2.class
 GUI\UIComponents\Table\Table$2.class
 DTO\PhieuNhap.class
@@ -80,6 +82,7 @@ GUI\UIComponents\Form_MuonSach$4.class
 DAO\DAOInterface.class
 GUI\swing\ShadowRenderer.class
 GUI\UIComponents\Form_NhapSach$5.class
+GUI\Login$8.class
 GUI\swing\RippleEffect$Effect$1.class
 GUI\UIComponents\Form_NhanVien$2.class
 GUI\UIComponents\Form_DocGia$6.class
@@ -134,6 +137,7 @@ GUI\UIComponents\Win32\Shell32.class
 DTO\DocGia.class
 GUI\UIComponents\Button.class
 GUI\UIComponents\Form_MuonSach$3.class
+GUI\UIComponents\Form_Sach$10.class
 BUS\NhaCungCap_BUS.class
 GUI\UIComponents\Form_Sach$1.class
 GUI\swing\ImageAvatar.class
@@ -196,6 +200,7 @@ GUI\Signup$5.class
 GUI\UIComponents\Form_DocGia$1.class
 raven\toast\Notifications$1.class
 GUI\UIComponents\Form_TheLoai$6.class
+Test\Test.class
 GUI\UIComponents\Form_MuonSach$26.class
 GUI\UIComponents\Form_NhapSach$4.class
 GUI\UIComponents\Form_TheLoai$5.class
@@ -250,6 +255,7 @@ GUI\UIComponents\Form_NhapSach$3.class
 GUI\UIComponents\DATE\Slider.class
 GUI\UIComponents\Panel\MainPanel.class
 GUI\UIComponents\Exit$1.class
+GUI\UIComponents\Form_Sach$9.class
 GUI\UIComponents\Form_NXB$5.class
 GUI\UIComponents\Menu\Menu$2.class
 GUI\UIComponents\Panel\Login_Panel.class
@@ -264,6 +270,7 @@ DTO\PhieuMuon.class
 GUI\UIComponents\Form_MuonSach$17.class
 GUI\UIComponents\Form_MuonSach.class
 GUI\UIComponents\Menu\Menu$1.class
+GUI\UIComponents\Form_Sach$8.class
 GUI\Signup$1.class
 GUI\UIComponents\Form_NhanVien$9.class
 GUI\UIComponents\Form_NhapSach$2.class

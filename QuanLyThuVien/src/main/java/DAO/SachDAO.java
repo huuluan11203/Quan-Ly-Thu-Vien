@@ -276,6 +276,7 @@ public class SachDAO implements DAOInterface<Sach>{
         
     }
 
+
     public int TaoMaSach(){
             try {
                 Connection conn = JDBCUltil.getConnection();
@@ -297,6 +298,75 @@ public class SachDAO implements DAOInterface<Sach>{
         }
     
     
+
+    // Phan trang
+    public ArrayList<Sach> selectWithPaginate(int page, int perPage) {
+        int limit = perPage;
+        int offset = (page - 1) * perPage;
+        
+        ArrayList<Sach> sach_ArrayList = new ArrayList<>();
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM sach ORDER BY MaSach LIMIT " + limit + " OFFSET " + offset ;
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {                
+                Sach sach = new Sach();
+                sach.setMaSach(resultSet.getInt("MaSach"));
+                sach.setTenSach(resultSet.getString("TenSach"));
+                sach.setMaLoaiSach(resultSet.getInt("MaLoaiSach"));
+                sach.setMaNXB(resultSet.getInt("MaNXB")); 
+                sach.setMaTacGia(resultSet.getInt("MaTacGia"));
+                sach.setNamXuatBan(resultSet.getDate("NamXuatBan").toLocalDate());
+                sach.setSoLuong(resultSet.getInt("SoLuong"));
+                sach.setImgSach(resultSet.getString("HinhAnh"));
+                sach_ArrayList.add(sach);
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return sach_ArrayList;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    
+    public int getMaxIDBook() {
+        int rs = -1;
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT MAX(MaSach) AS maxID FROM sach";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {                
+                rs = (resultSet.getInt("maxID"));
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return rs;
+        }
+    }
+
     
     
     

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import DataBaseConnect.JDBCUltil;
+import Utils.PasswordUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,10 +17,37 @@ public class AccountsDAO implements DAOInterface<Accounts> {
         return new AccountsDAO();
     }
     
-
+    public boolean login(String username, String password) {
+        boolean rs = false;
+        try {
+             //Tao ket noi
+            Connection conn = JDBCUltil.getConnection();
+        
+            String sql = "SELECT * FROM accounts WHERE TenDN=?";
+        
+            //Tao doi tuong
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            
+            // Thực thi câu lệnh SQL và lấy kết quả
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {          
+                if(PasswordUtil.checkPassword(password, resultSet.getString("MatKhau")))
+                    rs = true; // Có tài khoản khớp
+            }    
+            //Ngat ket noi
+            JDBCUltil.CloseConnection(conn);
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+    
+    
     @Override
     public int insert(Accounts t) {
-        
+        int rs = 0;
         try {
              //Tao ket noi
             Connection conn = JDBCUltil.getConnection();
@@ -31,11 +59,11 @@ public class AccountsDAO implements DAOInterface<Accounts> {
             PreparedStatement  statement = conn.prepareStatement(sql);
             statement.setInt(1, t.getMaTaiKhoan());
             statement.setString(2, t.getTenDangNhap());
-            statement.setString(3, t.getMatKhau());
+            statement.setString(3, PasswordUtil.hashPassword(t.getMatKhau()));
             statement.setInt(4, t.getAccess());
             
             //Thuc thi cau lenh SQL
-            statement.executeUpdate();
+            rs = statement.executeUpdate();
    
             //Ngat ket noi
             JDBCUltil.CloseConnection(conn);
@@ -43,7 +71,7 @@ public class AccountsDAO implements DAOInterface<Accounts> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return rs;
     }
     
    

@@ -5,6 +5,7 @@ import BUS.LoaiSach_BUS;
 import BUS.NhaXuatBan_BUS;
 import BUS.Sach_BUS;
 import BUS.TacGia_BUS;
+import DAO.SachDAO;
 import DTO.Sach;
 import GUI.Main;
 import GUI.UIComponents.DATE.DateChooser;
@@ -16,8 +17,17 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import raven.toast.Notifications;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.ListSelectionModel;
 
 
@@ -33,9 +43,12 @@ public class Form_Sach extends javax.swing.JPanel {
     private boolean isChoosed;
     private int RowSelected = -1;
     
+    private int isSelectedIMG;
+    
     JnaFileChooser ch;
-    ImageIcon defaultIMG =new FlatSVGIcon("IMG/sach/default.svg",150,180);
+    ImageIcon defaultIMG =new FlatSVGIcon("IMG/Sach/default.svg",150,180);
 
+    JFileChooser fileChooser;
     
     
     public Form_Sach() {
@@ -146,6 +159,12 @@ public class Form_Sach extends javax.swing.JPanel {
 
         setBackground(new Color(0,0,0,0)
         );
+
+        jScrollPane.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jScrollPaneMouseWheelMoved(evt);
+            }
+        });
 
         table_Sach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -287,23 +306,76 @@ public class Form_Sach extends javax.swing.JPanel {
 
 
     private void ChooseIMGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseIMGActionPerformed
-        ch = new JnaFileChooser();
-        isChoosed = ch.showOpenDialog(main);
-        if (isChoosed) {
-            String imagePath = ch.getSelectedFile().toString();
-            String path = imagePath.substring(imagePath.lastIndexOf("\\"  ) + 1);
-            if (path.equals("default.svg")) {
-                IMG.setIcon(defaultIMG);
-            }else{
-                IMG.setIcon(new HighRE().setIconJPG(path, "Sach"));
-            }
-        }
+//        ch = new JnaFileChooser();
+//        isChoosed = ch.showOpenDialog(main);
+//        if (isChoosed) {
+//            String imagePath = ch.getSelectedFile().toString();
+//            String path = imagePath.substring(imagePath.lastIndexOf("\\"  ) + 1);
+//            
+//            System.out.println("check: " + path  + " ---- "  + imagePath  );
+//            if (path.equals("default.svg")) {
+//                IMG.setIcon(defaultIMG);
+//            }else{
+//                IMG.setIcon(new HighRE().setIconJPG(path, "Sach"));
+//            }
+//        }
+                fileChooser = new JFileChooser();
+                
+               // Chỉ cho phép chọn các file ảnh
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                    @Override
+                    public boolean accept(File f) {
+                        return f.isDirectory() || f.getName().toLowerCase().endsWith(".png") 
+                            || f.getName().toLowerCase().endsWith(".jpg")
+                            || f.getName().toLowerCase().endsWith(".jpeg");
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "Image Files (*.png, *.jpg, *.jpeg)";
+                    }
+                });
+
+                // Mở hộp thoại chọn file
+                isSelectedIMG = fileChooser.showOpenDialog(main);
+
+                // Nếu người dùng chọn ảnh
+                if (isSelectedIMG == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String fileName = selectedFile.getName();
+
+                    // Lấy đường dẫn thư mục "images" trong resources
+                    URL resourceUrl = getClass().getClassLoader().getResource("IMG/Sach");
+                    if (resourceUrl == null) {
+                        System.err.println("Thư mục images không tồn tại trong resources!");
+                        return;
+                    }
+                    
+                    File destinationFolder = new File(resourceUrl.getPath());
+
+                    // Tạo file đích trong thư mục resources
+                    File destinationFile = new File(destinationFolder, fileName);
+
+                    try {
+                        // Sao chép file ảnh vào thư mục trong resources
+                        Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                        // Hiển thị ảnh lên JLabel
+                        ImageIcon imageIcon = new ImageIcon(destinationFile.getAbsolutePath());
+                        IMG.setIcon(imageIcon);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
     }//GEN-LAST:event_ChooseIMGActionPerformed
 
     private void add_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btnActionPerformed
         
         //remove data selected
         setToDefault();
+        masach_txt.setText(sach_BUS.getNewID()+"");
+        masach_txt.setEditable(false);
+        masach_txt.setEnabled(false);
         
         masach_txt.setText(Integer.toString(sach_BUS.TaoMaSach()));
         masach_txt.setEditable(false);
@@ -366,16 +438,26 @@ public class Form_Sach extends javax.swing.JPanel {
                 tensach = tensach_txt.getText();
                 date = sach_BUS.FormatDateSQL(namxuatban_txt.getText());
                 ghichu = "";
-                if (isChoosed) {
-                    String path = ch.getSelectedFile().toString();
-                    hinhanh = path.substring(path.lastIndexOf("\\"  ) + 1);
-                    isChoosed = false;
-                }else {
-                    if (sach == null) {
-                        hinhanh = "default.svg";
-                    }else{
-                        hinhanh = sach.getImgSach();
-                    }
+                
+//                if (isChoosed) {
+//                    String path = ch.getSelectedFile().toString();
+//                    hinhanh = path.substring(path.lastIndexOf("\\"  ) + 1);
+//                    isChoosed = false;
+//                }else {
+//                    if (sach == null) {
+//                        hinhanh = "default.svg";
+//                    }else{
+//                        hinhanh = sach.getImgSach();
+//                    }
+//                }
+                
+                
+                if (isSelectedIMG == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String fileName = selectedFile.getName();
+                    hinhanh = fileName; 
+                    System.out.println("check filename: " + fileName);
+                    isSelectedIMG = -99;
                 }
                 
                 checked = true;
@@ -430,6 +512,38 @@ public class Form_Sach extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_save_btnActionPerformed
+
+    // load sách phân trang
+    private boolean isRollToEnd = false; // Cờ để kiểm soát xem có đang ở cuối không
+    
+    private void jScrollPaneMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPaneMouseWheelMoved
+        // TODO add your handling code here:
+        jScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    JScrollBar scrollBar = jScrollPane.getVerticalScrollBar();
+                    int scrollValue = scrollBar.getValue();
+                    int scrollMax = scrollBar.getMaximum();
+                    int scrollVisibleAmount = scrollBar.getVisibleAmount();
+
+                    // Kiểm tra nếu thanh cuộn đã ở cuối
+                    if (scrollValue + scrollVisibleAmount == scrollMax) {
+                        if (!isRollToEnd) {
+                            // Chỉ in ra nếu chưa đạt đến cuối trước đó
+//                            System.out.println("Check roll to the end");
+                            
+                          
+                            isRollToEnd = true; // Đặt cờ là đã ở cuối
+                        }
+                    } else {
+                        // Khi không ở cuối, đặt lại cờ để có thể kiểm tra lần sau
+                        isRollToEnd = false;
+                    }
+                }
+            }
+       });
+    }//GEN-LAST:event_jScrollPaneMouseWheelMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

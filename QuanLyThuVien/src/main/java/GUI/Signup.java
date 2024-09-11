@@ -79,18 +79,15 @@ public class Signup extends javax.swing.JFrame {
         jLabel5.setText("_______________________________________________________________");
         login_Panel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 160, 302, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("_______________________________________________________________");
         login_Panel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 300, 302, -1));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("_______________________________________________________________");
         login_Panel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 230, 302, -1));
 
         username_txt.setBackground(new Color(0,0,0,0)
         );
         username_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        username_txt.setForeground(new java.awt.Color(0, 0, 0));
         username_txt.setBorder(null);
         username_txt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -106,7 +103,6 @@ public class Signup extends javax.swing.JFrame {
 
         passwd_txt.setBackground(new Color(0,0,0,0));
         passwd_txt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        passwd_txt.setForeground(new java.awt.Color(0, 0, 0));
         passwd_txt.setBorder(null);
         passwd_txt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -122,7 +118,6 @@ public class Signup extends javax.swing.JFrame {
 
         confirm_psswd.setBackground(new Color(0,0,0,0));
         confirm_psswd.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        confirm_psswd.setForeground(new java.awt.Color(0, 0, 0));
         confirm_psswd.setBorder(null);
         confirm_psswd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -132,6 +127,11 @@ public class Signup extends javax.swing.JFrame {
         confirm_psswd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 confirm_psswdMouseClicked(evt);
+            }
+        });
+        confirm_psswd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                confirm_psswdKeyPressed(evt);
             }
         });
         login_Panel1.add(confirm_psswd, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 280, 302, 40));
@@ -233,25 +233,7 @@ public class Signup extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
          
-        String username = "";
-        String psswd = "";
-        String confirm = "";
-        try {
-                username = username_txt.getText();
-                psswd = String.valueOf(passwd_txt.getPassword());
-                confirm = String.valueOf(confirm_psswd.getPassword());
-                
-                
-            } catch (NullPointerException e) {
-               Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
-                    "Dữ liệu không đúng định dạng.");
-            }
-         
-        if (account_BUS.Check_Signup(username, psswd, confirm)) {
-           dispose();
-           setVisible(false);
-           new Login().setVisible(true);
-        }
+        doRegister();
     }//GEN-LAST:event_submitActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -268,7 +250,31 @@ public class Signup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-   
+    private void confirm_psswdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirm_psswdKeyPressed
+        // TODO add your handling code here:
+        int keyCode = evt.getKeyCode();
+        if(keyCode == 10) doRegister();
+    }//GEN-LAST:event_confirm_psswdKeyPressed
+
+    private void doRegister() {
+        String username = "";
+        String psswd = "";
+        String confirm = "";
+        try {
+                username = username_txt.getText();
+                psswd = String.valueOf(passwd_txt.getPassword());
+                confirm = String.valueOf(confirm_psswd.getPassword());
+            } catch (NullPointerException e) {
+               Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                    "Dữ liệu không đúng định dạng.");
+            }
+         
+        if (account_BUS.register(username, psswd, confirm)) {
+           dispose();
+           setVisible(false);
+           new Login().setVisible(true);
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
