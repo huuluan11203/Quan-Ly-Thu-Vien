@@ -19,6 +19,36 @@ public class Account_BUS {
        ACC_ArrayList = AccountsDAO.getInstance().selectAll();
     }
     
+    public boolean checkLogin(String username, String passwd){
+        if (username.trim().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+            "Tài khoản không được để trống.");
+            
+            return false;
+        }
+        
+        if (passwd.trim().equals("")) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+            "Mật khẩu không được để trống.");
+            
+            return false;
+        }
+        
+        
+        if (AccountsDAO.getInstance().login(username, passwd)){
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER,
+                    "Đăng nhập thành công.");
+            
+            return true;
+        }
+       
+        
+        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+            "Sai tài khoản hoặc mật khẩu.");
+        return false;
+            
+    }
+    
     public boolean Check_Login(String username, String passwd){
 
         ACC_ArrayList = AccountsDAO.getInstance().selectAll();
@@ -44,6 +74,8 @@ public class Account_BUS {
                 
             }
         }
+        
+        
         Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
             "Sai tài khoản hoặc mật khẩu.");
         return false;
@@ -76,9 +108,8 @@ public class Account_BUS {
         return false;
     }
     
-    public boolean Check_Signup(String username, String psswd, String confirm){
+    public boolean register(String username, String psswd, String confirm){
         
-        ACC_ArrayList = AccountsDAO.getInstance().selectAll();
         
         if (username.equals("")) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
@@ -111,10 +142,19 @@ public class Account_BUS {
         }
         
         Accounts acc = new Accounts(username, psswd);
-        AccountsDAO.getInstance().insert(acc);
-        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT,
+        
+        if(AccountsDAO.getInstance().insert(acc) == 1) {
+            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT,
             "Tạo tài khoản thành công.");
-        return true;
+            
+            return true;
+        }
+        
+        // something wrongs
+        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                "Vui lòng khởi động lại ứng dụng.");
+        return false;
+        
     }
     
     

@@ -24,6 +24,11 @@ public class Sach_BUS {
     public ArrayList<Sach> getSach(){
         return sach;
     }
+
+    public static void setSach(ArrayList<Sach> sach) {
+        Sach_BUS.sach = sach;
+    }
+    
     
         
     public String getTenNXB(int maNxb){
@@ -140,5 +145,13 @@ public class Sach_BUS {
         }
         return false;
     }
-    
+    public int getNewID() {
+        int max = -1;
+        for (Sach sach1 : sach) {
+            if(sach1.getMaSach() > max ) {
+                max = sach1.getMaSach();
+            }
+        }
+        return max + 1;
+    }
 }
