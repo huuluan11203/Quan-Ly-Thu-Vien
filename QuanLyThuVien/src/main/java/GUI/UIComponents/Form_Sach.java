@@ -362,6 +362,7 @@ public class Form_Sach extends javax.swing.JPanel {
 
                         // Hiển thị ảnh lên JLabel
                         ImageIcon imageIcon = new ImageIcon(destinationFile.getAbsolutePath());
+                        
                         IMG.setIcon(imageIcon);
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -374,12 +375,7 @@ public class Form_Sach extends javax.swing.JPanel {
         //remove data selected
         setToDefault();
         masach_txt.setText(sach_BUS.getNewID()+"");
-        masach_txt.setEditable(false);
-        masach_txt.setEnabled(false);
-        
-        masach_txt.setText(Integer.toString(sach_BUS.TaoMaSach()));
-        masach_txt.setEditable(false);
-        masach_txt.setEnabled(false);
+
         
     }//GEN-LAST:event_add_btnActionPerformed
 
@@ -460,6 +456,8 @@ public class Form_Sach extends javax.swing.JPanel {
                     isSelectedIMG = -99;
                 }
                 
+
+
                 checked = true;
                 
                 } catch (Exception e) {
@@ -494,10 +492,17 @@ public class Form_Sach extends javax.swing.JPanel {
 
                 table_Sach.updateRow(RowSelected, new Object[]{masach, tensach, ChonNXB.getSelectedItem().toString(), 
                     namxuatban_txt.getText(), ChonTG.getSelectedItem().toString(), soluong});
-                if (hinhanh.equals("default.svg")) {
+                if (hinhanh.equals("")) {
                     IMG.setIcon(defaultIMG);
                 }else{
-                    IMG.setIcon(new HighRE().setIconJPG(sachUpdate.getImgSach(), "Sach"));
+                    //IMG.setIcon(new HighRE().setIconJPG(sachUpdate.getImgSach(), "Sach"));
+                    if (isSelectedIMG == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String fileName = selectedFile.getName();
+                    hinhanh = fileName; 
+                    System.out.println("check filename: " + fileName);
+                    isSelectedIMG = -99;
+                }
                 }
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
                     "Lưu thành công.");

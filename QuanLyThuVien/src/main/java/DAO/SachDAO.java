@@ -277,27 +277,6 @@ public class SachDAO implements DAOInterface<Sach>{
     }
 
 
-    public int TaoMaSach(){
-            try {
-                Connection conn = JDBCUltil.getConnection();
-            
-                String sql = "SELECT MAX(MaSach) FROM sach";
-            
-                PreparedStatement  statement = conn.prepareStatement(sql);
-                ResultSet resultSet = statement.executeQuery();
-                
-                while (resultSet.next()) {                    
-                    return resultSet.getInt(1);
-                }
-            
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return 0;
-            
-        }
-    
-    
 
     // Phan trang
     public ArrayList<Sach> selectWithPaginate(int page, int perPage) {

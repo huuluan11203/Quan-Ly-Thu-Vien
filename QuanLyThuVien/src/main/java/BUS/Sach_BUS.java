@@ -147,10 +147,6 @@ public class Sach_BUS {
     }
     
     
-    public int TaoMaSach(){
-        return SachDAO.getInstance().TaoMaSach()+1;
-    }
-
     public int getNewID() {
         int max = -1;
         for (Sach sach1 : sach) {
