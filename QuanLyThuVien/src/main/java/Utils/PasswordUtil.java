@@ -17,4 +17,10 @@ public class PasswordUtil {
      public static boolean checkPassword(String plainPassword, String hashedPassword) {
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
+
+     public static void main(String[] args) {
+         System.out.println(PasswordUtil.hashPassword("2"));
+        
+    }
+
 }
