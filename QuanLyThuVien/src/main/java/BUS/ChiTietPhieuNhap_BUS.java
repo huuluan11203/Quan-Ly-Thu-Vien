@@ -18,6 +18,7 @@ public class ChiTietPhieuNhap_BUS {
         ctpn_ArrayList = ChiTietPhieuNhapDAO.getInstance().selectAll();
     }
     
+    
     public boolean XoaCTPN(ChiTietPhieuNhap ctpn){
         if (ctpn != null) {
             ChiTietPhieuNhapDAO.getInstance().delete(ctpn);
@@ -138,5 +139,9 @@ public class ChiTietPhieuNhap_BUS {
         return false;
     }
     
+    
+    public int getNewID(){
+        return ChiTietPhieuNhapDAO.getInstance().getMaxID_CTPN()+1;
+    }
      
 }

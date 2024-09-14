@@ -51,6 +51,10 @@ public class Form_ThongTin extends javax.swing.JPanel {
         
     }
     
+    public NhanVien getNhanVien(){
+        return nhanvien;
+    }
+    
     private void initEvent(){
         if (nhanvien.getHinhAnh().equals("default.svg")) {
             imageAvatar.setIcon(defaultIMG);

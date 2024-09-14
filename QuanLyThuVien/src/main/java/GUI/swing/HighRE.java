@@ -28,8 +28,8 @@ public class HighRE {
         URL urlIcon = getClass().getClassLoader().getResource("IMG/"+ dir + "/" + path);
         System.out.println("hceck:" + urlIcon);
         Image originalImage = new ImageIcon(urlIcon).getImage();
-        int targetWidth = 150; // Set the desired JLabel width
-        int targetHeight = 180; // Set the desired JLabel height
+        int targetWidth = 190; // Set the desired JLabel width
+        int targetHeight = 250; // Set the desired JLabel height
         Image scaledImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
         return icon;

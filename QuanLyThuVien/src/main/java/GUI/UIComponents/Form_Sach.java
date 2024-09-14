@@ -55,13 +55,14 @@ public class Form_Sach extends javax.swing.JPanel {
         initComponents();
         
         sach_BUS = new Sach_BUS();
+//        sach_BUS.getSachWithPaginate(currPage, items);
+        
         tacGia_BUS = new TacGia_BUS();
         nhaXuatBan_BUS = new NhaXuatBan_BUS();
         loaiSach_BUS = new LoaiSach_BUS();
         
         jScrollPane.setVerticalScrollBar(new ScrollBar());
         jScrollPane.getVerticalScrollBar().setBackground(Color.WHITE);
-        
         sach_BUS.RenderSach(table_Sach);
         table_Sach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         nhaXuatBan_BUS.ChonNXB(ChonNXB);
@@ -256,6 +257,11 @@ public class Form_Sach extends javax.swing.JPanel {
         panelBorder1.add(jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 72, -1, -1));
 
         ChonTG.setLabeText("Tác giả");
+        ChonTG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChonTGActionPerformed(evt);
+            }
+        });
         panelBorder1.add(ChonTG, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 116, 340, 40));
 
         ChonTheLoai.setLabeText("Loại sách");
@@ -520,6 +526,10 @@ public class Form_Sach extends javax.swing.JPanel {
 
     // load sách phân trang
     private boolean isRollToEnd = false; // Cờ để kiểm soát xem có đang ở cuối không
+    private int currPage = 1;
+    private int items = 15;
+    
+    
     
     private void jScrollPaneMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPaneMouseWheelMoved
         // TODO add your handling code here:
@@ -536,9 +546,13 @@ public class Form_Sach extends javax.swing.JPanel {
                     if (scrollValue + scrollVisibleAmount == scrollMax) {
                         if (!isRollToEnd) {
                             // Chỉ in ra nếu chưa đạt đến cuối trước đó
-//                            System.out.println("Check roll to the end");
+                            System.out.println("Check roll to the end");
+//                            currPage++;
                             
+//                            sach_BUS.getSachWithPaginate(currPage, items);
+//                            sach_BUS.RenderSach(table_Sach);
                           
+                            
                             isRollToEnd = true; // Đặt cờ là đã ở cuối
                         }
                     } else {
@@ -549,6 +563,10 @@ public class Form_Sach extends javax.swing.JPanel {
             }
        });
     }//GEN-LAST:event_jScrollPaneMouseWheelMoved
+
+    private void ChonTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChonTGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChonTGActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

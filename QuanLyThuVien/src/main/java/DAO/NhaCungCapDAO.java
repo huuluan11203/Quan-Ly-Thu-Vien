@@ -204,4 +204,40 @@ public class NhaCungCapDAO implements DAOInterface<NhaCungCap>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public NhaCungCap selectByID(String ten) {
+        
+        NhaCungCap ncc = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM nhacungcap WHERE TenNCC = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setString(1, ten);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int mancc = resultSet.getInt("MaNCC");
+                String tenncc = resultSet.getString("TenNCC");
+
+                
+                ncc = new NhaCungCap(mancc, tenncc);
+                
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return ncc;
+    }
+
+    
 }

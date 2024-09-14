@@ -24,6 +24,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Panel\MainPanel.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\ui\ToastNotificationPanel.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\DATE\DateChooser.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_NXB.java
+D:\QLTV\QuanLyThuVien\src\main\java\BUS\CTPNBUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\TheThuVien_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\ChiTietPhieuNhap_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\swing\RippleEffect.java
@@ -71,6 +72,7 @@ D:\QLTV\QuanLyThuVien\src\main\java\GUI\UIComponents\Form_ThongTin.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\PhieuPhat.java
 D:\QLTV\QuanLyThuVien\src\main\java\raven\toast\ui\ToastPanelUI.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\swing\ImageAvatar.java
+D:\QLTV\QuanLyThuVien\src\main\java\DTO\CTPNDTO.java
 D:\QLTV\QuanLyThuVien\src\main\java\BUS\Sach_BUS.java
 D:\QLTV\QuanLyThuVien\src\main\java\DTO\Sach.java
 D:\QLTV\QuanLyThuVien\src\main\java\GUI\Main.java

@@ -34,7 +34,7 @@ public class NhaCungCap {
 
     @Override
     public String toString() {
-        return "NhaCungCap{" + "maNCC=" + maNCC + ", tenNCC=" + tenNCC + '}';
+        return tenNCC;
     }
    
    

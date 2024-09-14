@@ -3,6 +3,7 @@ package BUS;
 
 import DAO.NhaCungCapDAO;
 import DTO.NhaCungCap;
+import GUI.UIComponents.Combobox;
 import GUI.UIComponents.Table.Table;
 import java.util.ArrayList;
 import raven.toast.Notifications;
@@ -94,4 +95,21 @@ public class NhaCungCap_BUS {
         return false;
     }
     
+        public void ChonNCC(Combobox cb){
+        for (NhaCungCap nxb : NCC){
+            cb.addItem(nxb);
+        }
+    }
+        
+        
+    public int getMaNCC(String Ten){
+        NhaCungCap ncc = NhaCungCapDAO.getInsttance().selectByID(Ten);
+        if (ncc != null) {
+            return ncc.getMaNCC();
+        }
+        
+        return 0;
+    }
+     
+        
 }

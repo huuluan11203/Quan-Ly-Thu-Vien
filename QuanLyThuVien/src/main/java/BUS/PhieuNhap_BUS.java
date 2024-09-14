@@ -170,4 +170,8 @@ public class PhieuNhap_BUS {
         return false;
     }
     
+    public int getNewID(){
+        return PhieuNhapDAO.getInstance().getMaxID()+1;
+    }
+    
 }

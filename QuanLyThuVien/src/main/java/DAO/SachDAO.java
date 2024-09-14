@@ -310,6 +310,10 @@ public class SachDAO implements DAOInterface<Sach>{
             statement.close();
             resultSet.close();
             
+            for (Sach sach : sach_ArrayList) {
+                System.out.println(sach.toString());
+            }
+            
             return sach_ArrayList;
             
         } catch (SQLException e) {

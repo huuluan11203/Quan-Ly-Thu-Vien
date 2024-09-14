@@ -111,7 +111,7 @@ public class Sach {
 
     @Override
     public String toString() {
-        return "Sach{" + "maSach=" + maSach + ", tenSach=" + tenSach + ", maLoaiSach=" + maLoaiSach + ", soLuong=" + soLuong + '}';
+        return "Sach{" + "maSach=" + maSach + ", tenSach=" + tenSach  +  imgSach + ", soLuong=" + soLuong + '}';
     }
     
     

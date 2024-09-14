@@ -1,24 +1,47 @@
 
 package GUI.UIComponents;
 
+import BUS.CTPNBUS;
 import BUS.ChiTietPhieuNhap_BUS;
+import BUS.LoaiSach_BUS;
 import BUS.NhaCungCap_BUS;
+import BUS.NhaXuatBan_BUS;
 import BUS.NhanVien_BUS;
 import BUS.PhieuNhap_BUS;
 import BUS.Sach_BUS;
+import BUS.TacGia_BUS;
+import DTO.Accounts;
+import DTO.CTPNDTO;
 import DTO.ChiTietPhieuNhap;
 import DTO.NhaCungCap;
+import DTO.NhanVien;
 import DTO.PhieuNhap;
+import DTO.Sach;
 import GUI.UIComponents.DATE.DateChooser;
+import GUI.UIComponents.FileChooser.JnaFileChooser;
 import GUI.UIComponents.Table.Table;
 import java.awt.Color;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFileChooser;
+
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 
 
@@ -26,35 +49,74 @@ public class Form_NhapSach extends javax.swing.JPanel {
     
     CardLayout card;
     private PhieuNhap_BUS phieuNhap_BUS;
+    private Sach sach;
     private NhaCungCap_BUS nhaCungCap_BUS;
     private NhanVien_BUS nhanVien_BUS;
     private Sach_BUS sach_BUS;
     private ChiTietPhieuNhap_BUS chiTietPhieuNhap_BUS;
     
+    private CTPNBUS ctpnBUS;
+    private CTPNDTO ctpnDTO;
+    
     private static PhieuNhap phieunhap;
     private static ChiTietPhieuNhap ctpn;
     private static NhaCungCap nhacungcap;
+    private static Accounts acc;
+    private static NhanVien nv;
+
+    private LoaiSach_BUS loaiSach_BUS;
+    private NhaXuatBan_BUS nhaXuatBan_BUS;
+    private TacGia_BUS tacGia_BUS;
+    
+    private DateChooser date = new DateChooser();
+    
     
     private int RowSelected = -1;
+    private JFileChooser fileChooser;
+    private ImageIcon defaultIMG =new FlatSVGIcon("IMG/Sach/default.svg",190,250);
+    private int isSelectedIMG;
     
-    public Form_NhapSach() {
+    private ArrayList<Sach> arrayListSach = null;
+    private int id;
+   
+    
+    
+    
+    
+    public Form_NhapSach(Accounts accounts) {
+        Form_NhapSach.acc = accounts;
         
         
         initComponents();
         
+        
         nhanVien_BUS = new NhanVien_BUS();
         sach_BUS = new Sach_BUS();
         chiTietPhieuNhap_BUS = new ChiTietPhieuNhap_BUS();
+        loaiSach_BUS = new LoaiSach_BUS();
+        nhaXuatBan_BUS = new NhaXuatBan_BUS();
+        tacGia_BUS = new TacGia_BUS();
         phieuNhap_BUS = new PhieuNhap_BUS();
         nhaCungCap_BUS = new NhaCungCap_BUS();
+        nv = nhanVien_BUS.SelectedNhanVien(acc.getMaTaiKhoan());
+        
+        nhaCungCap_BUS.ChonNCC(ChonNCC);
+        id = sach_BUS.getNewID();
+        
+        
+        
+        ChonNCC.setSelectedIndex(-1);
         
         card = (CardLayout) this.getLayout();
         card.show(Form_NhapSach.this,"main");
+       
         
         phieuNhap_BUS.RenderPhieuNhap(table_PhieuNhap);
         table_PhieuNhap.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        chiTietPhieuNhap_BUS.RenderCTPN(table_ChiTiet);
-        table_ChiTiet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+//        chiTietPhieuNhap_BUS.RenderCTPN(table_ChiTiet);
+//        table_ChiTiet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         nhaCungCap_BUS.RenderNCC(table_NCC);
         table_NCC.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -69,18 +131,22 @@ public class Form_NhapSach extends javax.swing.JPanel {
                     if (SwingUtilities.isLeftMouseButton(evt)) {
                         
                         RowSelected = table_PhieuNhap.getSelectedRow();
+                        
+
                         phieunhap = phieuNhap_BUS.SelectedPhieuNhap(Integer.parseInt(table_PhieuNhap.getModel().
                                 getValueAt(RowSelected, 0).toString()));
                         
-                        mancc_txt.setText(Integer.toString(phieunhap.getMaNCC()));
-                        tenncc_txt.setText(nhaCungCap_BUS.getTenNCC(phieunhap.getMaNCC()));
                         
+
                         manv_txt.setText(Integer.toString(phieunhap.getMaNV()));
-                        tennv_txt.setText(nhanVien_BUS.getTenNV(phieunhap.getMaNV()));
-                        
+                        manv_txt.setEnabled(false);
                         maphieunhap_txt.setText(Integer.toString(phieunhap.getMaPhieuNhap()));
                         maphieunhap_txt.setEnabled(false);
                         ngaynhap_txt.setText(phieuNhap_BUS.FormatDate(phieunhap.getNgayNhap()));
+                        ngaynhap_txt.setEnabled(false);
+                        ChonNCC.setItemCombobox(nhaCungCap_BUS.getTenNCC(phieunhap.getMaNCC()));
+                        chooseDate.setEnabled(false);
+                        ChonNCC.setEnabled(false);
                          
                     }
                     
@@ -153,10 +219,6 @@ public class Form_NhapSach extends javax.swing.JPanel {
         table_ChiTiet.clearSelection();
         
         //PN
-        mancc_txt.setText("");
-        tenncc_txt.setText("");
-        manv_txt.setText("");
-        tennv_txt.setText("");
         maphieunhap_txt.setText("");
         ngaynhap_txt.setText("");
         maphieunhap_txt.setEnabled(true);
@@ -183,13 +245,31 @@ public class Form_NhapSach extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ThemSachMoi = new javax.swing.JDialog();
+        panelBorder3 = new GUI.UIComponents.Panel.PanelBorder();
+        jLabel4 = new javax.swing.JLabel();
+        ts_txt = new GUI.UIComponents.TextField();
+        ChonTG = new GUI.UIComponents.Combobox();
+        ChonNXB = new GUI.UIComponents.Combobox();
+        jlabel = new javax.swing.JLabel();
+        sl_txt = new GUI.UIComponents.TextField();
+        chooseDate1 = new GUI.UIComponents.Button();
+        ChonTheLoai = new GUI.UIComponents.Combobox();
+        nxb_txt = new GUI.UIComponents.TextField();
+        jlabell1 = new javax.swing.JLabel();
+        IMG = new javax.swing.JLabel();
+        ChooseIMG = new GUI.UIComponents.Button();
+        xong_btn = new GUI.UIComponents.Button();
+        nhaptiep_btn = new GUI.UIComponents.Button();
+        ms_txt = new GUI.UIComponents.TextField();
+        jLabel18 = new javax.swing.JLabel();
+        ThemSachCu = new javax.swing.JDialog();
+        KiemTra = new javax.swing.JDialog();
         main = new javax.swing.JPanel();
         panelBorder1 = new GUI.UIComponents.Panel.PanelBorder();
-        tenncc_txt = new GUI.UIComponents.TextField();
         manv_txt = new GUI.UIComponents.TextField();
         ngaynhap_txt = new GUI.UIComponents.TextField();
         maphieunhap_txt = new GUI.UIComponents.TextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         delete_btn_PN = new GUI.UIComponents.Button();
@@ -199,10 +279,11 @@ public class Form_NhapSach extends javax.swing.JPanel {
         export_PN = new GUI.UIComponents.Button();
         chitiet_btn = new GUI.UIComponents.Button();
         nhacungcap_btn = new GUI.UIComponents.Button();
-        mancc_txt = new GUI.UIComponents.TextField();
-        tennv_txt = new GUI.UIComponents.TextField();
         jLabel13 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        ChonNCC = new GUI.UIComponents.Combobox();
+        nhapsachmoi_btn = new GUI.UIComponents.Button();
+        kiemtra_btn = new GUI.UIComponents.Button();
+        nhapsachcu_btn = new GUI.UIComponents.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_PhieuNhap = new GUI.UIComponents.Table.Table();
         chitiet = new javax.swing.JPanel();
@@ -238,6 +319,146 @@ public class Form_NhapSach extends javax.swing.JPanel {
         add_btn2 = new GUI.UIComponents.Button();
         delete_btn2 = new GUI.UIComponents.Button();
 
+        ThemSachMoi.setMinimumSize(new java.awt.Dimension(600, 500));
+        ThemSachMoi.setModal(true);
+        ThemSachMoi.setPreferredSize(new java.awt.Dimension(600, 500));
+        ThemSachMoi.setResizable(false);
+
+        panelBorder3.setBackground(Color.decode("#f2f2f2"));
+        panelBorder3.setPreferredSize(new java.awt.Dimension(600, 450));
+        panelBorder3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(150, 150, 150));
+        jLabel4.setText("Tên sách");
+        panelBorder3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 70, -1));
+
+        ts_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        panelBorder3.add(ts_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 250, 50));
+
+        ChonTG.setLabeText("Tác giả");
+        ChonTG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChonTGActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(ChonTG, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 330, 40));
+
+        ChonNXB.setLabeText("Nhà xuất bản");
+        panelBorder3.add(ChonNXB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 330, 40));
+
+        jlabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jlabel.setForeground(new java.awt.Color(150, 150, 150));
+        jlabel.setText("Năm xuất bản");
+        panelBorder3.add(jlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        sl_txt.setDisabledTextColor(new java.awt.Color(80, 80, 80));
+        sl_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        panelBorder3.add(sl_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 250, 50));
+
+        chooseDate1.setBackground(new Color(0,0,0,0));
+        chooseDate1.setIcon(new FlatSVGIcon("IMG/icon/calendar.svg",30,30));
+        chooseDate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseDate1ActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(chooseDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 30, 30));
+
+        ChonTheLoai.setLabeText("Loại sách");
+        panelBorder3.add(ChonTheLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 330, 40));
+
+        nxb_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        panelBorder3.add(nxb_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 220, 50));
+
+        jlabell1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jlabell1.setForeground(new java.awt.Color(150, 150, 150));
+        jlabell1.setText("Số lượng");
+        panelBorder3.add(jlabell1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+
+        IMG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        IMG.setIcon(new FlatSVGIcon("IMG/sach/default.svg",190,250
+        ));
+        panelBorder3.add(IMG, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 190, 250));
+
+        ChooseIMG.setBackground(Color.decode("#00abfd")
+        );
+        ChooseIMG.setForeground(new java.awt.Color(255, 255, 255));
+        ChooseIMG.setText("Chọn ảnh");
+        ChooseIMG.setShadowColor(new java.awt.Color(3, 155, 216));
+        ChooseIMG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChooseIMGActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(ChooseIMG, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 190, 30));
+
+        xong_btn.setBackground(Color.decode("#00abfd"));
+        xong_btn.setForeground(new java.awt.Color(255, 255, 255));
+        xong_btn.setText("Xong");
+        xong_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xong_btnActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(xong_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, 110, -1));
+
+        nhaptiep_btn.setBackground(Color.decode("#00abfd"));
+        nhaptiep_btn.setForeground(new java.awt.Color(255, 255, 255));
+        nhaptiep_btn.setText("Nhập Tiếp");
+        nhaptiep_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhaptiep_btnActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(nhaptiep_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 110, -1));
+
+        ms_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        ms_txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ms_txtActionPerformed(evt);
+            }
+        });
+        panelBorder3.add(ms_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 250, 50));
+
+        jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(150, 150, 150));
+        jLabel18.setText("Mã sách");
+        panelBorder3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
+
+        javax.swing.GroupLayout ThemSachMoiLayout = new javax.swing.GroupLayout(ThemSachMoi.getContentPane());
+        ThemSachMoi.getContentPane().setLayout(ThemSachMoiLayout);
+        ThemSachMoiLayout.setHorizontalGroup(
+            ThemSachMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        ThemSachMoiLayout.setVerticalGroup(
+            ThemSachMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ThemSachCuLayout = new javax.swing.GroupLayout(ThemSachCu.getContentPane());
+        ThemSachCu.getContentPane().setLayout(ThemSachCuLayout);
+        ThemSachCuLayout.setHorizontalGroup(
+            ThemSachCuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ThemSachCuLayout.setVerticalGroup(
+            ThemSachCuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout KiemTraLayout = new javax.swing.GroupLayout(KiemTra.getContentPane());
+        KiemTra.getContentPane().setLayout(KiemTraLayout);
+        KiemTraLayout.setHorizontalGroup(
+            KiemTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        KiemTraLayout.setVerticalGroup(
+            KiemTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setLayout(new java.awt.CardLayout());
 
         main.setBackground(new Color(0,0,0,0));
@@ -245,31 +466,20 @@ public class Form_NhapSach extends javax.swing.JPanel {
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tenncc_txt.setEditable(false);
-        tenncc_txt.setEnabled(false);
-        tenncc_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tenncc_txt.setHint("Tên nhà cung cấp");
-        panelBorder1.add(tenncc_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 160, 353, 50));
-
         manv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(manv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 240, 50));
+        panelBorder1.add(manv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 90, 50));
 
         ngaynhap_txt.setEditable(false);
         ngaynhap_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(ngaynhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 210, 50));
+        panelBorder1.add(ngaynhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 230, 50));
 
         maphieunhap_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(maphieunhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 240, 50));
-
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel5.setText("Mã nhà cung cấp");
-        panelBorder1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 123, 100, -1));
+        panelBorder1.add(maphieunhap_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 90, 50));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(150, 150, 150));
         jLabel6.setText("Ngày nhập");
-        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 74, 70, -1));
+        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 74, 70, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(150, 150, 150));
@@ -307,7 +517,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
                 chooseDateActionPerformed(evt);
             }
         });
-        panelBorder1.add(chooseDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 30, 30));
+        panelBorder1.add(chooseDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 70, 30, 30));
 
         export_PN.setBackground(new Color(0,0,0,0)
         );
@@ -335,23 +545,43 @@ public class Form_NhapSach extends javax.swing.JPanel {
         });
         panelBorder1.add(nhacungcap_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
-        mancc_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(mancc_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 250, 50));
-
-        tennv_txt.setEditable(false);
-        tennv_txt.setEnabled(false);
-        tennv_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder1.add(tennv_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 240, 50));
-
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(150, 150, 150));
         jLabel13.setText("Mã nhân viên");
-        panelBorder1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 123, 80, 20));
+        panelBorder1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 74, 80, 20));
 
-        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel16.setText("Tên nhân viên");
-        panelBorder1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 172, 80, 20));
+        ChonNCC.setLabeText("Nhà cung cấp");
+        panelBorder1.add(ChonNCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 400, 40));
+
+        nhapsachmoi_btn.setBackground(Color.decode("#00abfd"));
+        nhapsachmoi_btn.setForeground(new java.awt.Color(255, 255, 255));
+        nhapsachmoi_btn.setText("Nhập Sách Mới");
+        nhapsachmoi_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhapsachmoi_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(nhapsachmoi_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 130, -1));
+
+        kiemtra_btn.setBackground(Color.decode("#00abfd"));
+        kiemtra_btn.setForeground(new java.awt.Color(255, 255, 255));
+        kiemtra_btn.setText("Chi Tiết  Nhập");
+        kiemtra_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kiemtra_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(kiemtra_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 110, -1));
+
+        nhapsachcu_btn.setBackground(Color.decode("#00abfd"));
+        nhapsachcu_btn.setForeground(new java.awt.Color(255, 255, 255));
+        nhapsachcu_btn.setText("Chọn Sách");
+        nhapsachcu_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhapsachcu_btnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(nhapsachcu_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 130, -1));
 
         table_PhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -382,9 +612,9 @@ public class Form_NhapSach extends javax.swing.JPanel {
         mainLayout.setVerticalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(main, "card2");
@@ -396,11 +626,11 @@ public class Form_NhapSach extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Chi Tiết Phiếu", "Mã Phiếu Nhập", "Mã Sách", "Giá", "Số Lượng"
+                "Mã Chi Tiết Phiếu", "Mã Sách", "Giá", "Số Lượng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -635,6 +865,22 @@ public class Form_NhapSach extends javax.swing.JPanel {
 
     private void add_btn_PNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btn_PNActionPerformed
         setToDefault();
+        date.setTextRefernce(ngaynhap_txt);
+        date.toDay();
+        maphieunhap_txt.setText(Integer.toString(phieuNhap_BUS.getNewID()));
+        
+        
+        
+        manv_txt.setText(Integer.toString(nv.getMaNV()));
+        manv_txt.setEnabled(false);
+        manv_txt.setEditable(false);
+        
+        ngaynhap_txt.setEnabled(true);
+        chooseDate.setEnabled(true);
+        ChonNCC.setEnabled(true);
+        ChonNCC.setSelectedIndex(-1);
+
+        
     }//GEN-LAST:event_add_btn_PNActionPerformed
 
     private void save_btn_PNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btn_PNActionPerformed
@@ -647,7 +893,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
         try {
             checked = true;
             mapn = Integer.parseInt(maphieunhap_txt.getText());
-            mancc = Integer.parseInt(mancc_txt.getText());
+            mancc = nhaCungCap_BUS.getMaNCC(ChonNCC.getSelectedItem().toString());
             manv = Integer.parseInt(manv_txt.getText());
             date = phieuNhap_BUS.FormatDateSQL(ngaynhap_txt.getText());
             
@@ -660,61 +906,84 @@ public class Form_NhapSach extends javax.swing.JPanel {
         if (checked){  
             if (RowSelected == -1 && phieunhap == null) {
                 
-                phieunhap = new PhieuNhap(mapn, mancc, manv, date);
-
-                if (phieuNhap_BUS.ThemPhieuNhap(phieunhap)) {
-                    table_PhieuNhap.addRow(new Object[] {mapn, mancc, manv,phieuNhap_BUS.FormatDate(date)});
-                }
-
-            phieunhap = null;
-
-            }else { 
-                PhieuNhap pnUpdate =  new PhieuNhap(mapn, mancc, manv, date);
-                if (phieuNhap_BUS.SuaPhieuNhap(pnUpdate, phieunhap)) {
-
-                    table_PhieuNhap.updateRow(RowSelected, new Object[] {mapn, mancc, manv, phieuNhap_BUS.FormatDate(date)});                   
-                    phieunhap = pnUpdate;
-                    pnUpdate = null;
+                if (arrayListSach != null) {
                     
+                    phieunhap = new PhieuNhap(mapn, mancc, manv, date);
+                    
+                    if (phieuNhap_BUS.ThemPhieuNhap(phieunhap)) {
+
+                        for (Sach sach1 : arrayListSach) {
+                            System.out.println(sach_BUS.ThemSach(sach1));
+                        }
+
+                        table_PhieuNhap.addRow(new Object[]{mapn, mancc, manv, phieuNhap_BUS.FormatDate(date)});
+
+                    }
+                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT,
+                            "Thêm phiếu nhập thành công.");
+                    arrayListSach = null;
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
+                            "Vui lòng thêm sách.");
                 }
-            }
-        }
+
+                
+                
+
+        }   }
     }//GEN-LAST:event_save_btn_PNActionPerformed
 
     private void chooseDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDateActionPerformed
-        DateChooser date = new DateChooser();
+        //DateChooser date = new DateChooser();
         date.setTextRefernce(ngaynhap_txt);
         date.showPopup(chooseDate, - 186, -50);
     }//GEN-LAST:event_chooseDateActionPerformed
 
+    
+    private void ThemChiTietPhieuNhap(PhieuNhap pn){
+        int maCTPN_PN = pn.getMaPhieuNhap();
+        int maCTPN = chiTietPhieuNhap_BUS.getNewID();
+//        double giaCTPN = pn.;
+//        int sl_CTPN = ;
+//        int ms_CTPN = ;
+//        
+       
+        
+        
+    }
+    
+    
+    
     private void chitiet_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chitiet_btnActionPerformed
         
+        
+      
         if (RowSelected != -1 && phieunhap != null) {      
             try {
 
                 int mapn = phieunhap.getMaPhieuNhap();
-                RowSelected = table_ChiTiet.find(mapn, 1);
                 
-                if (RowSelected != -1) {
-                    table_ChiTiet.setRowSelectionInterval(RowSelected, RowSelected);
+                ctpnBUS = new CTPNBUS(mapn);
+                
+                ctpnBUS.ReRenderCTPN(table_ChiTiet);
+                
+                table_ChiTiet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                table_ChiTiet.setRowSelectionInterval(0, 0);
+
+                ctpnDTO = ctpnBUS.SelectedCTPN(Integer.parseInt(table_ChiTiet.getModel().
+                        getValueAt(0, 0).toString()));
+                
+                
+                maCTPN_txt.setText(Integer.toString(ctpnDTO.getMaCTPN()));    
+                maCTPN_txt.setEnabled(false);
+                maphieunhap_CT_txt.setText(Integer.toString(phieunhap.getMaPhieuNhap()));
+                masach_txt.setText(Integer.toString(ctpnDTO.getMaSach()));
+                tensach_txt.setText(sach_BUS.getTenSach(ctpnDTO.getMaSach()));
+                tensach_txt.setEnabled(false);
+                gia_txt.setText(Double.toString(ctpnDTO.getGia()));
+                soluong_txt.setText(Integer.toString(ctpnDTO.getSoLuong()));
+                card.next(this);
                     
-                    ctpn = chiTietPhieuNhap_BUS.SelectedCTPN(Integer.parseInt(table_ChiTiet.getModel().
-                    getValueAt(RowSelected, 0).toString()));
-
-                    maCTPN_txt.setText(Integer.toString(ctpn.getMaCTPN()));
-                    maCTPN_txt.setEnabled(false);
-
-                    maphieunhap_CT_txt.setText(Integer.toString(ctpn.getMaPhieuNhap()));
-                    masach_txt.setText(Integer.toString(ctpn.getMaSach()));
-                    tensach_txt.setText(sach_BUS.getTenSach(ctpn.getMaSach()));
-                    tensach_txt.setEnabled(false);
-
-                    gia_txt.setText(Integer.toString(ctpn.getGia()));
-                    soluong_txt.setText(Integer.toString(ctpn.getSoLuong()));
-
-                    card.next(this);
-                }
-
             } catch (NullPointerException e) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
                         "Chi tiết phiếu nhập không tồn tại.");
@@ -888,8 +1157,253 @@ public class Form_NhapSach extends javax.swing.JPanel {
         
     }//GEN-LAST:event_nhacungcap_btnActionPerformed
 
+    
+    private void KiemTraSach(){ 
+        
+        
+        
+        boolean checked = false;
+        
+        int soluong = -1;
+        int masach = -1;
+        int maloaisach = -1;
+        int manxb = -1;
+        int matacgia = -1;
+        
+        String tensach = "";
+        LocalDate date = LocalDate.now();
+        
+        String hinhanh = "default.svg";
+        
+            try {
+
+                soluong = Integer.parseInt(sl_txt.getText());
+                masach = Integer.parseInt(ms_txt.getText());
+                maloaisach = loaiSach_BUS.getMaloaiSach(ChonTheLoai.getSelectedItem().toString());
+                manxb = nhaXuatBan_BUS.getManhaxuatban(ChonNXB.getSelectedItem().toString());
+                matacgia = tacGia_BUS.getMatacgia(ChonTG.getSelectedItem().toString());
+                tensach = ts_txt.getText();
+                date = sach_BUS.FormatDateSQL(nxb_txt.getText());
+               
+                
+//                if (isChoosed) {
+//                    String path = ch.getSelectedFile().toString();
+//                    hinhanh = path.substring(path.lastIndexOf("\\"  ) + 1);
+//                    isChoosed = false;
+//                }else {
+//                    if (sach == null) {
+//                        hinhanh = "default.svg";
+//                    }else{
+//                        hinhanh = sach.getImgSach();
+//                    }
+//                }
+                
+                
+                if (isSelectedIMG == JFileChooser.APPROVE_OPTION) {
+                    
+                    fileChooser = new JFileChooser();
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String fileName=null;
+                    if (selectedFile != null) { fileName= selectedFile.getName();
+                        hinhanh = fileName; 
+                    } 
+                    System.out.println("check filename: " + fileName);
+                    isSelectedIMG = -99;
+                }
+                
+
+
+                checked = true;
+                
+                } catch (Exception e) {
+                    checked = false;
+                    
+                    System.out.println(e);
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
+                    "Dữ liệu không đúng định dạng.");
+                }
+        if (checked){  
+           
+            sach = new Sach(masach, tensach, hinhanh, maloaisach, manxb, matacgia, date, soluong, "");
+            if (sach != null) {
+
+                arrayListSach.add(sach);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
+                    "Thêm sách thành công.");
+                setDefault();
+
+            }
+        
+        }
+        
+    }                    
+        
+        
+        
+        
+    
+
+
+
+
+
+
+    private void nhapsachmoi_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhapsachmoi_btnActionPerformed
+        
+        arrayListSach = new ArrayList<Sach>();
+        Dimension panelSize = this.getSize();
+        
+        Dimension dialogSize = ThemSachMoi.getSize();
+        Point panelLocation = this.getLocationOnScreen();
+
+        int x = panelLocation.x + (panelSize.width - dialogSize.width) / 2;
+        int y = panelLocation.y + (panelSize.height - dialogSize.height) / 2;
+        ThemSachMoi.setLocation(x, y);        
+        
+        setDefault();
+ 
+        ThemSachMoi.setVisible(true);
+    }//GEN-LAST:event_nhapsachmoi_btnActionPerformed
+
+    private void setDefault(){
+        nhaXuatBan_BUS.ChonNXB(ChonNXB);
+        tacGia_BUS.ChonTG(ChonTG);
+        loaiSach_BUS.ChonLoaiSach(ChonTheLoai);
+        
+        ChonNXB.setSelectedIndex(-1);
+        ChonTG.setSelectedIndex(-1);
+        ChonTheLoai.setSelectedIndex(-1);
+        
+        ms_txt.setText(Integer.toString(sach_BUS.getNewID()));
+        
+        ts_txt.setText("");
+        sl_txt.setText("");
+        nxb_txt.setText("");
+        IMG.setIcon(defaultIMG);
+    }
+    
+    
+    private void kiemtra_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kiemtra_btnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kiemtra_btnActionPerformed
+
+    private void nhapsachcu_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhapsachcu_btnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nhapsachcu_btnActionPerformed
+
+    private void ChonTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChonTGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChonTGActionPerformed
+
+    private void chooseDate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDate1ActionPerformed
+        DateChooser date = new DateChooser();
+        date.setTextRefernce(nxb_txt);
+        date.showPopup(chooseDate1, - 186, -6);
+
+    }//GEN-LAST:event_chooseDate1ActionPerformed
+
+    private void ChooseIMGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseIMGActionPerformed
+        //        ch = new JnaFileChooser();
+        //        isChoosed = ch.showOpenDialog(main);
+        //        if (isChoosed) {
+            //            String imagePath = ch.getSelectedFile().toString();
+            //            String path = imagePath.substring(imagePath.lastIndexOf("\\"  ) + 1);
+                //
+                //            System.out.println("check: " + path  + " ---- "  + imagePath  );
+                //            if (path.equals("default.svg")) {
+                    //                IMG.setIcon(defaultIMG);
+                    //            }else{
+                    //                IMG.setIcon(new HighRE().setIconJPG(path, "Sach"));
+                    //            }
+                //        }
+            fileChooser = new JFileChooser();
+
+            // Chỉ cho phép chọn các file ảnh
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return f.isDirectory() || f.getName().toLowerCase().endsWith(".png")
+                    || f.getName().toLowerCase().endsWith(".jpg")
+                    || f.getName().toLowerCase().endsWith(".jpeg");
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Image Files (*.png, *.jpg, *.jpeg)";
+                }
+            });
+
+            // Mở hộp thoại chọn file
+            isSelectedIMG = fileChooser.showOpenDialog(main);
+
+            // Nếu người dùng chọn ảnh
+            if (isSelectedIMG == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                String fileName = selectedFile.getName();
+
+                // Lấy đường dẫn thư mục "images" trong resources
+                URL resourceUrl = getClass().getClassLoader().getResource("IMG/Sach");
+                if (resourceUrl == null) {
+                    System.err.println("Thư mục images không tồn tại trong resources!");
+                    return;
+                }
+
+                File destinationFolder = new File(resourceUrl.getPath());
+
+                // Tạo file đích trong thư mục resources
+                File destinationFile = new File(destinationFolder, fileName);
+
+                try {
+                    // Sao chép file ảnh vào thư mục trong resources
+                   
+                    Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                    // Hiển thị ảnh lên JLabel
+                    ImageIcon imageIcon = new ImageIcon(destinationFile.getAbsolutePath());
+
+                    IMG.setIcon(imageIcon);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+    }//GEN-LAST:event_ChooseIMGActionPerformed
+
+    private void xong_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xong_btnActionPerformed
+
+        KiemTraSach();
+
+        ThemSachMoi.dispose();
+    }//GEN-LAST:event_xong_btnActionPerformed
+
+    private void nhaptiep_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaptiep_btnActionPerformed
+        KiemTraSach();
+        ChonNXB.setSelectedIndex(-1);
+        ChonTG.setSelectedIndex(-1);
+        ChonTheLoai.setSelectedIndex(-1);
+        id++;
+        ms_txt.setText(Integer.toString(id));
+        
+        ts_txt.setText("");
+        sl_txt.setText("");
+        nxb_txt.setText("");
+        IMG.setIcon(defaultIMG);
+    }//GEN-LAST:event_nhaptiep_btnActionPerformed
+
+    private void ms_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ms_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ms_txtActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private GUI.UIComponents.Combobox ChonNCC;
+    private GUI.UIComponents.Combobox ChonNXB;
+    private GUI.UIComponents.Combobox ChonTG;
+    private GUI.UIComponents.Combobox ChonTheLoai;
+    private GUI.UIComponents.Button ChooseIMG;
+    private javax.swing.JLabel IMG;
+    private javax.swing.JDialog KiemTra;
+    private javax.swing.JDialog ThemSachCu;
+    private javax.swing.JDialog ThemSachMoi;
     private GUI.UIComponents.Button add_btn2;
     private GUI.UIComponents.Button add_btn_CT;
     private GUI.UIComponents.Button add_btn_PN;
@@ -898,6 +1412,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private javax.swing.JPanel chitiet;
     private GUI.UIComponents.Button chitiet_btn;
     private GUI.UIComponents.Button chooseDate;
+    private GUI.UIComponents.Button chooseDate1;
     private GUI.UIComponents.Button delete_btn2;
     private GUI.UIComponents.Button delete_btn_CT;
     private GUI.UIComponents.Button delete_btn_PN;
@@ -910,8 +1425,8 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -919,30 +1434,39 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel jlabel;
+    private javax.swing.JLabel jlabell1;
+    private GUI.UIComponents.Button kiemtra_btn;
     private GUI.UIComponents.TextField maCTPN_txt;
     private javax.swing.JPanel main;
     private GUI.UIComponents.TextField mancc_NCC_txt;
-    private GUI.UIComponents.TextField mancc_txt;
     private GUI.UIComponents.TextField manv_txt;
     private GUI.UIComponents.TextField maphieunhap_CT_txt;
     private GUI.UIComponents.TextField maphieunhap_txt;
     private GUI.UIComponents.TextField masach_txt;
+    private GUI.UIComponents.TextField ms_txt;
     private javax.swing.JPanel ncc;
     private GUI.UIComponents.TextField ngaynhap_txt;
     private GUI.UIComponents.Button nhacungcap_btn;
+    private GUI.UIComponents.Button nhapsachcu_btn;
+    private GUI.UIComponents.Button nhapsachmoi_btn;
+    private GUI.UIComponents.Button nhaptiep_btn;
+    private GUI.UIComponents.TextField nxb_txt;
     private GUI.UIComponents.Panel.PanelBorder panelBorder1;
     private GUI.UIComponents.Panel.PanelBorder panelBorder2;
+    private GUI.UIComponents.Panel.PanelBorder panelBorder3;
     private GUI.UIComponents.Panel.PanelBorder panelBorder4;
     private GUI.UIComponents.Button save_btn2;
     private GUI.UIComponents.Button save_btn_CT;
     private GUI.UIComponents.Button save_btn_PN;
+    private GUI.UIComponents.TextField sl_txt;
     private GUI.UIComponents.TextField soluong_txt;
     private GUI.UIComponents.Table.Table table_ChiTiet;
     private GUI.UIComponents.Table.Table table_NCC;
     private GUI.UIComponents.Table.Table table_PhieuNhap;
     private GUI.UIComponents.TextField tennc_NCC_txt;
-    private GUI.UIComponents.TextField tenncc_txt;
-    private GUI.UIComponents.TextField tennv_txt;
     private GUI.UIComponents.TextField tensach_txt;
+    private GUI.UIComponents.TextField ts_txt;
+    private GUI.UIComponents.Button xong_btn;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,7 @@
 
 package DAO;
 
+import DTO.CTPNDTO;
 import DTO.ChiTietPhieuNhap;
 import DataBaseConnect.JDBCUltil;
 import java.sql.Connection;
@@ -216,4 +217,99 @@ public class ChiTietPhieuNhapDAO implements DAOInterface<ChiTietPhieuNhap>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+     public ArrayList<CTPNDTO> selectByPN(int mapn) {
+        
+        ArrayList<CTPNDTO> rs = new ArrayList<>();
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM chitietphieunhap WHERE MaPN=?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setInt(1, mapn);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {
+                CTPNDTO ct = new CTPNDTO();
+                ct.setMaCTPN(resultSet.getInt("MaCTPN"));
+                ct.setMaSach(resultSet.getInt("MaSach"));
+                ct.setSoLuong(resultSet.getInt("SoLuong"));
+                ct.setGia(resultSet.getDouble("Gia"));
+                
+                rs.add(ct);
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+      public CTPNDTO selectOne(int ma) {
+         CTPNDTO ctpn = null;
+        try {
+           
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT * FROM chitietphieunhap WHERE MaCTPN = ?";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            statement.setInt(1, ma);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                int mactpn = resultSet.getInt("MaCTPN");
+                int ms = resultSet.getInt("MaSach");
+                int gia = resultSet.getInt("Gia");
+                int sl = resultSet.getInt("SoLuong");
+                
+                ctpn = new CTPNDTO(mactpn,ms, gia, sl);
+                
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return ctpn;
+    }
+      
+       public int getMaxID_CTPN() {
+        int rs = -1;
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT MAX(MaCTPN) AS maxID FROM chitietphieunhap";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {                
+                rs = (resultSet.getInt("maxID"));
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return rs;
+        }
+    }
+
 }

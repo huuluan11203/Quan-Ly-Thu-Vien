@@ -214,4 +214,32 @@ public class PhieuNhapDAO implements DAOInterface<PhieuNhap>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    
+    public int getMaxID(){
+        int rs = -1;
+        try {
+            Connection conn = JDBCUltil.getConnection();
+            
+            String sql = "SELECT MAX(MaPN) AS maxID FROM phieunhap";
+            
+            PreparedStatement  statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {                
+                rs = (resultSet.getInt("maxID"));
+            }
+            
+            JDBCUltil.CloseConnection(conn);
+            statement.close();
+            resultSet.close();
+            
+            return rs;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return rs;
+        }
+    }
+    
 }

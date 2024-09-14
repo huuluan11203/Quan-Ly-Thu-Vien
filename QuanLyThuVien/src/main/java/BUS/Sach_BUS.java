@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Sach_BUS {
     
-    private static ArrayList<Sach> sach;
+    private static ArrayList<Sach> sach = new ArrayList<Sach>();
     
     public Sach_BUS() {
         sach = SachDAO.getInstance().selectAll();
@@ -77,6 +77,14 @@ public class Sach_BUS {
             return true;
         }
         return false;
+    }
+    
+    public ArrayList<Sach> getSachWithPaginate(int page, int items){
+        ArrayList<Sach> ds = SachDAO.getInstance().selectWithPaginate(page, items);
+        for (Sach d : ds) {
+            sach.add(d);
+        }
+        return SachDAO.getInstance().selectWithPaginate(page, items);
     }
     
     public void RenderSach(Table table){
@@ -148,13 +156,7 @@ public class Sach_BUS {
     
     
     public int getNewID() {
-        int max = -1;
-        for (Sach sach1 : sach) {
-            if(sach1.getMaSach() > max ) {
-                max = sach1.getMaSach();
-            }
-        }
-        return max + 1;
+        return SachDAO.getInstance().getMaxIDBook()+1;
     }
 
 }

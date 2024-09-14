@@ -52,7 +52,7 @@ public class Main extends javax.swing.JFrame {
         theloai = new Form_TheLoai();
         nhaxuatban = new Form_NXB();
         tacgia = new Form_TacGia();
-        nhapsach = new Form_NhapSach();
+        nhapsach = new Form_NhapSach(Main.acc);
         muonsach = new Form_MuonSach();
         docgia = new Form_DocGia();
         nhanvien = new Form_NhanVien();
@@ -68,7 +68,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index ){
                 if (index == 2) {
-                    setForm(sach);
+                    setForm(new Form_Sach());
                     screach.TimKiem(sach.getTable());
                     
                 }else if (index == 3) {
