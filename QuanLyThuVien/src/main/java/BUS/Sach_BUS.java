@@ -101,7 +101,7 @@ public class Sach_BUS {
             
         }
     }
-
+    
     public boolean ThemSach(Sach s){
         
         if (s != null) {
@@ -154,6 +154,9 @@ public class Sach_BUS {
         return false;
     }
     
+    public ArrayList<Sach> getAll(){
+        return SachDAO.getInstance().selectAll();
+    }
     
     public int getNewID() {
         return SachDAO.getInstance().getMaxIDBook()+1;

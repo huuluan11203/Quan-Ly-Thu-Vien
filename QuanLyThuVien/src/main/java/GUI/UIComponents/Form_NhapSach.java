@@ -75,6 +75,7 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private JFileChooser fileChooser;
     private ImageIcon defaultIMG =new FlatSVGIcon("IMG/Sach/default.svg",190,250);
     private int isSelectedIMG;
+    ArrayList<Integer> masachList;
     
     private ArrayList<Sach> arrayListSach = null;
     private int id;
@@ -114,8 +115,8 @@ public class Form_NhapSach extends javax.swing.JPanel {
         phieuNhap_BUS.RenderPhieuNhap(table_PhieuNhap);
         table_PhieuNhap.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-//        chiTietPhieuNhap_BUS.RenderCTPN(table_ChiTiet);
-//        table_ChiTiet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+          chiTietPhieuNhap_BUS.RenderCTPN(table_ChiTiet);
+        table_ChiTiet.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         nhaCungCap_BUS.RenderNCC(table_NCC);
         table_NCC.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -163,17 +164,12 @@ public class Form_NhapSach extends javax.swing.JPanel {
                         ctpn = chiTietPhieuNhap_BUS.SelectedCTPN(Integer.parseInt(table_ChiTiet.getModel().
                                 getValueAt(RowSelected, 0).toString()));
 
-                        maCTPN_txt.setText(Integer.toString(ctpn.getMaCTPN()));
-                        maCTPN_txt.setEnabled(false);
-                        
-                        maphieunhap_CT_txt.setText(Integer.toString(ctpn.getMaPhieuNhap()));
-                        masach_txt.setText(Integer.toString(ctpn.getMaSach()));
                         tensach_txt.setText(sach_BUS.getTenSach(ctpn.getMaSach()));
                         tensach_txt.setEnabled(false);
                         
-                        gia_txt.setText(Integer.toString(ctpn.getGia()));
-                        soluong_txt.setText(Integer.toString(ctpn.getSoLuong()));
-                         
+                        
+                        tentacgia_txt.setText(tacGia_BUS.getTTG(sach_BUS.SelectedSach(ctpn.getMaSach()).getMaTacGia()));
+                        tentacgia_txt.setEnabled(false);
                     }
                     
                 }
@@ -224,13 +220,9 @@ public class Form_NhapSach extends javax.swing.JPanel {
         maphieunhap_txt.setEnabled(true);
         
         //CTPN
-        maCTPN_txt.setText("");
-        masach_txt.setText("");
-        gia_txt.setText("");
-        soluong_txt.setText("");
-        maphieunhap_CT_txt.setText("");
+
         tensach_txt.setText("");
-        maCTPN_txt.setEnabled(true);
+        tentacgia_txt.setText("");
         
         //NCC
         mancc_NCC_txt.setText("");
@@ -264,6 +256,15 @@ public class Form_NhapSach extends javax.swing.JPanel {
         ms_txt = new GUI.UIComponents.TextField();
         jLabel18 = new javax.swing.JLabel();
         ThemSachCu = new javax.swing.JDialog();
+        panelBorder5 = new GUI.UIComponents.Panel.PanelBorder();
+        screach1 = new GUI.UIComponents.Screach();
+        table_Sach = new GUI.UIComponents.Table.Table();
+        jScrollPane = new javax.swing.JScrollPane();
+        tb_sach = new GUI.UIComponents.Table.Table();
+        xong_btn1 = new GUI.UIComponents.Button();
+        sl_ctpn_txt = new GUI.UIComponents.TextField();
+        jLabel3 = new javax.swing.JLabel();
+        luu_btn = new GUI.UIComponents.Button();
         KiemTra = new javax.swing.JDialog();
         main = new javax.swing.JPanel();
         panelBorder1 = new GUI.UIComponents.Panel.PanelBorder();
@@ -291,21 +292,8 @@ public class Form_NhapSach extends javax.swing.JPanel {
         table_ChiTiet = new GUI.UIComponents.Table.Table();
         panelBorder2 = new GUI.UIComponents.Panel.PanelBorder();
         back = new GUI.UIComponents.Button();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        maphieunhap_CT_txt = new GUI.UIComponents.TextField();
-        gia_txt = new GUI.UIComponents.TextField();
-        soluong_txt = new GUI.UIComponents.TextField();
         tensach_txt = new GUI.UIComponents.TextField();
-        maCTPN_txt = new GUI.UIComponents.TextField();
-        save_btn_CT = new GUI.UIComponents.Button();
-        add_btn_CT = new GUI.UIComponents.Button();
-        delete_btn_CT = new GUI.UIComponents.Button();
-        export_CT = new GUI.UIComponents.Button();
-        masach_txt = new GUI.UIComponents.TextField();
+        tentacgia_txt = new GUI.UIComponents.TextField();
         ncc = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table_NCC = new GUI.UIComponents.Table.Table();
@@ -437,15 +425,153 @@ public class Form_NhapSach extends javax.swing.JPanel {
             .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
+        ThemSachCu.setMinimumSize(new java.awt.Dimension(600, 500));
+        ThemSachCu.setModal(true);
+        ThemSachCu.setPreferredSize(new java.awt.Dimension(600, 500));
+        ThemSachCu.setResizable(false);
+
+        panelBorder5.setBackground(Color.decode("#f2f2f2"));
+        panelBorder5.setPreferredSize(new java.awt.Dimension(600, 500));
+
+        table_Sach.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sách", "Tên sách", "Nhà xuất bản", "Năm xuất bản", "Tác giả", "SL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table_Sach.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+
+        jScrollPane.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jScrollPaneMouseWheelMoved(evt);
+            }
+        });
+
+        tb_sach.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sách", "Tên sách", "Tác giả", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tb_sach.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jScrollPane.setViewportView(tb_sach);
+        if (tb_sach.getColumnModel().getColumnCount() > 0) {
+            tb_sach.getColumnModel().getColumn(0).setResizable(false);
+            tb_sach.getColumnModel().getColumn(0).setPreferredWidth(10);
+        }
+
+        xong_btn1.setBackground(Color.decode("#00abfd"));
+        xong_btn1.setForeground(new java.awt.Color(255, 255, 255));
+        xong_btn1.setText("Xong");
+        xong_btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xong_btn1ActionPerformed(evt);
+            }
+        });
+
+        sl_ctpn_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        sl_ctpn_txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sl_ctpn_txtActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(150, 150, 150));
+        jLabel3.setText("Số lượng");
+
+        luu_btn.setBackground(Color.decode("#00abfd"));
+        luu_btn.setForeground(new java.awt.Color(255, 255, 255));
+        luu_btn.setText("Lưu");
+        luu_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                luu_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBorder5Layout = new javax.swing.GroupLayout(panelBorder5);
+        panelBorder5.setLayout(panelBorder5Layout);
+        panelBorder5Layout.setHorizontalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sl_ctpn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(luu_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(xong_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelBorder5Layout.createSequentialGroup()
+                .addGroup(panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(screach1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBorder5Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(table_Sach, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 61, Short.MAX_VALUE)))
+        );
+        panelBorder5Layout.setVerticalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder5Layout.createSequentialGroup()
+                .addComponent(screach1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(xong_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sl_ctpn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(luu_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBorder5Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(table_Sach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 250, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout ThemSachCuLayout = new javax.swing.GroupLayout(ThemSachCu.getContentPane());
         ThemSachCu.getContentPane().setLayout(ThemSachCuLayout);
         ThemSachCuLayout.setHorizontalGroup(
             ThemSachCuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(ThemSachCuLayout.createSequentialGroup()
+                .addComponent(panelBorder5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         ThemSachCuLayout.setVerticalGroup(
             ThemSachCuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(panelBorder5, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout KiemTraLayout = new javax.swing.GroupLayout(KiemTra.getContentPane());
@@ -626,11 +752,11 @@ public class Form_NhapSach extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Chi Tiết Phiếu", "Mã Sách", "Giá", "Số Lượng"
+                "Mã chi tiết phiếu", "Mã sách", "Tên sách", "Tác giả", "Số lượng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -655,79 +781,11 @@ public class Form_NhapSach extends javax.swing.JPanel {
         });
         panelBorder2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel8.setText("Mã sách");
-        panelBorder2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 174, 90, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel9.setText("Giá");
-        panelBorder2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 74, 60, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel10.setText("Mã chi tiết phiếu ");
-        panelBorder2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 72, 100, 20));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel11.setText("Số lượng");
-        panelBorder2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 123, 60, -1));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(150, 150, 150));
-        jLabel12.setText("Mã phiếu nhập");
-        panelBorder2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 123, 90, -1));
-
-        maphieunhap_CT_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder2.add(maphieunhap_CT_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 260, 50));
-
-        gia_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder2.add(gia_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 265, 50));
-
-        soluong_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder2.add(soluong_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 265, 50));
-
         tensach_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tensach_txt.setHint("Tên sách");
-        panelBorder2.add(tensach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 160, 330, 50));
+        panelBorder2.add(tensach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 290, 50));
 
-        maCTPN_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder2.add(maCTPN_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 260, 50));
-
-        save_btn_CT.setIcon(new FlatSVGIcon("IMG/icon/save.svg",30,30));
-        save_btn_CT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                save_btn_CTActionPerformed(evt);
-            }
-        });
-        panelBorder2.add(save_btn_CT, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 6, 41, 42));
-
-        add_btn_CT.setIcon(new FlatSVGIcon("IMG/icon/add.svg",30,30));
-        add_btn_CT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_btn_CTActionPerformed(evt);
-            }
-        });
-        panelBorder2.add(add_btn_CT, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 6, 41, 42));
-
-        delete_btn_CT.setIcon(new FlatSVGIcon("IMG/icon/delete.svg",30,30));
-        delete_btn_CT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delete_btn_CTActionPerformed(evt);
-            }
-        });
-        panelBorder2.add(delete_btn_CT, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 6, 41, 42));
-
-        export_CT.setBackground(new Color(0,0,0,0)
-        );
-        export_CT.setIcon(new FlatSVGIcon("IMG/icon/excel.svg",40,40)
-        );
-        panelBorder2.add(export_CT, new org.netbeans.lib.awtextra.AbsoluteConstraints(754, 10, 40, 40));
-
-        masach_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        panelBorder2.add(masach_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 260, 50));
+        tentacgia_txt.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        panelBorder2.add(tentacgia_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 290, 50));
 
         javax.swing.GroupLayout chitietLayout = new javax.swing.GroupLayout(chitiet);
         chitiet.setLayout(chitietLayout);
@@ -739,9 +797,9 @@ public class Form_NhapSach extends javax.swing.JPanel {
         chitietLayout.setVerticalGroup(
             chitietLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chitietLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBorder2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(chitiet, "card3");
@@ -921,6 +979,8 @@ public class Form_NhapSach extends javax.swing.JPanel {
                     }
                     Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT,
                             "Thêm phiếu nhập thành công.");
+                    
+                    
                     arrayListSach = null;
                 } else {
                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT,
@@ -941,14 +1001,10 @@ public class Form_NhapSach extends javax.swing.JPanel {
 
     
     private void ThemChiTietPhieuNhap(PhieuNhap pn){
-        int maCTPN_PN = pn.getMaPhieuNhap();
+        int maPN_CTPN = pn.getMaPhieuNhap();
         int maCTPN = chiTietPhieuNhap_BUS.getNewID();
-//        double giaCTPN = pn.;
-//        int sl_CTPN = ;
-//        int ms_CTPN = ;
-//        
-       
-        
+        ArrayList<Integer> masach_CTPN = masachList;
+        int sl_CTPN ;
         
     }
     
@@ -973,15 +1029,10 @@ public class Form_NhapSach extends javax.swing.JPanel {
                 ctpnDTO = ctpnBUS.SelectedCTPN(Integer.parseInt(table_ChiTiet.getModel().
                         getValueAt(0, 0).toString()));
                 
-                
-                maCTPN_txt.setText(Integer.toString(ctpnDTO.getMaCTPN()));    
-                maCTPN_txt.setEnabled(false);
-                maphieunhap_CT_txt.setText(Integer.toString(phieunhap.getMaPhieuNhap()));
-                masach_txt.setText(Integer.toString(ctpnDTO.getMaSach()));
+        
                 tensach_txt.setText(sach_BUS.getTenSach(ctpnDTO.getMaSach()));
                 tensach_txt.setEnabled(false);
-                gia_txt.setText(Double.toString(ctpnDTO.getGia()));
-                soluong_txt.setText(Integer.toString(ctpnDTO.getSoLuong()));
+
                 card.next(this);
                     
             } catch (NullPointerException e) {
@@ -1002,83 +1053,6 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         card.first(this);
     }//GEN-LAST:event_backActionPerformed
-
-    private void save_btn_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btn_CTActionPerformed
-           
-        boolean checked = false;
-        int mapn = -1;
-        int mactpn = -1;
-        int masach = -1;
-        int gia = -1;
-        int sl = -1;
-        
-        try {
-            checked = true;
-            mapn = Integer.parseInt(maphieunhap_CT_txt.getText());
-            mactpn = Integer.parseInt(maCTPN_txt.getText());
-            masach = Integer.parseInt(masach_txt.getText());
-            gia = Integer.parseInt(gia_txt.getText());
-            sl = Integer.parseInt(soluong_txt.getText());
-            
-        } catch (Exception e) {
-            checked = false;
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-            "Dữ liệu không đúng định dạng.");
-        }
-        
-        if (checked){  
-            if (RowSelected == -1 && ctpn == null) {
-                
-                ctpn = new ChiTietPhieuNhap(mactpn, mapn, masach, gia ,sl);
-
-                if (chiTietPhieuNhap_BUS.ThemCTPN(ctpn)) {
-                    
-                    table_ChiTiet.addRow(new Object[] {mactpn, mapn, masach, gia ,sl}); 
-                }
-
-                ctpn = null;
-
-            }else { 
-                
-                ChiTietPhieuNhap ctpnUpdate = new ChiTietPhieuNhap(mactpn, mapn, masach, gia ,sl);
-                if (chiTietPhieuNhap_BUS.SuaCTPN(ctpnUpdate, ctpn)) {
-
-                    table_ChiTiet.updateRow(RowSelected, new Object[] {mactpn, mapn, masach, gia ,sl}); 
-                    tensach_txt.setText(sach_BUS.getTenSach(masach));                
-                    ctpn = ctpnUpdate;
-                    ctpnUpdate = null;
-                    
-                }
-            }
-        }
-    }//GEN-LAST:event_save_btn_CTActionPerformed
-
-    private void add_btn_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btn_CTActionPerformed
-        setToDefault();
-    }//GEN-LAST:event_add_btn_CTActionPerformed
-
-    private void delete_btn_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btn_CTActionPerformed
-         if (RowSelected != -1) {
-            ImageIcon icon = new FlatSVGIcon("IMG/icon/warning.svg",30,30);
-            String[] cf = {"Đồng ý", "Hủy"};
-            int choice = JOptionPane.showOptionDialog(null,"Xóa chi tiết phiếu nhập \"" + ctpn.getMaCTPN() + 
-                    "\" ?","Xác Nhận",
-                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, cf ,null);
-            if (choice == 0) {
-                
-                if (chiTietPhieuNhap_BUS.XoaCTPN(ctpn)) {
-                    table_ChiTiet.deleteRow(RowSelected);
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 
-                    "Xóa chi tiết phiếu nhập thành công.");
-                    setToDefault();
-                    
-                }
-            }
-        }else{
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 
-                    "Vui lòng chọn chi tiết phiếu nhập.");
-        }
-    }//GEN-LAST:event_delete_btn_CTActionPerformed
 
     private void back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back1ActionPerformed
         card.first(this);
@@ -1287,8 +1261,54 @@ public class Form_NhapSach extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_kiemtra_btnActionPerformed
 
+    public ArrayList<Integer> getMasachWithTrueBoolean(Table table) {
+        ArrayList<Integer> masachList = new ArrayList<>();
+        int booleanColumnIndex = 3; // Chỉ số của cột boolean (tính từ 0)
+        int masachColumnIndex = 0; // Chỉ số của cột mã sách
+
+        DefaultTableModel model = (DefaultTableModel) tb_sach.getModel();
+        int rowCount = model.getRowCount();
+
+        for (int row = 0; row < rowCount; row++) {
+            Object booleanValue = model.getValueAt(row, booleanColumnIndex);
+            if (booleanValue instanceof Boolean && (Boolean) booleanValue) {
+                int masachValue = (Integer) model.getValueAt(row, masachColumnIndex);
+                masachList.add(masachValue);
+            }
+        }
+
+        return masachList;
+    }
+    
+    
+    
+    
     private void nhapsachcu_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhapsachcu_btnActionPerformed
-        // TODO add your handling code here:
+        Dimension panelSize = this.getSize();
+        
+        Dimension dialogSize = ThemSachCu.getSize();
+        Point panelLocation = this.getLocationOnScreen();
+
+        int x = panelLocation.x + (panelSize.width - dialogSize.width) / 2;
+        int y = panelLocation.y + (panelSize.height - dialogSize.height) / 2;
+        ThemSachCu.setLocation(x, y);        
+        
+        ArrayList<Sach> as = sach_BUS.getAll();
+        
+        for (Sach a : as) {
+            String ts = a.getTenSach();
+            int ms = a.getMaSach();
+            String ttg = tacGia_BUS.getTTG(a.getMaTacGia());
+            tb_sach.addRow(new Object[] {ms, ts, ttg});
+        }
+       
+        
+        screach1.TimKiem(tb_sach);
+        
+        
+        
+ 
+        ThemSachCu.setVisible(true);
     }//GEN-LAST:event_nhapsachcu_btnActionPerformed
 
     private void ChonTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChonTGActionPerformed
@@ -1393,6 +1413,31 @@ public class Form_NhapSach extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ms_txtActionPerformed
 
+    private void jScrollPaneMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPaneMouseWheelMoved
+   
+    }//GEN-LAST:event_jScrollPaneMouseWheelMoved
+
+    private void xong_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xong_btn1ActionPerformed
+        masachList = getMasachWithTrueBoolean(tb_sach);
+
+        
+        
+        
+        ThemSachCu.dispose();
+
+    }//GEN-LAST:event_xong_btn1ActionPerformed
+
+    private void sl_ctpn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sl_ctpn_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sl_ctpn_txtActionPerformed
+
+    private void luu_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luu_btnActionPerformed
+        
+        
+        
+        
+    }//GEN-LAST:event_luu_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.UIComponents.Combobox ChonNCC;
@@ -1405,7 +1450,6 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private javax.swing.JDialog ThemSachCu;
     private javax.swing.JDialog ThemSachMoi;
     private GUI.UIComponents.Button add_btn2;
-    private GUI.UIComponents.Button add_btn_CT;
     private GUI.UIComponents.Button add_btn_PN;
     private GUI.UIComponents.Button back;
     private GUI.UIComponents.Button back1;
@@ -1414,36 +1458,28 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private GUI.UIComponents.Button chooseDate;
     private GUI.UIComponents.Button chooseDate1;
     private GUI.UIComponents.Button delete_btn2;
-    private GUI.UIComponents.Button delete_btn_CT;
     private GUI.UIComponents.Button delete_btn_PN;
-    private GUI.UIComponents.Button export_CT;
     private GUI.UIComponents.Button export_PN;
-    private GUI.UIComponents.TextField gia_txt;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel jlabel;
     private javax.swing.JLabel jlabell1;
     private GUI.UIComponents.Button kiemtra_btn;
-    private GUI.UIComponents.TextField maCTPN_txt;
+    private GUI.UIComponents.Button luu_btn;
     private javax.swing.JPanel main;
     private GUI.UIComponents.TextField mancc_NCC_txt;
     private GUI.UIComponents.TextField manv_txt;
-    private GUI.UIComponents.TextField maphieunhap_CT_txt;
     private GUI.UIComponents.TextField maphieunhap_txt;
-    private GUI.UIComponents.TextField masach_txt;
     private GUI.UIComponents.TextField ms_txt;
     private javax.swing.JPanel ncc;
     private GUI.UIComponents.TextField ngaynhap_txt;
@@ -1456,17 +1492,22 @@ public class Form_NhapSach extends javax.swing.JPanel {
     private GUI.UIComponents.Panel.PanelBorder panelBorder2;
     private GUI.UIComponents.Panel.PanelBorder panelBorder3;
     private GUI.UIComponents.Panel.PanelBorder panelBorder4;
+    private GUI.UIComponents.Panel.PanelBorder panelBorder5;
     private GUI.UIComponents.Button save_btn2;
-    private GUI.UIComponents.Button save_btn_CT;
     private GUI.UIComponents.Button save_btn_PN;
+    private GUI.UIComponents.Screach screach1;
+    private GUI.UIComponents.TextField sl_ctpn_txt;
     private GUI.UIComponents.TextField sl_txt;
-    private GUI.UIComponents.TextField soluong_txt;
     private GUI.UIComponents.Table.Table table_ChiTiet;
     private GUI.UIComponents.Table.Table table_NCC;
     private GUI.UIComponents.Table.Table table_PhieuNhap;
+    private GUI.UIComponents.Table.Table table_Sach;
+    private GUI.UIComponents.Table.Table tb_sach;
     private GUI.UIComponents.TextField tennc_NCC_txt;
     private GUI.UIComponents.TextField tensach_txt;
+    private GUI.UIComponents.TextField tentacgia_txt;
     private GUI.UIComponents.TextField ts_txt;
     private GUI.UIComponents.Button xong_btn;
+    private GUI.UIComponents.Button xong_btn1;
     // End of variables declaration//GEN-END:variables
 }

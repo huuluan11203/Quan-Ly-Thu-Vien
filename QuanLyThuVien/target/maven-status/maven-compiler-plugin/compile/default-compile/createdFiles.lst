@@ -244,6 +244,7 @@ GUI\UIComponents\Form_NhanVien$8.class
 BUS\Account_BUS.class
 GUI\UIComponents\Form_MuonSach$25.class
 GUI\UIComponents\Form_NhapSach$11.class
+GUI\UIComponents\Form_NhapSach$31.class
 GUI\UIComponents\TextField$TextUI.class
 GUI\UIComponents\Form_MuonSach$15.class
 GUI\Signup$3.class
@@ -281,6 +282,7 @@ GUI\UIComponents\Form_ThongTin.class
 GUI\UIComponents\Combobox$ComboUI$6.class
 GUI\UIComponents\Form_TheLoai$3.class
 DTO\PhieuMuon.class
+GUI\UIComponents\Form_NhapSach$33.class
 GUI\UIComponents\DATE\Slider$4.class
 GUI\UIComponents\Form_MuonSach$17.class
 GUI\UIComponents\Form_MuonSach.class
@@ -293,6 +295,7 @@ GUI\UIComponents\Form_NhapSach$2.class
 GUI\UIComponents\Form_MuonSach$18.class
 GUI\UIComponents\DATE\Months.class
 GUI\UIComponents\DATE\DateChooser$4.class
+GUI\UIComponents\Form_NhapSach$32.class
 GUI\UIComponents\Screach$1.class
 BUS\NhanVien_BUS.class
 GUI\UIComponents\Form_NhanVien.class
